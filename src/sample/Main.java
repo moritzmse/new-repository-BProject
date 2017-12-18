@@ -1,5 +1,6 @@
 package sample;
 
+import database.MariaDB_Commands;
 import database.MariaDB_Connection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,8 @@ import javafx.stage.Stage;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main extends Application {
 
@@ -19,14 +22,18 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 600, 450));
         primaryStage.show();
 
-        Statement statement = MariaDB_Connection.getConnection().createStatement();
+        /*Statement statement = MariaDB_Connection.getConnection().createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM OVERVIEW WHERE Week = '201601'");
         int counter = 0;
         while(resultSet.next()) {
             counter++;
             System.out.println(resultSet.getString(1));
         }
-        System.out.println("Gesamt:"+counter);
+        System.out.println("Gesamt:"+counter);*/
+
+        List<Object[]> helper = MariaDB_Commands.normalSearch("Vittel");
+        System.out.println(helper.get(0)[1]);
+
     }
 
 
