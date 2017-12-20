@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MariaDB_Search extends  TempDatabase{
@@ -27,16 +28,19 @@ public class MariaDB_Search extends  TempDatabase{
                 columnNames[i] = resultSetMetaData.getColumnName(i+1);
             }
 
-            ObservableList<Object[]> observableList = FXCollections.observableArrayList();
+            //ObservableList<Object[]> observableList = FXCollections.observableArrayList();
+            ObservableList<HashMap> observableList = FXCollections.observableArrayList();
 
             while (resultSet.next()){
                 Object[] resultObject = new Object[columnLength];
-
+                HashMap helper = new HashMap();
                 for(int i = 0; i < columnLength; i++ ){
-                    resultObject[i] = new SimpleStringProperty (resultSet.getObject(i+1),columnNames[i]);
+                   // resultObject[i] = new SimpleStringProperty (resultSet.getObject(i+1),columnNames[i]);
+                    helper.put(columnNames[i], resultSet.getObject(i+1));
                 }
 
-                observableList.add(resultObject);
+                observableList.add(helper);
+                //observableList.add(resultObject);
 
                 //Output.add(resultObject);
             }
