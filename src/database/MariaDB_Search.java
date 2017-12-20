@@ -1,12 +1,9 @@
 package database;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class MariaDB_Search extends  TempDatabase{
@@ -28,24 +25,16 @@ public class MariaDB_Search extends  TempDatabase{
                 columnNames[i] = resultSetMetaData.getColumnName(i+1);
             }
 
-            //ObservableList<Object[]> observableList = FXCollections.observableArrayList();
-            ObservableList<Object> observableList = FXCollections.observableArrayList();
-
             while (resultSet.next()){
-                //Object[] resultObject = new Object[columnLength];
-                HashMap helper = new HashMap();
+                Object[] resultObject = new Object[columnLength];
                 for(int i = 0; i < columnLength; i++ ){
-                   // resultObject[i] = new SimpleStringProperty (resultSet.getObject(i+1),columnNames[i]);
-                    helper.put(columnNames[i], resultSet.getObject(i+1));
+                    resultObject[i] = new SimpleStringProperty (resultSet.getObject(i+1),columnNames[i]);
                 }
 
-                observableList.add(helper);
-                //observableList.add(resultObject);
-
-                //Output.add(resultObject);
+                Output.add(resultObject);
             }
 
-            return new SearchValues(columnLength, columnNames, observableList);
+            return new SearchValues(columnLength, columnNames, Output);
 
         } catch (SQLException e){
             e.printStackTrace();
