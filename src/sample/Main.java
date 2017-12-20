@@ -2,6 +2,7 @@ package sample;
 
 import database.MariaDB_Commands;
 import database.MariaDB_Connection;
+import database.SearchValues;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,18 +23,13 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 600, 450));
         primaryStage.show();
 
-        /*Statement statement = MariaDB_Connection.getConnection().createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM OVERVIEW WHERE Week = '201601'");
-        int counter = 0;
-        while(resultSet.next()) {
-            counter++;
-            System.out.println(resultSet.getString(1));
+        /*List<Object[]> helper = MariaDB_Commands.normalSearch("Vittel");
+        System.out.println(helper.get(0)[1]);//*/
+        SearchValues helper = MariaDB_Commands.normalSearch("Vittel");
+        System.out.println(helper.ColumnLength);
+        for(int i = 0; i < helper.ColumnLength; i++){
+            System.out.println(helper.ColumnNames[i]);
         }
-        System.out.println("Gesamt:"+counter);*/
-
-        List<Object[]> helper = MariaDB_Commands.normalSearch("Vittel");
-        System.out.println(helper.get(0)[1]);
-
     }
 
 
