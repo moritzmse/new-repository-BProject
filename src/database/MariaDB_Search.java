@@ -1,5 +1,6 @@
 package database;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -32,7 +33,7 @@ public class MariaDB_Search extends  TempDatabase{
                 Object[] resultObject = new Object[columnLength];
 
                 for(int i = 0; i < columnLength; i++ ){
-                    resultObject[i] = resultSet.getObject(i+1);
+                    resultObject[i] = new SimpleStringProperty (resultSet.getObject(i+1),columnNames[i]);
                 }
 
                 observableList.add(resultObject);
