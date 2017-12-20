@@ -29,10 +29,10 @@ public class MariaDB_Search extends  TempDatabase{
             }
 
             //ObservableList<Object[]> observableList = FXCollections.observableArrayList();
-            ObservableList<HashMap> observableList = FXCollections.observableArrayList();
+            ObservableList<Object> observableList = FXCollections.observableArrayList();
 
             while (resultSet.next()){
-                Object[] resultObject = new Object[columnLength];
+                //Object[] resultObject = new Object[columnLength];
                 HashMap helper = new HashMap();
                 for(int i = 0; i < columnLength; i++ ){
                    // resultObject[i] = new SimpleStringProperty (resultSet.getObject(i+1),columnNames[i]);
