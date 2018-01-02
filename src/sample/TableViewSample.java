@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
+/*
 public class TableViewSample extends Application {
 
     //private TableView<SearchValues> table = new TableView<SearchValues>();
@@ -28,7 +28,7 @@ public class TableViewSample extends Application {
                     new Person("Emma", "Jones", "emma.jones@example.com"),
                     new Person("Michael", "Brown", "michael.brown@example.com")
             );*/
-
+/*
     public static void main(String[] args) {
         launch(args);
     }
@@ -48,7 +48,7 @@ public class TableViewSample extends Application {
         //Abfrage
         SearchValues searchValues = MariaDB_Commands.normalSearch("Vittel");
 
-        ObservableList data = searchValues.Values;
+        //ObservableList data = searchValues.Values;
 
         TableColumn[] helper = new TableColumn[searchValues.ColumnLength];
 
@@ -72,7 +72,7 @@ public class TableViewSample extends Application {
         emailCol.setCellValueFactory(
                 new PropertyValueFactory<Person, String>("email"));
 */
-        TableView table = new TableView();
+        /*TableView table = new TableView();
         table.setItems(data);
         table.getColumns().addAll(helper);
 
@@ -87,4 +87,4 @@ public class TableViewSample extends Application {
         stage.show();
     }
 
-}
+}*/

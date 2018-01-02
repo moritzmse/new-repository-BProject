@@ -1,4 +1,4 @@
-package sample;
+package main;
 
 import database.MariaDB_Commands;
 import database.MariaDB_Connection;
@@ -18,18 +18,18 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("suchen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
         primaryStage.setTitle("MainPage");
         primaryStage.setScene(new Scene(root, 600, 450));
         primaryStage.show();
 
         /*List<Object[]> helper = MariaDB_Commands.normalSearch("Vittel");
         System.out.println(helper.get(0)[1]);//*/
-        SearchValues helper = MariaDB_Commands.normalSearch("Vittel");
+        /*SearchValues helper = MariaDB_Commands.normalSearch("Vittel");
         System.out.println(helper.ColumnLength);
         for(int i = 0; i < helper.ColumnLength; i++){
             System.out.println(helper.ColumnNames[i]);
-        }
+        }//*/
     }
 
 

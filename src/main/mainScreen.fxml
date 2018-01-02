@@ -23,7 +23,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Search">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -68,28 +68,28 @@
       <items>
         <AnchorPane>
                <children>
-                  <TextField layoutX="37.0" layoutY="24.0" promptText="Produkt Suche" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="36.599999999999994" AnchorPane.topAnchor="24.0" />
-                  <Button layoutX="85.0" layoutY="510.0" mnemonicParsing="false" text="Suchen" AnchorPane.bottomAnchor="15.600000000000044" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="82.2" />
+                  <TextField id="Brand" fx:id="search_productname" layoutX="37.0" layoutY="24.0" promptText="Produkt Suche" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="36.599999999999994" AnchorPane.topAnchor="24.0" />
+                  <Button fx:id="search_button" layoutX="85.0" layoutY="510.0" mnemonicParsing="false" onAction="#search" text="Suchen" AnchorPane.bottomAnchor="15.600000000000044" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="82.2" />
                   <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="11.0" layoutY="75.0" prefHeight="402.0" prefWidth="200.0" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.400000000000006" AnchorPane.topAnchor="75.0">
                      <content>
                         <VBox prefWidth="202.0">
                            <children>
                               <Label text="Manufacturer" />
-                              <TextField />
+                              <TextField id="Manufacturer" fx:id="search_manufacturer" />
                               <Label text="Brand" />
-                              <TextField />
+                              <TextField id="Brand" fx:id="search_brand" />
                               <Label text="Product" />
-                              <TextField />
+                              <TextField id="Product" fx:id="search_product" />
                               <Label text="ProductGroup" />
-                              <TextField />
+                              <TextField id="ProductGroup" fx:id="search_productgroup" />
                               <Label text="Reseller" />
-                              <ChoiceBox prefHeight="26.0" prefWidth="203.0" />
+                              <ChoiceBox fx:id="search_reseller" prefHeight="26.0" prefWidth="203.0" />
                               <Label text="UnitPrice" />
-                              <TextField />
+                              <TextField id="UnitPrice" fx:id="search_unitprice" />
                               <Label text="Units" />
-                              <TextField />
+                              <TextField id="Units" fx:id="search_units" />
                               <Label text="PackPrice" />
-                              <TextField />
+                              <TextField id="PackPrice" fx:id="search_packprice" />
                               <AnchorPane>
                                  <children>
                                     <DatePicker layoutX="1.0" layoutY="26.0" prefHeight="26.0" prefWidth="208.0" />

@@ -15,8 +15,8 @@ public class MariaDB_Search extends  TempDatabase{
             Statement statement = MariaDB_Connection.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(Question);
 
-            //List<Object[]> Output = new ArrayList<>();
-            ObservableList Output = FXCollections.observableArrayList();
+            List<Object[]> Output = new ArrayList<>();
+            //ObservableList Output = FXCollections.observableArrayList();
             resultSet.next();
 
             ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
@@ -34,8 +34,8 @@ public class MariaDB_Search extends  TempDatabase{
                     resultObject[i] = new SimpleStringProperty (resultSet.getObject(i+1),columnNames[i]);
                 }
 
-                Output.addAll(resultObject);
-                //Output.add(resultObject);
+                //Output.addAll(resultObject);
+                Output.add(resultObject);
             }
 
             return new SearchValues(columnLength, columnNames, Output);
