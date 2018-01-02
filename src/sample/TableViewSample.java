@@ -1,5 +1,7 @@
 package sample;
 
+import database.MariaDB_Commands;
+import database.SearchValues;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -7,26 +9,25 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class TableViewSample extends Application {
 
-    private TableView<Person> table = new TableView<Person>();
-    private final ObservableList<Person> data =
+    //private TableView<SearchValues> table = new TableView<SearchValues>();
+    //ObservableList<SearchValues> data;
+    /*private final ObservableList<Person> data =
             FXCollections.observableArrayList(
                     new Person("Jacob", "Smith", "jacob.smith@example.com"),
                     new Person("Isabella", "Johnson", "isabella.johnson@example.com"),
                     new Person("Ethan", "Williams", "ethan.williams@example.com"),
                     new Person("Emma", "Jones", "emma.jones@example.com"),
                     new Person("Michael", "Brown", "michael.brown@example.com")
-            );
+            );*/
 
     public static void main(String[] args) {
         launch(args);
@@ -42,8 +43,20 @@ public class TableViewSample extends Application {
         final Label label = new Label("Datenbank");
         label.setFont(new Font("Arial", 20));
 
-        table.setEditable(true);
+        //table.setEditable(true);
 
+        //Abfrage
+        SearchValues searchValues = MariaDB_Commands.normalSearch("Vittel");
+
+        ObservableList data = searchValues.Values;
+
+        TableColumn[] helper = new TableColumn[searchValues.ColumnLength];
+
+        for(int i = 0; i < searchValues.ColumnLength; i++){
+            helper[i] = new TableColumn(searchValues.ColumnNames[i]);
+            helper[i].setMinWidth(10);
+        }
+/*
         TableColumn firstNameCol = new TableColumn("First Name");
         firstNameCol.setMinWidth(100);
         firstNameCol.setCellValueFactory(
@@ -58,9 +71,10 @@ public class TableViewSample extends Application {
         emailCol.setMinWidth(200);
         emailCol.setCellValueFactory(
                 new PropertyValueFactory<Person, String>("email"));
-
+*/
+        TableView table = new TableView();
         table.setItems(data);
-        table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+        table.getColumns().addAll(helper);
 
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
