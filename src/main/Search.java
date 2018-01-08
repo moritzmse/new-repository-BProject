@@ -3,6 +3,7 @@ package main;
 import database.MariaDB_Commands;
 import database.MariaDB_Search;
 import database.SearchValues;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -35,7 +36,9 @@ public class Search {
             reseller_checkbox = new CheckBox[values.size()];
 
             for (int i = 0; i < values.size(); i++) {
-                reseller_checkbox[i] = new CheckBox(""+(i+1));
+                Object[] name = values.get(i);
+                SimpleStringProperty hrs = (SimpleStringProperty) name[0];
+                reseller_checkbox[i] = new CheckBox(hrs.getBean().toString());
                 search_resellerVbox.getChildren().add(reseller_checkbox[i]);
             }
         }else{
@@ -72,10 +75,10 @@ public class Search {
         for(int i = 0; i < reseller_checkbox.length; i++){
             if(reseller_checkbox[i].isSelected()){
                 if(firstReseller) {
-                    checkboxes.append(i+1);
+                    checkboxes.append(reseller_checkbox[i].getText());
                     firstReseller = false;
                 }else{
-                    checkboxes.append(","+(i+1));
+                    checkboxes.append(","+reseller_checkbox[i].getText());
                 }
             }
         }
