@@ -1,5 +1,6 @@
 package main;
 
+import database.MariaDB_Commands;
 import database.MariaDB_Search;
 import database.SearchValues;
 import javafx.beans.property.StringProperty;
@@ -22,19 +23,20 @@ public class Search {
     public VBox search_resellerVbox;
     public TitledPane search_resellerPane;
 
+    private CheckBox[] reseller_checkbox;
+
     public void initialize(){
-        String sfw = "SELECT DISTINCT Reseller FROM BP.OVERVIEW ORDER BY cast(Reseller as int);";
-        SearchValues resultValues = MariaDB_Search.search(sfw);
+        SearchValues resultValues = MariaDB_Commands.resellerSearch();
 
         if(resultValues != null) {
             List<Object[]> values = resultValues.Values;
             search_resellerPane.setMinHeight(20*(values.size()));
+
+            reseller_checkbox = new CheckBox[values.size()];
+
             for (int i = 0; i < values.size(); i++) {
-                Object[] help = values.get(i);
-                String reseller = (i+1)+"";
-                search_resellerVbox.getChildren().add(new CheckBox(reseller));
-                System.out.println("FML: " + values.size());
-                System.out.print(i + 1 + " :");
+                reseller_checkbox[i] = new CheckBox(""+(i+1));
+                search_resellerVbox.getChildren().add(reseller_checkbox[i]);
             }
         }else{
             System.out.println("Error (src/main/Search) nullPointer in SearchValues");
@@ -44,21 +46,43 @@ public class Search {
 
     @FXML
     private void search(){
-
         TextField[] search_values = new TextField[] {search_productname, search_manufacturer, search_brand, search_product, search_productgroup, search_unitprice, search_units, search_packprice};
-
 
         String whereClause = "SELECT * FROM OVERVIEW WHERE ";
 
         for(int i = 0; i < search_values.length; i++){
             if(search_values[i].getText() != null && search_values[i].getText().length() > 0){
                 if(whereClause.length() > 29){
-                    whereClause = whereClause + "and " + search_values[i].getId() + " like '%" + search_values[i].getText() + "%' ";
+                    whereClause = whereClause + " and " + search_values[i].getId() + " like '%" + search_values[i].getText() + "%' ";
                 }else{
                     whereClause = whereClause + search_values[i].getId() + " like '%" + search_values[i].getText() + "%' ";
                 }
             }
         }
+
+        //ResellerCheckBox
+        StringBuilder checkboxes;
+        if(whereClause.length() > 29){
+            checkboxes = new StringBuilder(" and Reseller in (");
+        }else{
+            checkboxes = new StringBuilder(" Reseller in (");
+        }
+
+        Boolean firstReseller = true;
+        for(int i = 0; i < reseller_checkbox.length; i++){
+            if(reseller_checkbox[i].isSelected()){
+                if(firstReseller) {
+                    checkboxes.append(i+1);
+                    firstReseller = false;
+                }else{
+                    checkboxes.append(","+(i+1));
+                }
+            }
+        }
+        checkboxes.append(") ");
+
+        whereClause = whereClause+checkboxes.toString();
+
 
         //DatePickerFrom
         if(datePickerFrom.getEditor().getText().length() == 10){
