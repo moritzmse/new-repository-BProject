@@ -4,9 +4,8 @@ import database.MariaDB_Search;
 import database.SearchValues;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,9 +17,29 @@ public class Search {
 
     public TextField search_productname;
     public TextField search_manufacturer, search_brand, search_product, search_productgroup;
-    public ChoiceBox search_reseller;
     public TextField search_unitprice, search_units, search_packprice;
     public DatePicker datePickerFrom, datePickerTo;
+    public VBox search_resellerVbox;
+    public TitledPane search_resellerPane;
+
+    public void initialize(){
+        String sfw = "SELECT DISTINCT Reseller FROM BP.OVERVIEW ORDER BY cast(Reseller as int);";
+        SearchValues resultValues = MariaDB_Search.search(sfw);
+
+        if(resultValues != null) {
+            List<Object[]> values = resultValues.Values;
+            search_resellerPane.setMinHeight(20*(values.size()));
+            for (int i = 0; i < values.size(); i++) {
+                Object[] help = values.get(i);
+                String reseller = (i+1)+"";
+                search_resellerVbox.getChildren().add(new CheckBox(reseller));
+                System.out.println("FML: " + values.size());
+                System.out.print(i + 1 + " :");
+            }
+        }else{
+            System.out.println("Error (src/main/Search) nullPointer in SearchValues");
+        }
+    }
 
 
     @FXML
