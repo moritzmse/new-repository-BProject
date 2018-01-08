@@ -12,18 +12,12 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
         primaryStage.setTitle("MainPage");
-        primaryStage.setScene(new Scene(root, 600, 450));
+        primaryStage.setScene(new Scene(root, 1000, 750));
+        primaryStage.setMinHeight(750);
+        primaryStage.setMinWidth(1000);
+        primaryStage.setMaximized(true);
         primaryStage.show();
-
-        /*List<Object[]> helper = MariaDB_Commands.normalSearch("Vittel");
-        System.out.println(helper.get(0)[1]);//*/
-        /*SearchValues helper = MariaDB_Commands.normalSearch("Vittel");
-        System.out.println(helper.ColumnLength);
-        for(int i = 0; i < helper.ColumnLength; i++){
-            System.out.println(helper.ColumnNames[i]);
-        }//*/
     }
-
 
     public static void main(String[] args) {
         launch(args);

@@ -26,6 +26,13 @@ public class MariaDB_Search extends  TempDatabase{
                 columnNames[i] = resultSetMetaData.getColumnName(i+1);
             }
 
+            //First Line
+            Object[] resultObjectFirst = new Object[columnLength];
+            for(int i = 0; i < columnLength; i++ ){
+                resultObjectFirst[i] = new SimpleStringProperty (resultSet.getObject(i+1),columnNames[i]);
+            }
+            Output.add(resultObjectFirst);
+
             while (resultSet.next()){
                 Object[] resultObject = new Object[columnLength];
                 for(int i = 0; i < columnLength; i++ ){
