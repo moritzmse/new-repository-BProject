@@ -1,18 +1,10 @@
 package main;
 
-import database.MariaDB_Commands;
-import database.MariaDB_Connection;
-import database.SearchValues;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main extends Application {
 

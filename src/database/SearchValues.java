@@ -1,7 +1,5 @@
 package database;
 
-import javafx.collections.ObservableList;
-
 import java.util.List;
 
 public class SearchValues {

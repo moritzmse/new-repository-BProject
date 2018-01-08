@@ -4,12 +4,14 @@ import database.MariaDB_Search;
 import database.SearchValues;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
-import java.awt.*;
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Search {
@@ -18,6 +20,8 @@ public class Search {
     public TextField search_manufacturer, search_brand, search_product, search_productgroup;
     public ChoiceBox search_reseller;
     public TextField search_unitprice, search_units, search_packprice;
+    public DatePicker datePickerFrom, datePickerTo;
+
 
     @FXML
     private void search(){
@@ -37,24 +41,67 @@ public class Search {
             }
         }
 
+        //DatePickerFrom
+        if(datePickerFrom.getEditor().getText().length() == 10){
+            if(whereClause.length() > 29) {
+                whereClause = whereClause + " and";
+            }
+            whereClause = whereClause + " Week >= " + getWeek(datePickerFrom);
+        }
+
+        //DatePickerTo
+        if(datePickerTo.getEditor().getText().length() == 10){
+            if(whereClause.length() > 29) {
+                whereClause = whereClause + " and";
+            }
+            whereClause = whereClause + " Week <= " + getWeek(datePickerTo);
+        }
+
         System.out.println(whereClause);
 
         SearchValues resultValues = MariaDB_Search.search(whereClause);
 
-        List<Object[]> values = resultValues.Values;
+        if(resultValues != null) {
+            List<Object[]> values = resultValues.Values;
 
-        values.size();
-        for(int i = 0; i < values.size(); i++){
-            Object[] help = values.get(i);
+            values.size();
+            for (int i = 0; i < values.size(); i++) {
+                Object[] help = values.get(i);
 
-            System.out.println("FML: "+values.size());
-            System.out.print(i+1+" :");
-            for(int j = 0; j < resultValues.ColumnLength; j++) {
-                StringProperty abs = (StringProperty) help[j];
-                System.out.print(abs.getBean());
+                System.out.println("FML: " + values.size());
+                System.out.print(i + 1 + " :");
+                for (int j = 0; j < resultValues.ColumnLength; j++) {
+                    StringProperty abs = (StringProperty) help[j];
+                    System.out.print(abs.getBean());
+                }
             }
+        }else{
+            System.out.println("Error (src/main/Search) nullPointer in SearchValues");
         }
-
         System.out.println("JEDER HERNER IST EIN HRSN");
+    }
+
+    private static String getWeek(DatePicker datePicker){
+        try {
+            String input = datePicker.getEditor().getText();
+            String format = "dd.MM.yyyy";
+
+            SimpleDateFormat df = new SimpleDateFormat(format);
+            Date date = df.parse(input);
+
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            String week = "" + cal.get(Calendar.WEEK_OF_YEAR);
+            int year = cal.get(Calendar.YEAR);
+
+            if (week.length() == 1) {
+                week = 0 + week;
+            }
+
+            return year+week;
+        }catch (ParseException e){
+            System.out.println("Error (src/main/Search) getWeek false DateFormat");
+            return null;
+        }
     }
 }
