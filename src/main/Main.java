@@ -12,7 +12,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
         primaryStage.setTitle("MainPage");
-        primaryStage.setScene(new Scene(root, 600, 450));
+        primaryStage.setScene(new Scene(root, 1000, 750));
+        primaryStage.setMaximized(true);
         primaryStage.show();
 
         /*List<Object[]> helper = MariaDB_Commands.normalSearch("Vittel");
@@ -23,7 +24,6 @@ public class Main extends Application {
             System.out.println(helper.ColumnNames[i]);
         }//*/
     }
-
 
     public static void main(String[] args) {
         launch(args);
