@@ -15,14 +15,6 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 1000, 750));
         primaryStage.setMaximized(true);
         primaryStage.show();
-
-        /*List<Object[]> helper = MariaDB_Commands.normalSearch("Vittel");
-        System.out.println(helper.get(0)[1]);//*/
-        /*SearchValues helper = MariaDB_Commands.normalSearch("Vittel");
-        System.out.println(helper.ColumnLength);
-        for(int i = 0; i < helper.ColumnLength; i++){
-            System.out.println(helper.ColumnNames[i]);
-        }//*/
     }
 
     public static void main(String[] args) {
