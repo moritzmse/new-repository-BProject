@@ -31,7 +31,6 @@ public class Search {
 
         if(resultValues != null) {
             List<Object[]> values = resultValues.Values;
-            search_resellerPane.setMinHeight(20*(values.size()));
 
             reseller_checkbox = new CheckBox[values.size()];
 

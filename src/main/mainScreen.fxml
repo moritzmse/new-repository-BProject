@@ -3,9 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -15,6 +15,8 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -24,7 +26,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Search">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Search">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -65,85 +67,312 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.2594654788418708, 0.7505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.2594654788418708, 0.7282850779510023" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
         <AnchorPane>
                <children>
                   <TextField id="Brand" fx:id="search_productname" layoutX="37.0" layoutY="24.0" promptText="Produkt Suche" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="36.599999999999994" AnchorPane.topAnchor="24.0" />
                   <Button fx:id="search_button" layoutX="85.0" layoutY="510.0" mnemonicParsing="false" onAction="#search" text="Suchen" AnchorPane.bottomAnchor="15.600000000000044" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="82.2" />
-                  <ScrollPane fitToHeight="true" fitToWidth="true" layoutX="11.0" layoutY="75.0" prefHeight="402.0" prefWidth="200.0" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.400000000000006" AnchorPane.topAnchor="75.0">
-                     <content>
-                        <VBox prefWidth="202.0">
-                           <children>
-                              <Label text="Manufacturer" />
-                              <TextField id="Manufacturer" fx:id="search_manufacturer" />
-                              <Label text="Brand" />
-                              <TextField id="Brand" fx:id="search_brand" />
-                              <Label text="Product" />
-                              <TextField id="Product" fx:id="search_product" />
-                              <Label text="ProductGroup" />
-                              <TextField id="ProductGroup" fx:id="search_productgroup" />
-                              <Label text="Reseller" />
-                              <Accordion>
-                                <panes>
-                                  <TitledPane fx:id="search_resellerPane" animated="false" minHeight="200.0" text="untitled 1">
-                                    <content>
-                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                             <children>
-                                                <VBox fx:id="search_resellerVbox" prefHeight="200.0" prefWidth="100.0" />
-                                             </children></AnchorPane>
-                                    </content>
-                                  </TitledPane>
-                                </panes>
-                              </Accordion>
-                              <Label text="UnitPrice" />
-                              <TextField id="UnitPrice" fx:id="search_unitprice" />
-                              <Label text="Units" />
-                              <TextField id="Units" fx:id="search_units" />
-                              <Label text="PackPrice" />
-                              <TextField id="PackPrice" fx:id="search_packprice" />
-                              <AnchorPane>
-                                 <children>
-                                    <DatePicker fx:id="datePickerFrom" editable="false" layoutX="1.0" layoutY="26.0" prefHeight="26.0" prefWidth="208.0" />
-                                    <DatePicker fx:id="datePickerTo" editable="false" layoutX="1.0" layoutY="71.0" prefHeight="26.0" prefWidth="208.0" />
-                                    <Label layoutX="2.0" layoutY="22.0" />
-                                    <Label layoutX="3.0" layoutY="5.0" text="Von" />
-                                    <Label layoutX="6.0" layoutY="53.0" text="Bis" />
-                                 </children>
-                              </AnchorPane>
-                           </children>
-                        </VBox>
-                     </content>
-                  </ScrollPane>
                   <Separator layoutY="63.0" prefHeight="3.2" prefWidth="222.4" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="63.0" />
                   <Separator layoutX="1.0" layoutY="494.0" prefHeight="3.2" prefWidth="222.4" AnchorPane.bottomAnchor="54.00000000000006" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" />
+                   <Accordion layoutX="14.0" layoutY="66.0" prefHeight="421.0" prefWidth="251.0" AnchorPane.bottomAnchor="62.799999999999955" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="1.2" AnchorPane.topAnchor="66.0">
+                       <panes>
+                           <TitledPane animated="false" text="Erweiterte Suche">
+                               <content>
+                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                           <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                               <content>
+                                                   <VBox spacing="5.0">
+                                                       <children>
+                                                           <Label text="Manufacturer" />
+                                                           <TextField fx:id="search_manufacturer" />
+                                                           <Label text="Brand" />
+                                                           <TextField fx:id="search_brand" />
+                                                           <Label text="Product" />
+                                                           <TextField fx:id="search_product" />
+                                                           <Label text="ProductGroup" />
+                                                           <TextField fx:id="search_productgroup" />
+                                                           <Label text="Reseller" />
+                                                           <Accordion>
+                                                               <panes>
+                                                                   <TitledPane fx:id="search_resellerPane" animated="false" text="untitled 1">
+                                                                       <content>
+                                                                           <AnchorPane>
+                                                                               <children>
+                                                                                   <VBox fx:id="search_resellerVbox">
+                                                                     <padding>
+                                                                        <Insets top="5.0" />
+                                                                     </padding></VBox>
+                                                                               </children>
+                                                                           </AnchorPane>
+                                                                       </content>
+                                                                   </TitledPane>
+                                                               </panes>
+                                                           </Accordion>
+                                                           <Label text="UnitPrice" />
+                                                           <TextField fx:id="search_unitprice" />
+                                                           <Label text="Units" />
+                                                           <TextField fx:id="search_units" />
+                                                           <Label text="PackPrice" />
+                                                           <TextField fx:id="search_packprice" />
+                                                           <AnchorPane prefHeight="102.0" prefWidth="157.0">
+                                                               <children>
+                                                                   <DatePicker fx:id="datePickerFrom" layoutX="1.0" layoutY="26.0" prefHeight="26.0" prefWidth="208.0" />
+                                                                   <DatePicker fx:id="datePickerTo" layoutX="1.0" layoutY="71.0" prefHeight="26.0" prefWidth="208.0" />
+                                                                   <Label layoutX="2.0" layoutY="22.0" />
+                                                                   <Label layoutX="3.0" layoutY="5.0" text="Von" />
+                                                                   <Label layoutX="6.0" layoutY="53.0" text="Bis" />
+                                                               </children>
+                                                           </AnchorPane>
+                                                <Label text="Attributes" />
+                                                <Accordion>
+                                                  <panes>
+                                                    <TitledPane animated="false" text="untitled 1">
+                                                      <content>
+                                                        <AnchorPane>
+                                                               <children>
+                                                                  <VBox spacing="5.0">
+                                                                     <children>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Ab" />
+                                                                              <Label text=" - Abbildung" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Am" />
+                                                                              <Label text=" - Auslaufmodell" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Aä" />
+                                                                              <Label text=" - Abbildung ähnlich" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="B" />
+                                                                              <Label text=" - Sonderbeilage" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Bi" />
+                                                                              <Label text=" - Bildzeitung" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Bp" />
+                                                                              <Label text=" - Bestellposten" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Cp" />
+                                                                              <Label text=" - Coupon" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Dp" />
+                                                                              <Label text=" - Dauerniedrigpreis" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Es" />
+                                                                              <Label text=" - Einzelstück" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Fd" />
+                                                                              <Label text=" - Falschdarstellung" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="H" />
+                                                                              <Label text=" - Handzettel" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="I" />
+                                                                              <Label text=" - Internet" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="K" />
+                                                                              <Label text=" - Kundenmagazin" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Lg" />
+                                                                              <Label text=" - Logo" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="ME" />
+                                                                              <Label text=" - Einzelpreis Multibuy" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Mn" />
+                                                                              <Label text=" - Mehrfachnennung" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Mu" />
+                                                                              <Label text=" - Multibuy" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="MW" />
+                                                                              <Label text=" - Multi Week" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Ne" />
+                                                                              <Label text=" - Neuheit/Neuerscheinung" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="O" />
+                                                                              <Label text=" - Themenpromotions" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="OP" />
+                                                                              <Label text=" - Off-Price" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Pa" />
+                                                                              <Label text=" - Preisausschreiben" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Rb" />
+                                                                              <Label text=" - Rabatt" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Rs" />
+                                                                              <Label text=" - Rückseite" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="So" />
+                                                                              <Label text=" - Sonderstellung" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Sp" />
+                                                                              <Label text=" - Rest-/Sonderposten" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Ti" />
+                                                                              <Label text=" - Titelseite" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Tp" />
+                                                                              <Label text=" - Tagespreis" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="VS" />
+                                                                              <Label text=" - Verschiedene Sorten" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Z" />
+                                                                              <Label text=" - Tageszeitung" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <CheckBox mnemonicParsing="false" text="Zu" />
+                                                                              <Label text=" - Zugabe" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                     </children>
+                                                                     <padding>
+                                                                        <Insets left="5.0" top="10.0" />
+                                                                     </padding>
+                                                                  </VBox>
+                                                               </children>
+                                                            </AnchorPane>
+                                                      </content>
+                                                    </TitledPane>
+                                                  </panes>
+                                                </Accordion>
+                                                       </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="2.0" top="2.0" />
+                                             </padding>
+                                                   </VBox>
+                                               </content>
+                                           </ScrollPane>
+                                       </children>
+                                   </AnchorPane>
+                               </content>
+                           </TitledPane>
+                       </panes>
+                   </Accordion>
                </children>
         </AnchorPane>
-        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="-1.0" prefWidth="-1.0">
-          <content>
-            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0">
-                     <children>
-                        <TabPane layoutX="14.0" prefHeight="551.2" prefWidth="435.2" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <tabs>
-                            <Tab text="Untitled Tab 1">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <ListView prefHeight="521.6" prefWidth="435.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                       </children>
-                                    </AnchorPane>
-                              </content>
-                            </Tab>
-                            <Tab text="Untitled Tab 2">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                              </content>
-                            </Tab>
-                          </tabs>
-                        </TabPane>
-                     </children></AnchorPane>
-          </content>
-        </ScrollPane>
+            <AnchorPane prefHeight="552.0" prefWidth="500.0">
+               <children>
+                  <TabPane layoutX="102.0" layoutY="52.0" prefHeight="552.0" prefWidth="520.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <tabs>
+                        <Tab text="Untitled Tab 1">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView prefHeight="522.0" prefWidth="210.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <columns>
+                                          <TableColumn prefWidth="75.0" text="C1" />
+                                          <TableColumn prefWidth="75.0" text="C2" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="Untitled Tab 2">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                     </tabs>
+                  </TabPane>
+               </children>
+            </AnchorPane>
         <AnchorPane />
       </items>
     </SplitPane>
@@ -159,11 +388,11 @@
         </Label>
         <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
         <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
+            <VBox />
       </children>
       <padding>
         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
       </padding>
     </HBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" />
   </children>
 </VBox>
