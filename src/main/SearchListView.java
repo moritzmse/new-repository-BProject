@@ -1,102 +1,145 @@
 package main;
 
-import java.io.IOException;
-import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import database.MariaDB_Search;
-import database.SearchValues;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
+import database.TempDatabase;
+import javafx.application.Application;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
-import main.Search;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-public class SearchListView implements Initializable {
-
-
-
+public class SearchListView extends Application {
     @FXML
-    private ListView myListView;
-    @FXML
-    private ListView myListView2;
-    private Search testSearch;
+    TableView<ObservableList<String>> tableView;   //= new TableView<>();
 
-    protected List<String> resultList = new ArrayList<>();
-    protected List<String> resultList2 = new ArrayList<>();
+//    public void method() {
+//       // SearchListView.launch();
+//        TableColumn<String, String> tableColumn = new TableColumn<>("Marke");
+//        tableColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
+//
+//        tableView.getColumns().add(tableColumn);
+//        ObservableList<String> items = FXCollections.observableArrayList("abc", "abc2", "abc3", "abc4", "abc5");
+//        tableView.setItems(items);
+//
+//
+//
+//
+//        TableColumn<String, String> tableColumn2 = new TableColumn<>("Preis");
+//        tableColumn2.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
+//
+//        tableView.getColumns().add(tableColumn2);
+//       // ObservableList<String> items2 = FXCollections.observableArrayList(
+//       //         ("AMK","HRSN"), new ("MFK"));
+//      //  tableView.setItems(items2);
+//
+//    }
 
-    protected ListProperty<String> listProperty = new SimpleListProperty<>();
-    protected ListProperty<String> listProperty2 = new SimpleListProperty<>();
+    public void method(){
+//        SearchListView.launch();
 
-    public TextField search_productname;
-    public TextField search_manufacturer, search_brand, search_product, search_productgroup;
-    public ChoiceBox search_reseller;
-    public TextField search_unitprice, search_units, search_packprice;
-    public DatePicker datePickerFrom, datePickerTo;
+//        ObservableList[] helps = new ObservableList[TempDatabase.jude.ColumnLength];
+
+        //Columns hinzufügen
+        for(int i = 0; i < TempDatabase.jude.ColumnLength; i++) {
+            final int index = i;
+            TableColumn<ObservableList<String>, String> tableColumn = new TableColumn<>(TempDatabase.jude.ColumnNames[i]);
+            tableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>((cellData.getValue().get(index))));
+            tableView.getColumns().add(tableColumn);
+            //ende
+
+            //tableColumn.setCellValueFactory(new PropertyValueFactory<>(TempDatabase.jude.ColumnNames[i]));
 
 
 
-    @FXML
-    private void handleButtonAction(ActionEvent event) {
-        //search();
-        listProperty.set(FXCollections.observableArrayList(resultList));
-        listProperty2.set(FXCollections.observableArrayList(resultList2));
-    }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
 
-        SearchValues searchValues = MariaDB_Search.search("SELECT * FROM OVERVIEW WHERE Brand = 'Vittel'");
-        //testSearch = new Search();
-        //testSearch.getSearchValues().ColumnNames[0];
+            //    helps[i] = items;
 
-        resultList.add(searchValues.ColumnNames[1]);
-        List<Object[]> help = searchValues.Values;
+            //System.out.println("HRS :"+items.toString());
 
-        for(int i = 0; i < help.size(); i++){
-            Object[] helps = help.get(i);
-            resultList.add((String) ((SimpleStringProperty) helps[1]).getBean());
+            //tableView.setItems(items);
+            //RICHTIG:  tableView.getItems().add(items);
+            //tableView.getColumns().add(tableColumn);
+
+            //ObservableList helps = tableView.getItems();
+/*
+
+        for(int i = 0; i < TempDatabase.jude.ColumnLength; i++){
+
+            TableColumn tableColumn = new TableColumn(TempDatabase.jude.ColumnNames[i]);
+            tableColumn.setCellValueFactory(new PropertyValueFactory<>(TempDatabase.jude.ColumnNames[i]));
+
+            tableView.setItems();
+  */
         }
-        resultList2.add(searchValues.ColumnNames[2]);
-        List<Object[]> help2 = searchValues.Values;
 
-        for(int i = 0; i < help.size(); i++){
-            Object[] helps = help2.get(i);
-            resultList2.add((String) ((SimpleStringProperty) helps[2]).getBean());
-        }
+        ObservableList<String>[] helps = new ObservableList[TempDatabase.jude.Values.size()];
 
-        myListView.itemsProperty().bind(listProperty);
-        myListView2.itemsProperty().bind(listProperty2);
+        for(int i=0; i<TempDatabase.jude.Values.size(); i++) {
+            ObservableList<String> items = FXCollections.observableArrayList();
+            for (int j = 0; j < TempDatabase.jude.ColumnLength; j++) {
+                Object[] helper = TempDatabase.jude.Values.get(i);
 
+                String help = ((SimpleStringProperty) helper[j]).getBean().toString();
 
-
-
-
-
-        // Bind the ListView scroll property
-        Node n1 = myListView.lookup(".scroll-bar");
-        if (n1 instanceof ScrollBar) {
-            final ScrollBar bar1 = (ScrollBar) n1;
-            Node n2 = myListView2.lookup(".scroll-bar");
-            if (n2 instanceof ScrollBar) {
-                final ScrollBar bar2 = (ScrollBar) n2;
-                bar1.valueProperty().bindBidirectional(bar2.valueProperty());
+                System.out.println("ITEM: " + help);
+                items.add(help);
+                helps[i] = items;
+                System.out.println("HRS :"+items.toString());
             }
         }
 
+        //data hinzufügen
+        for ( int l = 0; l < TempDatabase.jude.Values.size(); l++) {
+            System.out.println("FML :" + helps[l]);
+            tableView.getItems().add(helps[l]);
+        }
 
+
+
+        //TableColumn<String, String> tableColumn = new TableColumn<>("Marke");
+        //tableColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
+
+        //tableView.getColumns().add(tableColumn);
+        //ObservableList<String> items = FXCollections.observableArrayList(TempDatabase.jude.ColumnNames[0]); //FXCollections.observableArrayList("abc", "abc2", "abc3", "abc4", "abc5");
+        //tableView.setItems(items);
     }
 
+    @Override
+    public void start(Stage primaryStage) {
+        //  method();
+        System.out.println("Test 1");
 
+        tableView = new TableView<>();
+        TableColumn<String, String> tableColumn = new TableColumn<>("Name");
+
+        tableColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
+
+        //   method();
+        System.out.println("Test 2");
+
+        //  tableView.getColumns().add(tableColumn);
+        //  ObservableList<String> items = FXCollections.observableArrayList("abc");
+        //  tableView.setItems(items);
+
+        //  method();
+        System.out.println("Test 3");
+
+        VBox root = new VBox(tableView);
+        root.setAlignment(Pos.CENTER);
+        Scene scene = new Scene(root, 300, 275);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        method();
+        System.out.println("Test 4");
+    }
 
 }

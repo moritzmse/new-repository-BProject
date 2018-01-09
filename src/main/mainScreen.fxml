@@ -346,33 +346,27 @@
                    </Accordion>
                </children>
         </AnchorPane>
-            <AnchorPane prefHeight="552.0" prefWidth="500.0">
-               <children>
-                  <TabPane layoutX="102.0" layoutY="52.0" prefHeight="552.0" prefWidth="520.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <tabs>
-                        <Tab text="Untitled Tab 1">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <TableView prefHeight="522.0" prefWidth="210.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <columns>
-                                          <TableColumn prefWidth="75.0" text="C1" />
-                                          <TableColumn prefWidth="75.0" text="C2" />
-                                       </columns>
-                                    </TableView>
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </Tab>
-                        <Tab text="Untitled Tab 2">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                           </content>
-                        </Tab>
-                     </tabs>
-                  </TabPane>
-               </children>
-            </AnchorPane>
+        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="-1.0" prefWidth="-1.0">
+          <content>
+            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0">
+                     <children>
+                        <TabPane layoutX="14.0" prefHeight="551.2" prefWidth="435.2" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <tabs>
+                            <Tab text="Untitled Tab 1">
+                                <content>
+                                    <AnchorPane fx:id="Pane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                </content>
+                            </Tab>
+                            <Tab text="Untitled Tab 2">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              </content>
+                            </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children></AnchorPane>
+          </content>
+        </ScrollPane>
         <AnchorPane />
       </items>
     </SplitPane>

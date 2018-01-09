@@ -3,12 +3,17 @@ package main;
 import database.MariaDB_Commands;
 import database.MariaDB_Search;
 import database.SearchValues;
+import database.TempDatabase;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -23,6 +28,7 @@ public class Search {
     public DatePicker datePickerFrom, datePickerTo;
     public VBox search_resellerVbox;
     public TitledPane search_resellerPane;
+    public AnchorPane Pane;
 
     private CheckBox[] reseller_checkbox;
 
@@ -47,7 +53,11 @@ public class Search {
 
 
     @FXML
-    private void search(){
+    private void search() throws IOException {
+
+        javafx.scene.layout.Pane newLoadedPane =        FXMLLoader.load(getClass().getResource("SearchListViewFXML.fxml"));
+        Pane.getChildren().add(newLoadedPane);
+
         TextField[] search_values = new TextField[] {search_productname, search_manufacturer, search_brand, search_product, search_productgroup, search_unitprice, search_units, search_packprice};
 
         String whereClause = "SELECT * FROM OVERVIEW WHERE ";
@@ -63,7 +73,7 @@ public class Search {
         }
 
         //ResellerCheckBox
-        StringBuilder checkboxes;
+        /*StringBuilder checkboxes;
         if(whereClause.length() > 29){
             checkboxes = new StringBuilder(" and Reseller in (");
         }else{
@@ -84,7 +94,7 @@ public class Search {
         checkboxes.append(") ");
 
         whereClause = whereClause+checkboxes.toString();
-
+*/
 
         //DatePickerFrom
         if(datePickerFrom.getEditor().getText().length() == 10){
@@ -124,6 +134,8 @@ public class Search {
             System.out.println("Error (src/main/Search) nullPointer in SearchValues");
         }
         System.out.println("JEDER HERNER IST EIN HRSN");
+
+        TempDatabase.jude = resultValues;
     }
 
     private static String getWeek(DatePicker datePicker){
