@@ -6,6 +6,8 @@ import database.SearchValues;
 import database.TempDatabase;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -16,6 +18,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -45,6 +48,13 @@ public class Search {
                 SimpleStringProperty hrs = (SimpleStringProperty) name[0];
                 reseller_checkbox[i] = new CheckBox(hrs.getBean().toString());
                 search_resellerVbox.getChildren().add(reseller_checkbox[i]);
+                int finalI = i;
+                reseller_checkbox[i].setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        setReseller(Integer.parseInt(reseller_checkbox[finalI].getText()),reseller_checkbox[finalI].isSelected());
+                    }
+                });
             }
         }else{
             System.out.println("Error (src/main/Search) nullPointer in SearchValues");
@@ -73,28 +83,29 @@ public class Search {
         }
 
         //ResellerCheckBox
-        /*StringBuilder checkboxes;
-        if(whereClause.length() > 29){
-            checkboxes = new StringBuilder(" and Reseller in (");
-        }else{
-            checkboxes = new StringBuilder(" Reseller in (");
-        }
+        if(TempDatabase.ResellerWhere != null && TempDatabase.ResellerWhere.size() > 0){
+            StringBuilder checkboxes;
+            if(whereClause.length() > 29){
+                checkboxes = new StringBuilder(" and Reseller in (");
+            }else{
+                checkboxes = new StringBuilder(" Reseller in (");
+            }
 
-        Boolean firstReseller = true;
-        for(int i = 0; i < reseller_checkbox.length; i++){
-            if(reseller_checkbox[i].isSelected()){
+            Boolean firstReseller = true;
+            for(int i = 0; i < TempDatabase.ResellerWhere.size(); i++){
                 if(firstReseller) {
-                    checkboxes.append(reseller_checkbox[i].getText());
+                    checkboxes.append(TempDatabase.ResellerWhere.get(i));
                     firstReseller = false;
                 }else{
-                    checkboxes.append(","+reseller_checkbox[i].getText());
+                    checkboxes.append(","+TempDatabase.ResellerWhere.get(i));
                 }
             }
-        }
-        checkboxes.append(") ");
+            checkboxes.append(") ");
 
-        whereClause = whereClause+checkboxes.toString();
-*/
+            whereClause = whereClause+checkboxes.toString();
+
+        }
+        //ResellerCheckBox End
 
         //DatePickerFrom
         if(datePickerFrom.getEditor().getText().length() == 10){
@@ -103,6 +114,7 @@ public class Search {
             }
             whereClause = whereClause + " Week >= " + getWeek(datePickerFrom);
         }
+        //DatePickerFrom End
 
         //DatePickerTo
         if(datePickerTo.getEditor().getText().length() == 10){
@@ -111,6 +123,7 @@ public class Search {
             }
             whereClause = whereClause + " Week <= " + getWeek(datePickerTo);
         }
+        //DatePickerTo End
 
         System.out.println(whereClause);
 
@@ -159,6 +172,19 @@ public class Search {
         }catch (ParseException e){
             System.out.println("Error (src/main/Search) getWeek false DateFormat");
             return null;
+        }
+    }
+
+    private static void setReseller(int ResellerID, boolean add){
+        if(TempDatabase.ResellerWhere == null){
+            TempDatabase.ResellerWhere = new ArrayList();
+            TempDatabase.ResellerWhere.add(""+ResellerID);
+        }else{
+            if(add){
+                TempDatabase.ResellerWhere.add(""+ResellerID);
+            }else{
+                TempDatabase.ResellerWhere.remove(""+ResellerID);
+            }
         }
     }
 }
