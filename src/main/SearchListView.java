@@ -12,12 +12,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SearchListView extends Application {
     @FXML
-    TableView<ObservableList<String>> tableView;   //= new TableView<>();
+    TableView<ObservableList<String>> tableView;//= new TableView<>();
 
 //    public void method() {
 //       // SearchListView.launch();
@@ -40,6 +41,10 @@ public class SearchListView extends Application {
 //      //  tableView.setItems(items2);
 //
 //    }
+
+    public void onClickListener(){
+        
+    }
 
     public void method(){
 //        SearchListView.launch();
@@ -141,5 +146,4 @@ public class SearchListView extends Application {
         method();
         System.out.println("Test 4");
     }
-
 }

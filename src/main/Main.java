@@ -19,7 +19,7 @@ public class Main extends Application {
         //primaryStage.setMinWidth(1000);
         //primaryStage.setMaximized(true);
         primaryStage.show();
-        
+
     }
 
     public static void main(String[] args) {

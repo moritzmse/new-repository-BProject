@@ -15,8 +15,6 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -134,192 +132,37 @@
                                                                <children>
                                                                   <VBox spacing="5.0">
                                                                      <children>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Ab" />
-                                                                              <Label text=" - Abbildung" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Am" />
-                                                                              <Label text=" - Auslaufmodell" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Aä" />
-                                                                              <Label text=" - Abbildung ähnlich" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="B" />
-                                                                              <Label text=" - Sonderbeilage" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Bi" />
-                                                                              <Label text=" - Bildzeitung" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Bp" />
-                                                                              <Label text=" - Bestellposten" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Cp" />
-                                                                              <Label text=" - Coupon" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Dp" />
-                                                                              <Label text=" - Dauerniedrigpreis" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Es" />
-                                                                              <Label text=" - Einzelstück" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Fd" />
-                                                                              <Label text=" - Falschdarstellung" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="H" />
-                                                                              <Label text=" - Handzettel" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="I" />
-                                                                              <Label text=" - Internet" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="K" />
-                                                                              <Label text=" - Kundenmagazin" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Lg" />
-                                                                              <Label text=" - Logo" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="ME" />
-                                                                              <Label text=" - Einzelpreis Multibuy" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Mn" />
-                                                                              <Label text=" - Mehrfachnennung" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Mu" />
-                                                                              <Label text=" - Multibuy" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="MW" />
-                                                                              <Label text=" - Multi Week" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Ne" />
-                                                                              <Label text=" - Neuheit/Neuerscheinung" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="O" />
-                                                                              <Label text=" - Themenpromotions" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="OP" />
-                                                                              <Label text=" - Off-Price" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Pa" />
-                                                                              <Label text=" - Preisausschreiben" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Rb" />
-                                                                              <Label text=" - Rabatt" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Rs" />
-                                                                              <Label text=" - Rückseite" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="So" />
-                                                                              <Label text=" - Sonderstellung" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Sp" />
-                                                                              <Label text=" - Rest-/Sonderposten" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Ti" />
-                                                                              <Label text=" - Titelseite" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Tp" />
-                                                                              <Label text=" - Tagespreis" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="VS" />
-                                                                              <Label text=" - Verschiedene Sorten" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Z" />
-                                                                              <Label text=" - Tageszeitung" />
-                                                                           </children>
-                                                                        </HBox>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <CheckBox mnemonicParsing="false" text="Zu" />
-                                                                              <Label text=" - Zugabe" />
-                                                                           </children>
-                                                                        </HBox>
+                                                                        <CheckBox id="Ab" mnemonicParsing="false" text="Ab - Abbildung" />
+                                                                        <CheckBox id="Am" mnemonicParsing="false" text="Am - Auslaufmodell" />
+                                                                        <CheckBox id="Aä" mnemonicParsing="false" text="Aä - Abbildung ähnlich" />
+                                                                        <CheckBox id="B" mnemonicParsing="false" text="B - Sonderbeilage" />
+                                                                        <CheckBox id="Bi" mnemonicParsing="false" text="Bi - Bildzeitung" />
+                                                                        <CheckBox id="Bp" mnemonicParsing="false" text="Bp - Bestellposten" />
+                                                                        <CheckBox id="Cp" mnemonicParsing="false" text="Cp - Coupon" />
+                                                                        <CheckBox id="Dp" mnemonicParsing="false" text="Dp - Dauerniedrigpreis" />
+                                                                        <CheckBox id="Es" mnemonicParsing="false" text="Es - Einzelstück" />
+                                                                        <CheckBox id="Fd" mnemonicParsing="false" text="Fd - Falschdarstellung" />
+                                                                        <CheckBox id="H" mnemonicParsing="false" text="H - Handzettel" />
+                                                                        <CheckBox id="I" mnemonicParsing="false" text="I - Internet" />
+                                                                        <CheckBox id="K" mnemonicParsing="false" text="K - Kundenmagazin" />
+                                                                        <CheckBox id="Lg" mnemonicParsing="false" text="Lg - Logo" />
+                                                                        <CheckBox id="ME" mnemonicParsing="false" text="ME - Einzelpreis Multibuy" />
+                                                                        <CheckBox id="Mn" mnemonicParsing="false" text="Mn - Mehrfachnennung" />
+                                                                        <CheckBox id="Mu" mnemonicParsing="false" text="Mu - Multibuy" />
+                                                                        <CheckBox id="MW" mnemonicParsing="false" text="MW - Multi Week" />
+                                                                        <CheckBox id="Ne" mnemonicParsing="false" text="Ne - Neuheit/Neuerscheinung" />
+                                                                        <CheckBox id="O" mnemonicParsing="false" text="O - Themenpromotions" />
+                                                                        <CheckBox id="OP" mnemonicParsing="false" text="OP - Off-Price" />
+                                                                        <CheckBox id="Pa" mnemonicParsing="false" text="Pa - Preisausschreiben" />
+                                                                        <CheckBox id="Rb" mnemonicParsing="false" text="Rb - Rabatt" />
+                                                                        <CheckBox id="Rs" mnemonicParsing="false" text="Rs - Rückseite" />
+                                                                        <CheckBox id="So" mnemonicParsing="false" text="So - Sonderstellung" />
+                                                                        <CheckBox id="Sp" mnemonicParsing="false" text="Sp - Rest-/Sonderposten" />
+                                                                        <CheckBox id="Ti" mnemonicParsing="false" text="Ti - Titelseite" />
+                                                                        <CheckBox id="Tp" mnemonicParsing="false" text="Tp - Tagespreis" />
+                                                                        <CheckBox id="VS" mnemonicParsing="false" text="VS - Verschiedene Sorten" />
+                                                                        <CheckBox id="Z" mnemonicParsing="false" text="Z - Tageszeitung" />
+                                                                        <CheckBox id="Zu" mnemonicParsing="false" text="Zu - Zugabe" />
                                                                      </children>
                                                                      <padding>
                                                                         <Insets left="5.0" top="10.0" />
@@ -354,7 +197,7 @@
                           <tabs>
                             <Tab text="Untitled Tab 1">
                                 <content>
-                                    <AnchorPane fx:id="Pane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    <AnchorPane fx:id="Pane" />
                                 </content>
                             </Tab>
                             <Tab text="Untitled Tab 2">

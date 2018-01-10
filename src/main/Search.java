@@ -12,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -61,12 +60,15 @@ public class Search {
         }
     }
 
-
     @FXML
     private void search() throws IOException {
 
         javafx.scene.layout.Pane newLoadedPane =        FXMLLoader.load(getClass().getResource("SearchListViewFXML.fxml"));
         Pane.getChildren().add(newLoadedPane);
+        AnchorPane.setTopAnchor(newLoadedPane,0.0);
+        AnchorPane.setBottomAnchor(newLoadedPane, 0.0);
+        AnchorPane.setLeftAnchor(newLoadedPane, 0.0);
+        AnchorPane.setRightAnchor(newLoadedPane, 0.0);
 
         TextField[] search_values = new TextField[] {search_productname, search_manufacturer, search_brand, search_product, search_productgroup, search_unitprice, search_units, search_packprice};
 
