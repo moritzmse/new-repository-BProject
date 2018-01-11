@@ -168,6 +168,9 @@ public class Search {
 
 //        ObservableList[] helps = new ObservableList[TempDatabase.searchValues.ColumnLength];
 
+        //Tabelle leeren
+        tableView.getItems().clear();
+
         //Columns hinzufügen
         for(int i = 0; i < TempDatabase.searchValues.ColumnLength; i++) {
             final int index = i;
