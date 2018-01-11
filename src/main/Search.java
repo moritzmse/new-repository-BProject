@@ -4,8 +4,11 @@ import database.MariaDB_Commands;
 import database.MariaDB_Search;
 import database.SearchValues;
 import database.TempDatabase;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -34,6 +37,9 @@ public class Search {
 
     private CheckBox[] reseller_checkbox;
 
+    @FXML
+    TableView<ObservableList<String>> tableView;//= new TableView<>();
+
     public void initialize(){
         SearchValues resultValues = MariaDB_Commands.resellerSearch();
 
@@ -58,17 +64,19 @@ public class Search {
         }else{
             System.out.println("Error (src/main/Search) nullPointer in SearchValues");
         }
+
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     @FXML
     private void search() throws IOException {
 
-        javafx.scene.layout.Pane newLoadedPane =        FXMLLoader.load(getClass().getResource("SearchListViewFXML.fxml"));
-        Pane.getChildren().add(newLoadedPane);
-        AnchorPane.setTopAnchor(newLoadedPane,0.0);
-        AnchorPane.setBottomAnchor(newLoadedPane, 0.0);
-        AnchorPane.setLeftAnchor(newLoadedPane, 0.0);
-        AnchorPane.setRightAnchor(newLoadedPane, 0.0);
+        //  javafx.scene.layout.Pane newLoadedPane =        FXMLLoader.load(getClass().getResource("SearchListViewFXML.fxml"));
+        //  Pane.getChildren().add(newLoadedPane);
+        //  AnchorPane.setTopAnchor(newLoadedPane,0.0);
+        //  AnchorPane.setBottomAnchor(newLoadedPane, 0.0);
+        //  AnchorPane.setLeftAnchor(newLoadedPane, 0.0);
+        //  AnchorPane.setRightAnchor(newLoadedPane, 0.0);
 
         TextField[] search_values = new TextField[] {search_productname, search_manufacturer, search_brand, search_product, search_productgroup, search_unitprice, search_units, search_packprice};
 
@@ -151,6 +159,98 @@ public class Search {
         System.out.println("JEDER HERNER IST EIN HRSN");
 
         TempDatabase.jude = resultValues;
+        showResults();
+    }
+
+    public void showResults(){
+//        SearchListView.launch();
+
+//        ObservableList[] helps = new ObservableList[TempDatabase.jude.ColumnLength];
+
+        //Columns hinzufügen
+        for(int i = 0; i < TempDatabase.jude.ColumnLength; i++) {
+            final int index = i;
+            TableColumn<ObservableList<String>, String> tableColumn = new TableColumn<>(TempDatabase.jude.ColumnNames[i]);
+            tableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>((cellData.getValue().get(index))));
+            tableView.getColumns().add(tableColumn);
+            //ende
+
+            //tableColumn.setCellValueFactory(new PropertyValueFactory<>(TempDatabase.jude.ColumnNames[i]));
+
+
+
+
+
+            //    helps[i] = items;
+
+            //System.out.println("HRS :"+items.toString());
+
+            //tableView.setItems(items);
+            //RICHTIG:  tableView.getItems().add(items);
+            //tableView.getColumns().add(tableColumn);
+
+            //ObservableList helps = tableView.getItems();
+/*
+
+        for(int i = 0; i < TempDatabase.jude.ColumnLength; i++){
+
+            TableColumn tableColumn = new TableColumn(TempDatabase.jude.ColumnNames[i]);
+            tableColumn.setCellValueFactory(new PropertyValueFactory<>(TempDatabase.jude.ColumnNames[i]));
+
+            tableView.setItems();
+  */
+        }
+
+        ObservableList<String>[] helps = new ObservableList[TempDatabase.jude.Values.size()];
+
+        for(int i=0; i<TempDatabase.jude.Values.size(); i++) {
+            ObservableList<String> items = FXCollections.observableArrayList();
+            for (int j = 0; j < TempDatabase.jude.ColumnLength; j++) {
+                Object[] helper = TempDatabase.jude.Values.get(i);
+
+                String help = ((SimpleStringProperty) helper[j]).getBean().toString();
+
+                System.out.println("ITEM: " + help);
+                items.add(help);
+                helps[i] = items;
+                System.out.println("HRS :"+items.toString());
+            }
+        }
+
+        //data hinzufügen
+        for ( int l = 0; l < TempDatabase.jude.Values.size(); l++) {
+            System.out.println("FML :" + helps[l]);
+            tableView.getItems().add(helps[l]);
+        }
+
+
+
+        //TableColumn<String, String> tableColumn = new TableColumn<>("Marke");
+        //tableColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
+
+        //tableView.getColumns().add(tableColumn);
+        //ObservableList<String> items = FXCollections.observableArrayList(TempDatabase.jude.ColumnNames[0]); //FXCollections.observableArrayList("abc", "abc2", "abc3", "abc4", "abc5");
+        //tableView.setItems(items);
+    }
+
+
+    public void getSelectedRowValues(){
+        if(tableView.getSelectionModel().getSelectedItem()!=null){
+            Object selectedItems = tableView.getSelectionModel().getSelectedItems();
+            //for(int i=0; i<tableView.getSelectionModel().getSelectedItems().size(); i++) { //i = Anzahl ausgewählter Zeilen
+            //String column = selectedItems.toString().split(",")[i].substring(1);
+            //System.out.println("Zeilen : " + column);
+            String column = selectedItems.toString();
+            System.out.println("alle zeilen : " + column);
+            String[] columnSplit = column.split("\\[");
+
+            for(int j=0; j<columnSplit.length; j++){
+                System.out.println("split: " + columnSplit[j]);
+            }
+            //String column2 = tableView.getSelectionModel().getSelectedCells().toString();
+            // System.out.println("..." + column2);
+            //}
+        }
     }
 
     private static String getWeek(DatePicker datePicker){

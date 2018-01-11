@@ -15,6 +15,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -24,212 +25,219 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Search">
-  <children>
-    <MenuBar VBox.vgrow="NEVER">
-      <menus>
-        <Menu mnemonicParsing="false" text="File">
-          <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
-          <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-          <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
-    <SplitPane dividerPositions="0.2594654788418708, 0.7282850779510023" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-      <items>
-        <AnchorPane>
-               <children>
-                  <TextField id="Brand" fx:id="search_productname" layoutX="37.0" layoutY="24.0" promptText="Produkt Suche" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="36.599999999999994" AnchorPane.topAnchor="24.0" />
-                  <Button fx:id="search_button" layoutX="85.0" layoutY="510.0" mnemonicParsing="false" onAction="#search" text="Suchen" AnchorPane.bottomAnchor="15.600000000000044" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="82.2" />
-                  <Separator layoutY="63.0" prefHeight="3.2" prefWidth="222.4" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="63.0" />
-                  <Separator layoutX="1.0" layoutY="494.0" prefHeight="3.2" prefWidth="222.4" AnchorPane.bottomAnchor="54.00000000000006" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" />
-                   <Accordion layoutX="14.0" layoutY="66.0" prefHeight="421.0" prefWidth="251.0" AnchorPane.bottomAnchor="62.799999999999955" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="1.2" AnchorPane.topAnchor="66.0">
-                       <panes>
-                           <TitledPane animated="false" text="Erweiterte Suche">
-                               <content>
-                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                           <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                               <content>
-                                                   <VBox spacing="5.0">
-                                                       <children>
-                                                           <Label text="Manufacturer" />
-                                                           <TextField fx:id="search_manufacturer" />
-                                                           <Label text="Brand" />
-                                                           <TextField fx:id="search_brand" />
-                                                           <Label text="Product" />
-                                                           <TextField fx:id="search_product" />
-                                                           <Label text="ProductGroup" />
-                                                           <TextField fx:id="search_productgroup" />
-                                                           <Label text="Reseller" />
-                                                           <Accordion>
-                                                               <panes>
-                                                                   <TitledPane fx:id="search_resellerPane" animated="false" text="untitled 1">
-                                                                       <content>
-                                                                           <AnchorPane>
-                                                                               <children>
-                                                                                   <VBox fx:id="search_resellerVbox">
-                                                                     <padding>
-                                                                        <Insets top="5.0" />
-                                                                     </padding></VBox>
-                                                                               </children>
-                                                                           </AnchorPane>
-                                                                       </content>
-                                                                   </TitledPane>
-                                                               </panes>
-                                                           </Accordion>
-                                                           <Label text="UnitPrice" />
-                                                           <TextField fx:id="search_unitprice" />
-                                                           <Label text="Units" />
-                                                           <TextField fx:id="search_units" />
-                                                           <Label text="PackPrice" />
-                                                           <TextField fx:id="search_packprice" />
-                                                           <AnchorPane prefHeight="102.0" prefWidth="157.0">
-                                                               <children>
-                                                                   <DatePicker fx:id="datePickerFrom" layoutX="1.0" layoutY="26.0" prefHeight="26.0" prefWidth="208.0" />
-                                                                   <DatePicker fx:id="datePickerTo" layoutX="1.0" layoutY="71.0" prefHeight="26.0" prefWidth="208.0" />
-                                                                   <Label layoutX="2.0" layoutY="22.0" />
-                                                                   <Label layoutX="3.0" layoutY="5.0" text="Von" />
-                                                                   <Label layoutX="6.0" layoutY="53.0" text="Bis" />
-                                                               </children>
-                                                           </AnchorPane>
-                                                <Label text="Attributes" />
-                                                <Accordion>
-                                                  <panes>
-                                                    <TitledPane animated="false" text="untitled 1">
-                                                      <content>
-                                                        <AnchorPane>
-                                                               <children>
-                                                                  <VBox spacing="5.0">
-                                                                     <children>
-                                                                        <CheckBox id="Ab" mnemonicParsing="false" text="Ab - Abbildung" />
-                                                                        <CheckBox id="Am" mnemonicParsing="false" text="Am - Auslaufmodell" />
-                                                                        <CheckBox id="Aä" mnemonicParsing="false" text="Aä - Abbildung ähnlich" />
-                                                                        <CheckBox id="B" mnemonicParsing="false" text="B - Sonderbeilage" />
-                                                                        <CheckBox id="Bi" mnemonicParsing="false" text="Bi - Bildzeitung" />
-                                                                        <CheckBox id="Bp" mnemonicParsing="false" text="Bp - Bestellposten" />
-                                                                        <CheckBox id="Cp" mnemonicParsing="false" text="Cp - Coupon" />
-                                                                        <CheckBox id="Dp" mnemonicParsing="false" text="Dp - Dauerniedrigpreis" />
-                                                                        <CheckBox id="Es" mnemonicParsing="false" text="Es - Einzelstück" />
-                                                                        <CheckBox id="Fd" mnemonicParsing="false" text="Fd - Falschdarstellung" />
-                                                                        <CheckBox id="H" mnemonicParsing="false" text="H - Handzettel" />
-                                                                        <CheckBox id="I" mnemonicParsing="false" text="I - Internet" />
-                                                                        <CheckBox id="K" mnemonicParsing="false" text="K - Kundenmagazin" />
-                                                                        <CheckBox id="Lg" mnemonicParsing="false" text="Lg - Logo" />
-                                                                        <CheckBox id="ME" mnemonicParsing="false" text="ME - Einzelpreis Multibuy" />
-                                                                        <CheckBox id="Mn" mnemonicParsing="false" text="Mn - Mehrfachnennung" />
-                                                                        <CheckBox id="Mu" mnemonicParsing="false" text="Mu - Multibuy" />
-                                                                        <CheckBox id="MW" mnemonicParsing="false" text="MW - Multi Week" />
-                                                                        <CheckBox id="Ne" mnemonicParsing="false" text="Ne - Neuheit/Neuerscheinung" />
-                                                                        <CheckBox id="O" mnemonicParsing="false" text="O - Themenpromotions" />
-                                                                        <CheckBox id="OP" mnemonicParsing="false" text="OP - Off-Price" />
-                                                                        <CheckBox id="Pa" mnemonicParsing="false" text="Pa - Preisausschreiben" />
-                                                                        <CheckBox id="Rb" mnemonicParsing="false" text="Rb - Rabatt" />
-                                                                        <CheckBox id="Rs" mnemonicParsing="false" text="Rs - Rückseite" />
-                                                                        <CheckBox id="So" mnemonicParsing="false" text="So - Sonderstellung" />
-                                                                        <CheckBox id="Sp" mnemonicParsing="false" text="Sp - Rest-/Sonderposten" />
-                                                                        <CheckBox id="Ti" mnemonicParsing="false" text="Ti - Titelseite" />
-                                                                        <CheckBox id="Tp" mnemonicParsing="false" text="Tp - Tagespreis" />
-                                                                        <CheckBox id="VS" mnemonicParsing="false" text="VS - Verschiedene Sorten" />
-                                                                        <CheckBox id="Z" mnemonicParsing="false" text="Z - Tageszeitung" />
-                                                                        <CheckBox id="Zu" mnemonicParsing="false" text="Zu - Zugabe" />
-                                                                     </children>
-                                                                     <padding>
-                                                                        <Insets left="5.0" top="10.0" />
-                                                                     </padding>
-                                                                  </VBox>
-                                                               </children>
-                                                            </AnchorPane>
-                                                      </content>
-                                                    </TitledPane>
-                                                  </panes>
-                                                </Accordion>
-                                                       </children>
-                                             <padding>
-                                                <Insets bottom="5.0" left="5.0" right="2.0" top="2.0" />
-                                             </padding>
-                                                   </VBox>
-                                               </content>
-                                           </ScrollPane>
-                                       </children>
-                                   </AnchorPane>
-                               </content>
-                           </TitledPane>
-                       </panes>
-                   </Accordion>
-               </children>
-        </AnchorPane>
-        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="-1.0" prefWidth="-1.0">
-          <content>
-            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0">
-                     <children>
-                        <TabPane layoutX="14.0" prefHeight="551.2" prefWidth="435.2" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <tabs>
-                            <Tab text="Untitled Tab 1">
-                                <content>
-                                    <AnchorPane fx:id="Pane" />
-                                </content>
-                            </Tab>
-                            <Tab text="Untitled Tab 2">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                              </content>
-                            </Tab>
-                          </tabs>
-                        </TabPane>
-                     </children></AnchorPane>
-          </content>
-        </ScrollPane>
-        <AnchorPane />
-      </items>
-    </SplitPane>
-    <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
-      <children>
-        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
-          <font>
-            <Font size="11.0" fx:id="x3" />
-          </font>
-          <textFill>
-            <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
-          </textFill>
-        </Label>
-        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
-        <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
-            <VBox />
-      </children>
-      <padding>
-        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-      </padding>
-    </HBox>
-  </children>
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Search">
+    <children>
+        <MenuBar VBox.vgrow="NEVER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="New" />
+                        <MenuItem mnemonicParsing="false" text="Open…" />
+                        <Menu mnemonicParsing="false" text="Open Recent" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem mnemonicParsing="false" text="Save" />
+                        <MenuItem mnemonicParsing="false" text="Save As…" />
+                        <MenuItem mnemonicParsing="false" text="Revert" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Preferences…" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Quit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Undo" />
+                        <MenuItem mnemonicParsing="false" text="Redo" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Cut" />
+                        <MenuItem mnemonicParsing="false" text="Copy" />
+                        <MenuItem mnemonicParsing="false" text="Paste" />
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Select All" />
+                        <MenuItem mnemonicParsing="false" text="Unselect All" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <SplitPane dividerPositions="0.2594654788418708, 0.7282850779510023" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+            <items>
+                <AnchorPane>
+                    <children>
+                        <TextField id="Brand" fx:id="search_productname" layoutX="37.0" layoutY="24.0" promptText="Produkt Suche" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="36.599999999999994" AnchorPane.topAnchor="24.0" />
+                        <Button fx:id="search_button" layoutX="85.0" layoutY="510.0" mnemonicParsing="false" onAction="#search" text="Suchen" AnchorPane.bottomAnchor="15.600000000000044" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="82.2" />
+                        <Separator layoutY="63.0" prefHeight="3.2" prefWidth="222.4" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="63.0" />
+                        <Separator layoutX="1.0" layoutY="494.0" prefHeight="3.2" prefWidth="222.4" AnchorPane.bottomAnchor="54.00000000000006" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" />
+                        <Accordion layoutX="14.0" layoutY="66.0" prefHeight="421.0" prefWidth="251.0" AnchorPane.bottomAnchor="62.799999999999955" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="1.2" AnchorPane.topAnchor="66.0">
+                            <panes>
+                                <TitledPane animated="false" text="Erweiterte Suche">
+                                    <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                            <children>
+                                                <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <content>
+                                                        <VBox spacing="5.0">
+                                                            <children>
+                                                                <Label text="Manufacturer" />
+                                                                <TextField fx:id="search_manufacturer" />
+                                                                <Label text="Brand" />
+                                                                <TextField fx:id="search_brand" />
+                                                                <Label text="Product" />
+                                                                <TextField fx:id="search_product" />
+                                                                <Label text="ProductGroup" />
+                                                                <TextField fx:id="search_productgroup" />
+                                                                <Label text="Reseller" />
+                                                                <Accordion>
+                                                                    <panes>
+                                                                        <TitledPane fx:id="search_resellerPane" animated="false" text="untitled 1">
+                                                                            <content>
+                                                                                <AnchorPane>
+                                                                                    <children>
+                                                                                        <VBox fx:id="search_resellerVbox">
+                                                                                            <padding>
+                                                                                                <Insets top="5.0" />
+                                                                                            </padding></VBox>
+                                                                                    </children>
+                                                                                </AnchorPane>
+                                                                            </content>
+                                                                        </TitledPane>
+                                                                    </panes>
+                                                                </Accordion>
+                                                                <Label text="UnitPrice" />
+                                                                <TextField fx:id="search_unitprice" />
+                                                                <Label text="Units" />
+                                                                <TextField fx:id="search_units" />
+                                                                <Label text="PackPrice" />
+                                                                <TextField fx:id="search_packprice" />
+                                                                <AnchorPane prefHeight="102.0" prefWidth="157.0">
+                                                                    <children>
+                                                                        <DatePicker fx:id="datePickerFrom" layoutX="1.0" layoutY="26.0" prefHeight="26.0" prefWidth="208.0" />
+                                                                        <DatePicker fx:id="datePickerTo" layoutX="1.0" layoutY="71.0" prefHeight="26.0" prefWidth="208.0" />
+                                                                        <Label layoutX="2.0" layoutY="22.0" />
+                                                                        <Label layoutX="3.0" layoutY="5.0" text="Von" />
+                                                                        <Label layoutX="6.0" layoutY="53.0" text="Bis" />
+                                                                    </children>
+                                                                </AnchorPane>
+                                                                <Label text="Attributes" />
+                                                                <Accordion>
+                                                                    <panes>
+                                                                        <TitledPane animated="false" text="untitled 1">
+                                                                            <content>
+                                                                                <AnchorPane>
+                                                                                    <children>
+                                                                                        <VBox spacing="5.0">
+                                                                                            <children>
+                                                                                                <CheckBox id="Ab" mnemonicParsing="false" text="Ab - Abbildung" />
+                                                                                                <CheckBox id="Am" mnemonicParsing="false" text="Am - Auslaufmodell" />
+                                                                                                <CheckBox id="Aä" mnemonicParsing="false" text="Aä - Abbildung ähnlich" />
+                                                                                                <CheckBox id="B" mnemonicParsing="false" text="B - Sonderbeilage" />
+                                                                                                <CheckBox id="Bi" mnemonicParsing="false" text="Bi - Bildzeitung" />
+                                                                                                <CheckBox id="Bp" mnemonicParsing="false" text="Bp - Bestellposten" />
+                                                                                                <CheckBox id="Cp" mnemonicParsing="false" text="Cp - Coupon" />
+                                                                                                <CheckBox id="Dp" mnemonicParsing="false" text="Dp - Dauerniedrigpreis" />
+                                                                                                <CheckBox id="Es" mnemonicParsing="false" text="Es - Einzelstück" />
+                                                                                                <CheckBox id="Fd" mnemonicParsing="false" text="Fd - Falschdarstellung" />
+                                                                                                <CheckBox id="H" mnemonicParsing="false" text="H - Handzettel" />
+                                                                                                <CheckBox id="I" mnemonicParsing="false" text="I - Internet" />
+                                                                                                <CheckBox id="K" mnemonicParsing="false" text="K - Kundenmagazin" />
+                                                                                                <CheckBox id="Lg" mnemonicParsing="false" text="Lg - Logo" />
+                                                                                                <CheckBox id="ME" mnemonicParsing="false" text="ME - Einzelpreis Multibuy" />
+                                                                                                <CheckBox id="Mn" mnemonicParsing="false" text="Mn - Mehrfachnennung" />
+                                                                                                <CheckBox id="Mu" mnemonicParsing="false" text="Mu - Multibuy" />
+                                                                                                <CheckBox id="MW" mnemonicParsing="false" text="MW - Multi Week" />
+                                                                                                <CheckBox id="Ne" mnemonicParsing="false" text="Ne - Neuheit/Neuerscheinung" />
+                                                                                                <CheckBox id="O" mnemonicParsing="false" text="O - Themenpromotions" />
+                                                                                                <CheckBox id="OP" mnemonicParsing="false" text="OP - Off-Price" />
+                                                                                                <CheckBox id="Pa" mnemonicParsing="false" text="Pa - Preisausschreiben" />
+                                                                                                <CheckBox id="Rb" mnemonicParsing="false" text="Rb - Rabatt" />
+                                                                                                <CheckBox id="Rs" mnemonicParsing="false" text="Rs - Rückseite" />
+                                                                                                <CheckBox id="So" mnemonicParsing="false" text="So - Sonderstellung" />
+                                                                                                <CheckBox id="Sp" mnemonicParsing="false" text="Sp - Rest-/Sonderposten" />
+                                                                                                <CheckBox id="Ti" mnemonicParsing="false" text="Ti - Titelseite" />
+                                                                                                <CheckBox id="Tp" mnemonicParsing="false" text="Tp - Tagespreis" />
+                                                                                                <CheckBox id="VS" mnemonicParsing="false" text="VS - Verschiedene Sorten" />
+                                                                                                <CheckBox id="Z" mnemonicParsing="false" text="Z - Tageszeitung" />
+                                                                                                <CheckBox id="Zu" mnemonicParsing="false" text="Zu - Zugabe" />
+                                                                                            </children>
+                                                                                            <padding>
+                                                                                                <Insets left="5.0" top="10.0" />
+                                                                                            </padding>
+                                                                                        </VBox>
+                                                                                    </children>
+                                                                                </AnchorPane>
+                                                                            </content>
+                                                                        </TitledPane>
+                                                                    </panes>
+                                                                </Accordion>
+                                                            </children>
+                                                            <padding>
+                                                                <Insets bottom="5.0" left="5.0" right="2.0" top="2.0" />
+                                                            </padding>
+                                                        </VBox>
+                                                    </content>
+                                                </ScrollPane>
+                                            </children>
+                                        </AnchorPane>
+                                    </content>
+                                </TitledPane>
+                            </panes>
+                        </Accordion>
+                    </children>
+                </AnchorPane>
+                <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="-1.0" prefWidth="-1.0">
+                    <content>
+                        <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0">
+                            <children>
+                                <TabPane layoutX="14.0" prefHeight="551.2" prefWidth="435.2" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <tabs>
+                                        <Tab text="Untitled Tab 1">
+                                            <content>
+                                                <AnchorPane fx:id="Pane">
+                                                    <children>
+                                                        <TableView fx:id="tableView" layoutX="56.0" layoutY="69.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <columns>
+                                                            </columns>
+                                                        </TableView>
+                                                        <Button layoutX="300.0" layoutY="400.0" mnemonicParsing="false" onAction="#getSelectedRowValues" text="Button" />
+                                                    </children></AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab text="Untitled Tab 2">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                            </content>
+                                        </Tab>
+                                    </tabs>
+                                </TabPane>
+                            </children></AnchorPane>
+                    </content>
+                </ScrollPane>
+                <AnchorPane />
+            </items>
+        </SplitPane>
+        <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+            <children>
+                <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font size="11.0" fx:id="x3" />
+                    </font>
+                    <textFill>
+                        <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
+                    </textFill>
+                </Label>
+                <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+                <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
+                <VBox />
+            </children>
+            <padding>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </padding>
+        </HBox>
+    </children>
 </VBox>
