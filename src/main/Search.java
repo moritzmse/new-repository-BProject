@@ -161,7 +161,7 @@ public class Search {
         showResults();
     }
 
-    public void showResults(){
+    public void showResults(){  //Sucheregbnisse in Tabelle anzeigen
 //        SearchListView.launch();
 
 //        ObservableList[] helps = new ObservableList[TempDatabase.searchValues.ColumnLength];
@@ -176,20 +176,8 @@ public class Search {
 
             //tableColumn.setCellValueFactory(new PropertyValueFactory<>(TempDatabase.searchValues.ColumnNames[i]));
 
-
-
-
-
-            //    helps[i] = items;
-
-            //System.out.println("HRS :"+items.toString());
-
-            //tableView.setItems(items);
             //RICHTIG:  tableView.getItems().add(items);
-            //tableView.getColumns().add(tableColumn);
-
-            //ObservableList helps = tableView.getItems();
-/*
+            /*
 
         for(int i = 0; i < TempDatabase.searchValues.ColumnLength; i++){
 
@@ -200,6 +188,7 @@ public class Search {
   */
         }
 
+        //item-liste befuellen
         ObservableList<String>[] helps = new ObservableList[TempDatabase.searchValues.Values.size()];
 
         for(int i = 0; i<TempDatabase.searchValues.Values.size(); i++) {
@@ -221,9 +210,6 @@ public class Search {
             System.out.println("FML :" + helps[l]);
             tableView.getItems().add(helps[l]);
         }
-
-
-
         //TableColumn<String, String> tableColumn = new TableColumn<>("Marke");
         //tableColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
 
@@ -233,7 +219,7 @@ public class Search {
     }
 
 
-    public void getSelectedRowValues(){
+    public void getSelectedRowValues(){ //ausgewaehlte Zeilen der Tabelle ausgeben
         if(tableView.getSelectionModel().getSelectedItem()!=null){
             Object selectedItems = tableView.getSelectionModel().getSelectedItems();
             //for(int i=0; i<tableView.getSelectionModel().getSelectedItems().size(); i++) { //i = Anzahl ausgewählter Zeilen
