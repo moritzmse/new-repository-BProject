@@ -158,7 +158,9 @@ public class Search {
         //System.out.println("JEDER HERNER IST EIN HRSN");
 
         TempDatabase.searchValues = resultValues;
-        showResults();
+       if(resultValues != null){
+           showResults();
+       }
     }
 
     public void showResults(){  //Sucheregbnisse in Tabelle anzeigen
