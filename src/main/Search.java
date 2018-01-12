@@ -169,6 +169,7 @@ public class Search {
 //        ObservableList[] helps = new ObservableList[TempDatabase.searchValues.ColumnLength];
 
         //Tabelle leeren
+        tableView.getColumns().clear();
         tableView.getItems().clear();
 
         //Columns hinzufügen
@@ -198,6 +199,7 @@ public class Search {
 
         for(int i = 0; i<TempDatabase.searchValues.Values.size(); i++) {
             ObservableList<String> items = FXCollections.observableArrayList();
+            items.clear();
             for (int j = 0; j < TempDatabase.searchValues.ColumnLength; j++) {
                 Object[] helper = TempDatabase.searchValues.Values.get(i);
 
