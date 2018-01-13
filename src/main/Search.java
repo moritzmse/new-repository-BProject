@@ -164,8 +164,6 @@ public class Search {
     }
 
     public void showResults(){  //Sucheregbnisse in Tabelle anzeigen
-//        SearchListView.launch();
-
 //        ObservableList[] helps = new ObservableList[TempDatabase.searchValues.ColumnLength];
 
         //Tabelle leeren
@@ -186,7 +184,6 @@ public class Search {
             /*
 
         for(int i = 0; i < TempDatabase.searchValues.ColumnLength; i++){
-
             TableColumn tableColumn = new TableColumn(TempDatabase.searchValues.ColumnNames[i]);
             tableColumn.setCellValueFactory(new PropertyValueFactory<>(TempDatabase.searchValues.ColumnNames[i]));
 
@@ -226,22 +223,23 @@ public class Search {
     }
 
 
-    public void getSelectedRowValues(){ //ausgewaehlte Zeilen der Tabelle ausgeben
+    public String getSelectedRowValues(){ //ausgewaehlte Zeilen der Tabelle ausgeben
         if(tableView.getSelectionModel().getSelectedItem()!=null){
             Object selectedItems = tableView.getSelectionModel().getSelectedItems();
             //for(int i=0; i<tableView.getSelectionModel().getSelectedItems().size(); i++) { //i = Anzahl ausgewählter Zeilen
             //String column = selectedItems.toString().split(",")[i].substring(1);
             //System.out.println("Zeilen : " + column);
-            String column = selectedItems.toString();
-            System.out.println("alle zeilen : " + column);
-            String[] columnSplit = column.split("\\[");
+            String selectedRows = selectedItems.toString();
+            System.out.println("alle zeilen : " + selectedRows);
+            String[] columnSplit = selectedRows.split("\\[");
 
             for(int j=0; j<columnSplit.length; j++){
                 System.out.println("split: " + columnSplit[j]);
             }
-            //String column2 = tableView.getSelectionModel().getSelectedCells().toString();
-            // System.out.println("..." + column2);
-            //}
+            return selectedRows;
+        }
+        else{
+            return null;
         }
     }
 
