@@ -303,9 +303,17 @@ public class Search {
             String[] elementList = selectedRowValues.get(i).split(",[ ]*");
             String string = elementList[2];
             Number number = NumberFormat.getInstance().parse(elementList[6]);
-            series.getData().add(new XYChart.Data<String, Number>(string, number));
+            //Date date = ...;
+            String date = elementList[4];
+                Date d = new SimpleDateFormat("yyyyww").parse(date);
+                String output = new SimpleDateFormat("yyyy-ww").format(d);
+                System.out.println("output = " + output);
+
+            series.getData().add(new XYChart.Data<String, Number>(date, number));
         }
-        series.setName("Werte");
+        String[] elementList = selectedRowValues.get(0).split(",[ ]*");
+        String productName = elementList[2];
+        series.setName(productName/*"Product"*/);
         lineChart.getData().add(series);
     }
 
