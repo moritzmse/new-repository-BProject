@@ -12,17 +12,18 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
 
 public class Search {
 
@@ -36,8 +37,12 @@ public class Search {
 
     private CheckBox[] reseller_checkbox;
 
+    @FXML LineChart<String, Number> lineChart;
+
     @FXML
     TableView<ObservableList<String>> tableView;//= new TableView<>();
+
+
 
     public void initialize(){
         SearchValues resultValues = MariaDB_Commands.resellerSearch();
@@ -223,7 +228,9 @@ public class Search {
     }
 
 
-    public String getSelectedRowValues(){ //ausgewaehlte Zeilen der Tabelle ausgeben
+    public ArrayList<String> getSelectedRowValues(){ //ausgewaehlte Zeilen der Tabelle ausgeben
+        ArrayList<String> selectedRowsArray = new ArrayList<String>();
+
         if(tableView.getSelectionModel().getSelectedItem()!=null){
             Object selectedItems = tableView.getSelectionModel().getSelectedItems();
             //for(int i=0; i<tableView.getSelectionModel().getSelectedItems().size(); i++) { //i = Anzahl ausgewählter Zeilen
@@ -234,9 +241,25 @@ public class Search {
             String[] columnSplit = selectedRows.split("\\[");
 
             for(int j=0; j<columnSplit.length; j++){
+                System.out.println(columnSplit.length);
                 System.out.println("split: " + columnSplit[j]);
+                if(columnSplit[j].isEmpty()){
+                    //wenn leer: nichts tun
+                }
+                else{
+                    selectedRowsArray.add(columnSplit[j]); //Tabellenzeilen zur Liste hinzufuegen
+                }
             }
-            return selectedRows;
+            for(int k=0; k<selectedRowsArray.size(); k++){
+                System.out.println("selectedRows Array: "+k + " _ " +selectedRowsArray.get(k));
+            }
+            //return selectedRows;
+            try {
+                generateLineChart(selectedRowsArray);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return selectedRowsArray;
         }
         else{
             return null;
@@ -265,6 +288,25 @@ public class Search {
             System.out.println("Error (src/main/Search) getWeek false DateFormat");
             return null;
         }
+    }
+
+
+    public void generateLineChart(ArrayList<String> selectedRowValues) throws ParseException {
+        //Muss geändert werden: X-Achse Monate, Y-Achse Preise, ...
+        lineChart.getData().clear();
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+//        series.getData().add(new XYChart.Data<String, Number>("Name", 100));
+//        series.setName("Werte");
+//        lineChart.getData().add(series);
+
+        for(int i=0; i<selectedRowValues.size(); i++){
+            String[] elementList = selectedRowValues.get(i).split(",[ ]*");
+            String string = elementList[2];
+            Number number = NumberFormat.getInstance().parse(elementList[6]);
+            series.getData().add(new XYChart.Data<String, Number>(string, number));
+        }
+        series.setName("Werte");
+        lineChart.getData().add(series);
     }
 
     private static void setReseller(int ResellerID, boolean add){
