@@ -17,6 +17,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -41,6 +42,9 @@ public class Search {
 
     @FXML
     TableView<ObservableList<String>> tableView;//= new TableView<>();
+
+    @FXML
+    Text textCalculation;
 
 
 
@@ -255,7 +259,8 @@ public class Search {
             }
             //return selectedRows;
             try {
-                generateLineChart(selectedRowsArray);
+                generateLineChart(selectedRowsArray); //Graph generieren
+                displayTextCalculation(selectedRowsArray); //Text mit Berechnungen anzeigen
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -315,6 +320,19 @@ public class Search {
         String productName = elementList[2];
         series.setName(productName/*"Product"*/);
         lineChart.getData().add(series);
+    }
+
+    public void displayTextCalculation(ArrayList<String> selectedRowValues){
+        //Durchschnittspreis:
+        double helper = 0;
+        for(int i=0; i<selectedRowValues.size(); i++){
+            String[] elementList = selectedRowValues.get(i).split(",[ ]*");
+            String string = elementList[2];
+            Double price = Double.parseDouble(elementList[6]);
+            helper+=price;
+        }
+        double avgPrice = helper/selectedRowValues.size();
+        textCalculation.setText("Durchschnittspreis für " + /*string +*/ "Produkt" + ": " + avgPrice);
     }
 
     private static void setReseller(int ResellerID, boolean add){
