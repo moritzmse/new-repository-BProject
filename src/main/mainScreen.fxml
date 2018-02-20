@@ -90,12 +90,16 @@
                                                             <children>
                                                                 <Label text="Manufacturer" />
                                                                 <TextField fx:id="search_manufacturer" />
+
                                                                 <Label text="Brand" />
                                                                 <TextField fx:id="search_brand" />
+
                                                                 <Label text="Product" />
-                                                                <TextField fx:id="search_product" />
+                                                                <TextField id="Product" fx:id="search_product" />
+
                                                                 <Label text="ProductGroup" />
-                                                                <TextField fx:id="search_productgroup" />
+                                                                <TextField id="ProductGroup" fx:id="search_productgroup" />
+
                                                                 <Label text="Reseller" />
                                                                 <Accordion>
                                                                     <panes>
@@ -113,12 +117,16 @@
                                                                         </TitledPane>
                                                                     </panes>
                                                                 </Accordion>
+
                                                                 <Label text="UnitPrice" />
-                                                                <TextField fx:id="search_unitprice" />
+                                                                <TextField id="UnitPrice" fx:id="search_unitprice" />
+
                                                                 <Label text="Units" />
-                                                                <TextField fx:id="search_units" />
+                                                                <TextField id="Units" fx:id="search_units" />
+
                                                                 <Label text="PackPrice" />
-                                                                <TextField fx:id="search_packprice" />
+                                                                <TextField id="PackPrice" fx:id="search_packprice" />
+
                                                                 <AnchorPane prefHeight="102.0" prefWidth="157.0">
                                                                     <children>
                                                                         <DatePicker fx:id="datePickerFrom" layoutX="1.0" layoutY="26.0" prefHeight="26.0" prefWidth="208.0" />
@@ -137,37 +145,37 @@
                                                                                     <children>
                                                                                         <VBox spacing="5.0">
                                                                                             <children>
-                                                                                                <CheckBox id="Ab" mnemonicParsing="false" text="Ab - Abbildung" />
-                                                                                                <CheckBox id="Am" mnemonicParsing="false" text="Am - Auslaufmodell" />
-                                                                                                <CheckBox id="Aä" mnemonicParsing="false" text="Aä - Abbildung ähnlich" />
-                                                                                                <CheckBox id="B" mnemonicParsing="false" text="B - Sonderbeilage" />
-                                                                                                <CheckBox id="Bi" mnemonicParsing="false" text="Bi - Bildzeitung" />
-                                                                                                <CheckBox id="Bp" mnemonicParsing="false" text="Bp - Bestellposten" />
-                                                                                                <CheckBox id="Cp" mnemonicParsing="false" text="Cp - Coupon" />
-                                                                                                <CheckBox id="Dp" mnemonicParsing="false" text="Dp - Dauerniedrigpreis" />
-                                                                                                <CheckBox id="Es" mnemonicParsing="false" text="Es - Einzelstück" />
-                                                                                                <CheckBox id="Fd" mnemonicParsing="false" text="Fd - Falschdarstellung" />
-                                                                                                <CheckBox id="H" mnemonicParsing="false" text="H - Handzettel" />
-                                                                                                <CheckBox id="I" mnemonicParsing="false" text="I - Internet" />
-                                                                                                <CheckBox id="K" mnemonicParsing="false" text="K - Kundenmagazin" />
-                                                                                                <CheckBox id="Lg" mnemonicParsing="false" text="Lg - Logo" />
-                                                                                                <CheckBox id="ME" mnemonicParsing="false" text="ME - Einzelpreis Multibuy" />
-                                                                                                <CheckBox id="Mn" mnemonicParsing="false" text="Mn - Mehrfachnennung" />
-                                                                                                <CheckBox id="Mu" mnemonicParsing="false" text="Mu - Multibuy" />
-                                                                                                <CheckBox id="MW" mnemonicParsing="false" text="MW - Multi Week" />
-                                                                                                <CheckBox id="Ne" mnemonicParsing="false" text="Ne - Neuheit/Neuerscheinung" />
-                                                                                                <CheckBox id="O" mnemonicParsing="false" text="O - Themenpromotions" />
-                                                                                                <CheckBox id="OP" mnemonicParsing="false" text="OP - Off-Price" />
-                                                                                                <CheckBox id="Pa" mnemonicParsing="false" text="Pa - Preisausschreiben" />
-                                                                                                <CheckBox id="Rb" mnemonicParsing="false" text="Rb - Rabatt" />
-                                                                                                <CheckBox id="Rs" mnemonicParsing="false" text="Rs - Rückseite" />
-                                                                                                <CheckBox id="So" mnemonicParsing="false" text="So - Sonderstellung" />
-                                                                                                <CheckBox id="Sp" mnemonicParsing="false" text="Sp - Rest-/Sonderposten" />
-                                                                                                <CheckBox id="Ti" mnemonicParsing="false" text="Ti - Titelseite" />
-                                                                                                <CheckBox id="Tp" mnemonicParsing="false" text="Tp - Tagespreis" />
-                                                                                                <CheckBox id="VS" mnemonicParsing="false" text="VS - Verschiedene Sorten" />
-                                                                                                <CheckBox id="Z" mnemonicParsing="false" text="Z - Tageszeitung" />
-                                                                                                <CheckBox id="Zu" mnemonicParsing="false" text="Zu - Zugabe" />
+                                                                                                <CheckBox id=", Ab," fx:id="Ab" mnemonicParsing="false" text="Ab - Abbildung" />
+                                                                                                <CheckBox id=", Am," fx:id="Am" mnemonicParsing="false" text="Am - Auslaufmodell" />
+                                                                                                <CheckBox id=", Aä," fx:id="Aä" mnemonicParsing="false" text="Aä - Abbildung ähnlich" />
+                                                                                                <CheckBox id=", B," fx:id="B" mnemonicParsing="false" text="B - Sonderbeilage" />
+                                                                                                <CheckBox id=", Bi," fx:id="Bi" mnemonicParsing="false" text="Bi - Bildzeitung" />
+                                                                                                <CheckBox id=", Bp," fx:id="Bp" mnemonicParsing="false" text="Bp - Bestellposten" />
+                                                                                                <CheckBox id=", Cp," fx:id="Cp" mnemonicParsing="false" text="Cp - Coupon" />
+                                                                                                <CheckBox id=", Dp," fx:id="Dp" mnemonicParsing="false" text="Dp - Dauerniedrigpreis" />
+                                                                                                <CheckBox id=", Es," fx:id="Es" mnemonicParsing="false" text="Es - Einzelstück" />
+                                                                                                <CheckBox id=", Fd," fx:id="Fd" mnemonicParsing="false" text="Fd - Falschdarstellung" />
+                                                                                                <CheckBox id=", H," fx:id="H" mnemonicParsing="false" text="H - Handzettel" />
+                                                                                                <CheckBox id=", I," fx:id="I" mnemonicParsing="false" text="I - Internet" />
+                                                                                                <CheckBox id=", K," fx:id="K" mnemonicParsing="false" text="K - Kundenmagazin" />
+                                                                                                <CheckBox id=", Lg," fx:id="Lg" mnemonicParsing="false" text="Lg - Logo" />
+                                                                                                <CheckBox id=", ME," fx:id="ME" mnemonicParsing="false" text="ME - Einzelpreis Multibuy" />
+                                                                                                <CheckBox id=", Mn," fx:id="Mn" mnemonicParsing="false" text="Mn - Mehrfachnennung" />
+                                                                                                <CheckBox id=", Mu," fx:id="Mu" mnemonicParsing="false" text="Mu - Multibuy" />
+                                                                                                <CheckBox id=", MW," fx:id="MW" mnemonicParsing="false" text="MW - Multi Week" />
+                                                                                                <CheckBox id=", Ne," fx:id="Ne" mnemonicParsing="false" text="Ne - Neuheit/Neuerscheinung" />
+                                                                                                <CheckBox id=", O," fx:id="O" mnemonicParsing="false" text="O - Themenpromotions" />
+                                                                                                <CheckBox id=", OP," fx:id="OP" mnemonicParsing="false" text="OP - Off-Price" />
+                                                                                                <CheckBox id=", Pa," fx:id="Pa" mnemonicParsing="false" text="Pa - Preisausschreiben" />
+                                                                                                <CheckBox id=", Rb," fx:id="Rb" mnemonicParsing="false" text="Rb - Rabatt" />
+                                                                                                <CheckBox id=", Rs," fx:id="Rs" mnemonicParsing="false" text="Rs - Rückseite" />
+                                                                                                <CheckBox id=", So," fx:id="So" mnemonicParsing="false" text="So - Sonderstellung" />
+                                                                                                <CheckBox id=", Sp," fx:id="Sp" mnemonicParsing="false" text="Sp - Rest-/Sonderposten" />
+                                                                                                <CheckBox id=", Ti," fx:id="Ti" mnemonicParsing="false" text="Ti - Titelseite" />
+                                                                                                <CheckBox id=", Tp," fx:id="Tp" mnemonicParsing="false" text="Tp - Tagespreis" />
+                                                                                                <CheckBox id=", VS," fx:id="VS" mnemonicParsing="false" text="VS - Verschiedene Sorten" />
+                                                                                                <CheckBox id=", Z," fx:id="Z" mnemonicParsing="false" text="Z - Tageszeitung" />
+                                                                                                <CheckBox id=", Zu," fx:id="Zu" mnemonicParsing="false" text="Zu - Zugabe" />
                                                                                             </children>
                                                                                             <padding>
                                                                                                 <Insets left="5.0" top="10.0" />

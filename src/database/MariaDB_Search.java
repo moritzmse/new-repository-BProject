@@ -28,6 +28,8 @@ public class MariaDB_Search extends  TempDatabase{
 
             //First Line
             Object[] resultObjectFirst = new Object[columnLength];
+
+            //TODO Error:"Current position is after the last row" in der Schleife wenn kein Datensatz existiert
             for(int i = 0; i < columnLength; i++ ){
                 resultObjectFirst[i] = new SimpleStringProperty (resultSet.getObject(i+1),columnNames[i]);
             }

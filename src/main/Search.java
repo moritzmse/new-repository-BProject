@@ -9,8 +9,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
@@ -19,7 +17,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,6 +34,11 @@ public class Search {
     public AnchorPane Pane;
 
     private CheckBox[] reseller_checkbox;
+
+    private final int whereLength = 63; //Alt 29
+
+    //TODO Asci überarbeiten
+    public CheckBox Ab, Am, Aä, B, Bi, Bp, Cp, Dp, Es, Fd, H, I, K, Lg, ME, Mn, Mu, MW, Ne, O, OP, Pa, Rb, Rs, So, Sp, Ti, Tp, VS, Z, Zu;
 
     @FXML LineChart<String, Number> lineChart;
 
@@ -62,37 +64,38 @@ public class Search {
                 reseller_checkbox[i] = new CheckBox(hrs.getBean().toString());
                 search_resellerVbox.getChildren().add(reseller_checkbox[i]);
                 int finalI = i;
-                reseller_checkbox[i].setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        setReseller(Integer.parseInt(reseller_checkbox[finalI].getText()),reseller_checkbox[finalI].isSelected());
-                    }
-                });
+                reseller_checkbox[i].setOnAction(event -> setReseller(Integer.parseInt(reseller_checkbox[finalI].getText()),reseller_checkbox[finalI].isSelected()));
             }
         }else{
             System.out.println("Error (src/main/Search) nullPointer in SearchValues");
         }
 
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); //mehrere Zeilen können ausgewählt werden
+
+        //TODO ggf. kürzen?
+        //Ersetzten durch Methode die im fxml hinterlegt wird -> Attribute set fxml kompatibel machen.
+        //TODO Verbuggt desshalb erstmal durch andere Methode ersetzt
+        /*CheckBox[] helper = {Ab, Am, Aä, B, Bi, Bp, Cp, Dp, Es, Fd, H, I, K, Lg, ME, Mn, Mu, MW, Ne, O, OP, Pa, Rb, Rs, So, Sp, Ti, Tp, VS, Z, Zu};
+        for(int i = 0; i < helper.length; i++){
+            int finalI = i;
+            helper[i].setOnAction(event -> setAttributes(helper[finalI].getId(), helper[finalI].isSelected()));
+        }*/
+
     }
 
     @FXML
-    private void search() throws IOException {
-
-        //  javafx.scene.layout.Pane newLoadedPane =        FXMLLoader.load(getClass().getResource("SearchListViewFXML.fxml"));   //nicht mehr benötigt: alles in mainscreen.fxml
-        //  Pane.getChildren().add(newLoadedPane);
-        //  AnchorPane.setTopAnchor(newLoadedPane,0.0);
-        //  AnchorPane.setBottomAnchor(newLoadedPane, 0.0);
-        //  AnchorPane.setLeftAnchor(newLoadedPane, 0.0);
-        //  AnchorPane.setRightAnchor(newLoadedPane, 0.0);
-
+    private void search() {
         TextField[] search_values = new TextField[] {search_productname, search_manufacturer, search_brand, search_product, search_productgroup, search_unitprice, search_units, search_packprice};
 
-        String whereClause = "SELECT * FROM OVERVIEW WHERE ";
+        //WHERE Clause für die erste Abfrage
+        String whereClause = "SELECT DISTINCT Manufacturer,Brand,Product FROM OVERVIEW WHERE ";
+
+        //WHERE Clause wenn ein Feld ausgewählt wurde
+        //String whereClause = "SELECT * FROM OVERVIEW WHERE ";
 
         for(int i = 0; i < search_values.length; i++){
             if(search_values[i].getText() != null && search_values[i].getText().length() > 0){
-                if(whereClause.length() > 29){
+                if(whereClause.length() > whereLength){
                     whereClause = whereClause + " and " + search_values[i].getId() + " like '%" + search_values[i].getText() + "%' ";
                 }else{
                     whereClause = whereClause + search_values[i].getId() + " like '%" + search_values[i].getText() + "%' ";
@@ -103,7 +106,7 @@ public class Search {
         //ResellerCheckBox
         if(TempDatabase.ResellerWhere != null && TempDatabase.ResellerWhere.size() > 0){
             StringBuilder checkboxes;
-            if(whereClause.length() > 29){
+            if(whereClause.length() > whereLength){
                 checkboxes = new StringBuilder(" and Reseller in (");
             }else{
                 checkboxes = new StringBuilder(" Reseller in (");
@@ -127,7 +130,7 @@ public class Search {
 
         //DatePickerFrom
         if(datePickerFrom.getEditor().getText().length() == 10){
-            if(whereClause.length() > 29) {
+            if(whereClause.length() > whereLength) {
                 whereClause = whereClause + " and";
             }
             whereClause = whereClause + " Week >= " + getWeek(datePickerFrom);
@@ -136,12 +139,25 @@ public class Search {
 
         //DatePickerTo
         if(datePickerTo.getEditor().getText().length() == 10){
-            if(whereClause.length() > 29) {
+            if(whereClause.length() > whereLength) {
                 whereClause = whereClause + " and";
             }
             whereClause = whereClause + " Week <= " + getWeek(datePickerTo);
         }
         //DatePickerTo End
+
+
+        //Attributes Start
+        CheckBox[] checkbox_helper = {Ab, Am, Aä, B, Bi, Bp, Cp, Dp, Es, Fd, H, I, K, Lg, ME, Mn, Mu, MW, Ne, O, OP, Pa, Rb, Rs, So, Sp, Ti, Tp, VS, Z, Zu};
+        for(int i = 0; i < checkbox_helper.length; i++){
+            if(checkbox_helper[i].isSelected()) {
+                if (whereClause.length() > whereLength) {
+                    whereClause = whereClause + " and";
+                }
+                whereClause = whereClause + " Attributes like '%" + checkbox_helper[i].getId() + "%'";
+            }
+        }
+        //Attributes End
 
         System.out.println(whereClause);
 
@@ -172,8 +188,8 @@ public class Search {
        }
     }
 
-    public void showResults(){  //Sucheregbnisse in Tabelle anzeigen
-//        ObservableList[] helps = new ObservableList[TempDatabase.searchValues.ColumnLength];
+    private void showResults(){
+        //Sucheregbnisse in Tabelle anzeigen
 
         //Tabelle leeren
         tableView.getColumns().clear();
@@ -185,19 +201,6 @@ public class Search {
             TableColumn<ObservableList<String>, String> tableColumn = new TableColumn<>(TempDatabase.searchValues.ColumnNames[i]);
             tableColumn.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>((cellData.getValue().get(index))));
             tableView.getColumns().add(tableColumn);
-            //ende
-
-            //tableColumn.setCellValueFactory(new PropertyValueFactory<>(TempDatabase.searchValues.ColumnNames[i]));
-
-            //RICHTIG:  tableView.getItems().add(items);
-            /*
-
-        for(int i = 0; i < TempDatabase.searchValues.ColumnLength; i++){
-            TableColumn tableColumn = new TableColumn(TempDatabase.searchValues.ColumnNames[i]);
-            tableColumn.setCellValueFactory(new PropertyValueFactory<>(TempDatabase.searchValues.ColumnNames[i]));
-
-            tableView.setItems();
-  */
         }
 
         //item-liste befuellen
@@ -223,23 +226,15 @@ public class Search {
             System.out.println("FML :" + helps[l]);
             tableView.getItems().add(helps[l]);
         }
-        //TableColumn<String, String> tableColumn = new TableColumn<>("Marke");
-        //tableColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
-
-        //tableView.getColumns().add(tableColumn);
-        //ObservableList<String> items = FXCollections.observableArrayList(TempDatabase.searchValues.ColumnNames[0]); //FXCollections.observableArrayList("abc", "abc2", "abc3", "abc4", "abc5");
-        //tableView.setItems(items);
     }
 
 
     public ArrayList<String> getSelectedRowValues(){ //ausgewaehlte Zeilen der Tabelle ausgeben
-        ArrayList<String> selectedRowsArray = new ArrayList<String>();
+        ArrayList<String> selectedRowsArray = new ArrayList<>();
 
         if(tableView.getSelectionModel().getSelectedItem()!=null){
             Object selectedItems = tableView.getSelectionModel().getSelectedItems();
-            //for(int i=0; i<tableView.getSelectionModel().getSelectedItems().size(); i++) { //i = Anzahl ausgewählter Zeilen
-            //String column = selectedItems.toString().split(",")[i].substring(1);
-            //System.out.println("Zeilen : " + column);
+
             String selectedRows = selectedItems.toString();
             System.out.println("alle zeilen : " + selectedRows);
             String[] columnSplit = selectedRows.split("\\[");
@@ -281,8 +276,14 @@ public class Search {
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
-            String week = "" + cal.get(Calendar.WEEK_OF_YEAR);
+            String week = ""+cal.get(Calendar.WEEK_OF_YEAR);
             int year = cal.get(Calendar.YEAR);
+
+            //Schleife wird benötigt, da sonst die Woche 53 im Januar dem aktuellen Jahr zugewiesen wird z.B. 1.1.2016 = 201653 -> wäre falsch
+            if(Integer.parseInt(week) > 10 && cal.get(Calendar.MONTH) < 2 ){
+                year = year - 1;
+            }
+            //Ende der benötigten Schleife
 
             if (week.length() == 1) {
                 week = 0 + week;
@@ -337,6 +338,7 @@ public class Search {
 
     private static void setReseller(int ResellerID, boolean add){
         if(TempDatabase.ResellerWhere == null){
+            //TODO Theoretischer Bugg möglich wenn das Programm mit nem bugg starten sollte.
             TempDatabase.ResellerWhere = new ArrayList();
             TempDatabase.ResellerWhere.add(""+ResellerID);
         }else{
@@ -347,4 +349,18 @@ public class Search {
             }
         }
     }
+
+    /*private static void setAttributes(String attributes, boolean add){
+        System.out.println("AMK :"+attributes);
+        if(TempDatabase.AttributesWhere == null){
+            TempDatabase.ResellerWhere = new ArrayList();
+            TempDatabase.AttributesWhere.add(attributes);
+        }else{
+            if(add){
+                TempDatabase.AttributesWhere.add(attributes);
+            }else{
+                TempDatabase.AttributesWhere.remove(""+attributes);
+            }
+        }
+    }*/
 }

@@ -12,4 +12,5 @@ public class TempDatabase {
     public static SearchValues searchValues;
 
     public static List ResellerWhere;
+    public static List AttributesWhere;
 }
