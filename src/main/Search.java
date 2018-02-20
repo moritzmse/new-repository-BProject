@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -75,7 +76,6 @@ public class Search {
             System.out.println("Error (src/main/Search) nullPointer in SearchValues");
         }
 
-        tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); //mehrere Zeilen können ausgewählt werden
 
         //TODO ggf. kürzen?
         //Ersetzten durch Methode die im fxml hinterlegt wird -> Attribute set fxml kompatibel machen.
@@ -85,6 +85,32 @@ public class Search {
             int finalI = i;
             helper[i].setOnAction(event -> setAttributes(helper[finalI].getId(), helper[finalI].isSelected()));
         }*/
+
+        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);//nur eine Zeile kann ausgewaehlt werden //-->(SelectionMode.MULTIPLE); //mehrere Zeilen können ausgewählt werden
+
+        /*tableView.setOnMousePressed(new EventHandler<MouseEvent>() {        //Auf Doppelklick Zeile zurückgeben
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                    System.out.println(tableView.getSelectionModel().getSelectedItem());
+                    Object selectedItem = tableView.getSelectionModel().getSelectedItem();
+                    getSelectedRowValues(selectedItem);
+                    //... Suche aufrufen mit ausgewähltem Produkt + Filtern; Graph generieren etc
+                }
+            }
+        });*/
+
+        tableView.setRowFactory( tv -> {
+            TableRow<ObservableList<String>> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    ObservableList<String> rowData = row.getItem();
+                    System.out.println(rowData);
+                    getSelectedRowValues(row);
+                }
+            });
+            return row ;
+        });
 
     }
 
@@ -234,17 +260,27 @@ public class Search {
     }
 
 
-    public ArrayList<String> getSelectedRowValues(){ //ausgewaehlte Zeilen der Tabelle ausgeben
-        ArrayList<String> selectedRowsArray = new ArrayList<>();
+
+
+    public ArrayList<String> getSelectedRowValues(TableRow row){ //ausgewaehlte Zeilen/Zeile der Tabelle ausgeben
+        ArrayList<String> selectedRowsArray = new ArrayList<String>();
+        TableRow<ObservableList<String>> selectedItems =  row;
 
         if(tableView.getSelectionModel().getSelectedItem()!=null){
-            Object selectedItems = tableView.getSelectionModel().getSelectedItems();
+                     // Object selectedItems = tableView.getSelectionModel().getSelectedItems(); //Problem mit Kommata
 
-            String selectedRows = selectedItems.toString();
-            System.out.println("alle zeilen : " + selectedRows);
-            String[] columnSplit = selectedRows.split("\\[");
+            //for(int i=0; i<tableView.getSelectionModel().getSelectedItems().size(); i++) { //i = Anzahl ausgewählter Zeilen
+            //String column = selectedItems.toString().split(",")[i].substring(1);
+            //System.out.println("Zeilen : " + column);
+            for(int i = 0; i < tableView.getSelectionModel().getSelectedItem().size(); i++){  //Spalten der ausgewählte Zeile in Array schreiben
+                selectedRowsArray.add(tableView.getSelectionModel().getSelectedItem().get(i));
+            }
 
-            for(int j=0; j<columnSplit.length; j++){
+            //String selectedRows = selectedItems.toString();           //unnoetig: nur noch eine Zeile kann gleichzeitig ausgewaehlt werden
+            //System.out.println("alle zeilen : " + selectedRows);
+            //String[] columnSplit = selectedRows.split("\\[");
+
+            /*for(int j=0; j<columnSplit.length; j++){
                 System.out.println(columnSplit.length);
                 System.out.println("split: " + columnSplit[j]);
                 if(columnSplit[j].isEmpty()){
@@ -253,14 +289,18 @@ public class Search {
                 else{
                     selectedRowsArray.add(columnSplit[j]); //Tabellenzeilen zur Liste hinzufuegen
                 }
-            }
-            for(int k=0; k<selectedRowsArray.size(); k++){
-                System.out.println("selectedRows Array: "+k + " _ " +selectedRowsArray.get(k));
-            }
+            }*/
+
+
+                /*for(int k=0; k<selectedRowsArray.size(); k++){
+                    System.out.println("selectedRows Array: "+k + " _ " +selectedRowsArray.get(k));
+                }*/
             //return selectedRows;
+
+            //Aufruf der Graphengenerierung
             try {
                 generateLineChart(selectedRowsArray); //Graph generieren
-                displayTextCalculation(selectedRowsArray); //Text mit Berechnungen anzeigen
+               // displayTextCalculation(selectedRowsArray); //Text mit Berechnungen anzeigen //muss ueberarbeitet werden
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -311,19 +351,23 @@ public class Search {
 //        lineChart.getData().add(series);
 
         for(int i=0; i<selectedRowValues.size(); i++){
-            String[] elementList = selectedRowValues.get(i).split(",[ ]*");
-            String string = elementList[2];
-            Number number = NumberFormat.getInstance().parse(elementList[6]);
-            //Date date = ...;
-            String date = elementList[4];
+
+            //String[] elementList = selectedRowValues.get(i).split(",[ ]*");
+            //String string = elementList[2];
+            String string = selectedRowValues.get(TempDatabase.productPosition);  //Produktname
+            //Number number = NumberFormat.getInstance().parse(elementList[6]);
+            Number number = NumberFormat.getInstance().parse(selectedRowValues.get(TempDatabase.pricePosition)); //Unit Price
+            //String date = elementList[4];
+            String date = selectedRowValues.get(TempDatabase.weekPosition);
                 Date d = new SimpleDateFormat("yyyyww").parse(date);
                 String output = new SimpleDateFormat("yyyy-ww").format(d);
-                System.out.println("output = " + output);
+                //System.out.println("output = " + output);
 
-            series.getData().add(new XYChart.Data<String, Number>(date, number));
+            series.getData().add(new XYChart.Data<String, Number>(output, number));
         }
-        String[] elementList = selectedRowValues.get(0).split(",[ ]*");
-        String productName = elementList[2];
+        //String[] elementList = selectedRowValues.get(0).split(",[ ]*");
+        //String productName = elementList[2];
+        String productName = selectedRowValues.get(TempDatabase.productPosition);
         series.setName(productName/*"Product"*/);
         lineChart.getData().add(series);
     }

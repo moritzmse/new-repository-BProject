@@ -242,7 +242,7 @@
                 <AnchorPane>
                <children>
                   <Text fx:id="textCalculation" layoutX="27.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-                                <Button layoutX="14.0" layoutY="512.0" mnemonicParsing="false" onAction="#getSelectedRowValues" text="Zeilen auswählen" />
+                                <Button layoutX="14.0" layoutY="512.0" mnemonicParsing="false" text="Zeilen auswählen" />
                </children></AnchorPane>
             </items>
         </SplitPane>

@@ -13,4 +13,9 @@ public class TempDatabase {
 
     public static List ResellerWhere;
     public static List AttributesWhere;
+
+    //Vars
+    public static int pricePosition = 6;
+    public static int productPosition = 2;
+    public static int weekPosition = 4;
 }
