@@ -13,10 +13,13 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.input.KeyEvent;
 
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,6 +35,8 @@ public class Search {
     public VBox search_resellerVbox;
     public TitledPane search_resellerPane;
     public AnchorPane Pane;
+    public Button search_button;
+    public VBox vboxMain;
 
     private CheckBox[] reseller_checkbox;
 
@@ -276,7 +281,7 @@ public class Search {
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
-            String week = ""+cal.get(Calendar.WEEK_OF_YEAR);
+            String week = "" + cal.get(Calendar.WEEK_OF_YEAR);
             int year = cal.get(Calendar.YEAR);
 
             //Schleife wird benötigt, da sonst die Woche 53 im Januar dem aktuellen Jahr zugewiesen wird z.B. 1.1.2016 = 201653 -> wäre falsch
@@ -346,6 +351,23 @@ public class Search {
                 TempDatabase.ResellerWhere.add(""+ResellerID);
             }else{
                 TempDatabase.ResellerWhere.remove(""+ResellerID);
+            }
+        }
+    }
+
+    @FXML
+    public void enterListener(KeyEvent e) throws IOException {
+        if(e.getCode().equals(KeyCode.ENTER)){
+            search();
+        }
+    }
+    public void enterListenerExtended(KeyEvent e){
+       if(e.getCode().equals(KeyCode.ENTER)){
+            for(int i = 0; i < vboxMain.getChildren().size();i++){
+                if(vboxMain.getChildren().get(i).isFocused() && vboxMain.getChildren().get(i+2) instanceof TextField && i+2<vboxMain.getChildren().size()){
+                    vboxMain.getChildren().get(i+2).requestFocus();
+                    break;
+                }
             }
         }
     }
