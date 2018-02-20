@@ -74,7 +74,7 @@
             <items>
                 <AnchorPane>
                     <children>
-                        <TextField id="Brand" fx:id="search_productname" layoutX="37.0" layoutY="24.0" promptText="Produkt Suche" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="36.599999999999994" AnchorPane.topAnchor="24.0" />
+                        <TextField id="Brand" fx:id="search_productname" onKeyPressed="#enterListener" layoutX="37.0" layoutY="24.0" promptText="Produkt Suche" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="36.599999999999994" AnchorPane.topAnchor="24.0" />
                         <Button fx:id="search_button" layoutX="85.0" layoutY="510.0" mnemonicParsing="false" onAction="#search" text="Suchen" AnchorPane.bottomAnchor="15.600000000000044" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="82.2" />
                         <Separator layoutY="63.0" prefHeight="3.2" prefWidth="222.4" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="63.0" />
                         <Separator layoutX="1.0" layoutY="494.0" prefHeight="3.2" prefWidth="222.4" AnchorPane.bottomAnchor="54.00000000000006" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" />
@@ -86,14 +86,14 @@
                                             <children>
                                                 <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <content>
-                                                        <VBox spacing="5.0">
+                                                        <VBox fx:id="vboxMain" onKeyPressed="#enterListenerExtended" spacing="5.0">
                                                             <children>
                                                                 <Label text="Manufacturer" />
                                                                 <TextField fx:id="search_manufacturer" />
                                                                 <Label text="Brand" />
                                                                 <TextField fx:id="search_brand" />
                                                                 <Label text="Product" />
-                                                                <TextField fx:id="search_product" />
+                                                                <TextField fx:id="search_product"/>
                                                                 <Label text="ProductGroup" />
                                                                 <TextField fx:id="search_productgroup" />
                                                                 <Label text="Reseller" />
