@@ -262,7 +262,7 @@ public class Search {
 
 
 
-    public ArrayList<String> getSelectedRowValues(TableRow row){ //ausgewaehlte Zeilen/Zeile der Tabelle ausgeben
+    public ArrayList<String> getSelectedRowValues(TableRow row){ //ausgewaehlte Zeilen/Zeile der Tabelle ausgeben //neu: neue Suchanfrage starten zu ausgewählter Zeile für restliche Einträge
         ArrayList<String> selectedRowsArray = new ArrayList<String>();
         TableRow<ObservableList<String>> selectedItems =  row;
 
@@ -298,16 +298,131 @@ public class Search {
             //return selectedRows;
 
             //Aufruf der Graphengenerierung
-            try {
-                generateLineChart(selectedRowsArray); //Graph generieren
+            /*try {
+               // generateLineChart(selectedRowsArray); //Graph generieren //wieder aktivieren
                // displayTextCalculation(selectedRowsArray); //Text mit Berechnungen anzeigen //muss ueberarbeitet werden
             } catch (ParseException e) {
                 e.printStackTrace();
-            }
+            }*/
+            additionalSearch(selectedRowsArray);
             return selectedRowsArray;
         }
         else{
             return null;
+        }
+    }
+
+    private void additionalSearch( ArrayList<String> selectedRowsArray){
+        int whereLength2 = 29;
+        TextField[] search_values = new TextField[] {search_productname, search_manufacturer, search_brand, search_product, search_productgroup, search_unitprice, search_units, search_packprice};
+        search_productname.setText(selectedRowsArray.get(TempDatabase.brandPosition));//oberstes Suchfeld, brand
+        search_manufacturer.setText(selectedRowsArray.get(TempDatabase.manufacturerPosition));//manufacturer
+        search_brand.setText(selectedRowsArray.get(TempDatabase.brandPosition));//search_brand
+        search_product.setText(selectedRowsArray.get(TempDatabase.productPosition));
+
+        //WHERE Clause für die erste Abfrage
+        String whereClause = "SELECT * FROM OVERVIEW WHERE ";
+
+        //WHERE Clause wenn ein Feld ausgewählt wurde
+        //String whereClause = "SELECT * FROM OVERVIEW WHERE ";
+
+        for(int i = 0; i < search_values.length; i++){
+            System.out.println("search value ids: " + search_values[i].getId());
+            if(search_values[i].getText() != null && search_values[i].getText().length() > 0){
+                if(whereClause.length() > whereLength2){
+                    whereClause = whereClause + " and " + search_values[i].getId() + " like '%" + search_values[i].getText() + "%' ";
+                }else{
+                    whereClause = whereClause + search_values[i].getId() + " like '%" + search_values[i].getText() + "%' ";
+                }
+            }
+        }
+
+       // if(search_values[TempDatabase.productPosition].getText() != null && search_values[TempDatabase.productPosition].getText().length() > 0){
+        //}
+
+
+        //ResellerCheckBox
+        if(TempDatabase.ResellerWhere != null && TempDatabase.ResellerWhere.size() > 0){
+            StringBuilder checkboxes;
+            if(whereClause.length() > whereLength2){
+                checkboxes = new StringBuilder(" and Reseller in (");
+            }else{
+                checkboxes = new StringBuilder(" Reseller in (");
+            }
+
+            Boolean firstReseller = true;
+            for(int i = 0; i < TempDatabase.ResellerWhere.size(); i++){
+                if(firstReseller) {
+                    checkboxes.append(TempDatabase.ResellerWhere.get(i));
+                    firstReseller = false;
+                }else{
+                    checkboxes.append(","+TempDatabase.ResellerWhere.get(i));
+                }
+            }
+            checkboxes.append(") ");
+
+            whereClause = whereClause+checkboxes.toString();
+
+        }
+        //ResellerCheckBox End
+
+        //DatePickerFrom
+        if(datePickerFrom.getEditor().getText().length() == 10){
+            if(whereClause.length() > whereLength2) {
+                whereClause = whereClause + " and";
+            }
+            whereClause = whereClause + " Week >= " + getWeek(datePickerFrom);
+        }
+        //DatePickerFrom End
+
+        //DatePickerTo
+        if(datePickerTo.getEditor().getText().length() == 10){
+            if(whereClause.length() > whereLength2) {
+                whereClause = whereClause + " and";
+            }
+            whereClause = whereClause + " Week <= " + getWeek(datePickerTo);
+        }
+        //DatePickerTo End
+
+
+        //Attributes Start
+        CheckBox[] checkbox_helper = {Ab, Am, Aä, B, Bi, Bp, Cp, Dp, Es, Fd, H, I, K, Lg, ME, Mn, Mu, MW, Ne, O, OP, Pa, Rb, Rs, So, Sp, Ti, Tp, VS, Z, Zu};
+        for(int i = 0; i < checkbox_helper.length; i++){
+            if(checkbox_helper[i].isSelected()) {
+                if (whereClause.length() > whereLength2) {
+                    whereClause = whereClause + " and";
+                }
+                whereClause = whereClause + " Attributes like '%" + checkbox_helper[i].getId() + "%'";
+            }
+        }
+        //Attributes End
+
+        System.out.println(whereClause);
+
+        SearchValues resultValues = MariaDB_Search.search(whereClause);
+
+        if(resultValues != null) {
+            List<Object[]> values = resultValues.Values;
+
+            values.size();
+            for (int i = 0; i < values.size(); i++) {
+                Object[] help = values.get(i);
+
+                System.out.println("FML: " + values.size());
+                System.out.print(i + 1 + " :");
+                for (int j = 0; j < resultValues.ColumnLength; j++) {
+                    StringProperty abs = (StringProperty) help[j];
+                    System.out.print(abs.getBean());
+                }
+            }
+        }else{
+            System.out.println("Error (src/main/Search) nullPointer in SearchValues");
+        }
+
+        TempDatabase.searchValues = resultValues;
+        if(resultValues != null){
+            //showResults();
+            System.out.println("knorf knorf: " + TempDatabase.searchValues.Values.get(0));
         }
     }
 
@@ -344,6 +459,7 @@ public class Search {
 
     public void generateLineChart(ArrayList<String> selectedRowValues) throws ParseException {
         //Muss geändert werden: X-Achse Monate, Y-Achse Preise, ...
+        //soll  TempDatabase.searchValues nutzen
         lineChart.getData().clear();
         XYChart.Series<String, Number> series = new XYChart.Series<>();
 //        series.getData().add(new XYChart.Data<String, Number>("Name", 100));

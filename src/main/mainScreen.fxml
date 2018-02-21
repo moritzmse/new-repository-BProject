@@ -89,10 +89,10 @@
                                                         <VBox fx:id="vboxMain" onKeyPressed="#enterListenerExtended" spacing="5.0">
                                                             <children>
                                                                 <Label text="Manufacturer" />
-                                                                <TextField fx:id="search_manufacturer" />
+                                                                <TextField id="Manufacturer" fx:id="search_manufacturer" />
 
                                                                 <Label text="Brand" />
-                                                                <TextField fx:id="search_brand" />
+                                                                <TextField id="Brand" fx:id="search_brand" />
 
                                                                 <Label text="Product" />
                                                                 <TextField id="Product" fx:id="search_product" />

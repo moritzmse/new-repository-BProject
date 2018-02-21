@@ -18,4 +18,6 @@ public class TempDatabase {
     public static int pricePosition = 6;
     public static int productPosition = 2;
     public static int weekPosition = 4;
+    public static int manufacturerPosition = 0;
+    public static int brandPosition = 1;
 }
