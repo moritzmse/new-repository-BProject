@@ -12,12 +12,13 @@ public class TempDatabase {
     public static SearchValues searchValues;
 
     public static List ResellerWhere;
-    public static List AttributesWhere;
+    //public static List AttributesWhere;
 
     //Vars
-    public static int pricePosition = 6;
-    public static int productPosition = 2;
-    public static int weekPosition = 4;
     public static int manufacturerPosition = 0;
     public static int brandPosition = 1;
+    public static int productPosition = 2;
+    public static int weekPosition = 4;
+    //TODO überprüfen
+    public static int pricePosition = 6;
 }
