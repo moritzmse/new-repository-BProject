@@ -225,7 +225,7 @@
                                        <children>
                                           <LineChart fx:id="lineChart" prefHeight="523.0" prefWidth="415.0" title="Preisverlauf" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <xAxis>
-                                              <CategoryAxis label="CalenderWeek" side="BOTTOM" />
+                                              <NumberAxis label="CalenderWeek" side="BOTTOM" />
                                             </xAxis>
                                             <yAxis>
                                               <NumberAxis label="UnitPrice" side="LEFT" />
