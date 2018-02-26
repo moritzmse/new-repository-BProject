@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -69,7 +76,7 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <SplitPane dividerPositions="0.2594654788418708, 0.7282850779510023" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+        <SplitPane dividerPositions="0.2594654788418708" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
             <items>
                 <AnchorPane>
                     <children>
@@ -109,7 +116,8 @@
                                                                                         <VBox fx:id="search_resellerVbox">
                                                                                             <padding>
                                                                                                 <Insets top="5.0" />
-                                                                                            </padding></VBox>
+                                                                                            </padding>
+                                                                                        </VBox>
                                                                                     </children>
                                                                                 </AnchorPane>
                                                                             </content>
@@ -203,46 +211,58 @@
                 </AnchorPane>
                 <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="-1.0" prefWidth="-1.0">
                     <content>
-                        <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0">
+                        <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="347.0" prefWidth="661.0">
                             <children>
-                                <TabPane layoutX="14.0" prefHeight="551.2" prefWidth="435.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                    <tabs>
-                                        <Tab closable="false" text="Untitled Tab 1">
-                                            <content>
-                                                <AnchorPane fx:id="Pane">
-                                                    <children>
-                                                        <TableView fx:id="tableView" layoutX="56.0" layoutY="69.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                            <columns>
-                                                            </columns>
-                                                        </TableView>
-                                                    </children></AnchorPane>
-                                            </content>
-                                        </Tab>
-                                        <Tab text="Untitled Tab 2">
-                                            <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <LineChart fx:id="lineChart" prefHeight="523.0" prefWidth="415.0" title="Preisverlauf" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                            <xAxis>
-                                              <NumberAxis label="CalenderWeek" side="BOTTOM" />
-                                            </xAxis>
-                                            <yAxis>
-                                              <NumberAxis label="UnitPrice" side="LEFT" />
-                                            </yAxis>
-                                          </LineChart>
-                                       </children></AnchorPane>
-                                            </content>
-                                        </Tab>
-                                    </tabs>
-                                </TabPane>
-                            </children></AnchorPane>
+                                <SplitPane dividerPositions="0.8333333333333334" orientation="VERTICAL" prefHeight="542.0" prefWidth="663.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <items>
+                                        <AnchorPane>
+                                            <children>
+                                                <TabPane layoutX="14.0" prefHeight="273.0" prefWidth="661.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                    <tabs>
+                                                        <Tab text="Untitled Tab 1">
+                                                            <content>
+                                                                <AnchorPane fx:id="Pane" prefHeight="427.0" prefWidth="661.0">
+                                                                    <children>
+                                                                        <TableView fx:id="tableView" layoutX="56.0" layoutY="69.0" prefHeight="356.0" prefWidth="661.0" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                            <columns>
+                                                                            </columns>
+                                                                        </TableView>
+                                                                    </children>
+                                                                </AnchorPane>
+                                                            </content>
+                                                        </Tab>
+                                                        <Tab text="Untitled Tab 2">
+                                                            <content>
+                                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="661.0">
+                                                                    <children>
+                                                                        <LineChart fx:id="lineChart" prefHeight="353.0" prefWidth="661.0" title="Preisverlauf" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                            <xAxis>
+                                                                                <NumberAxis label="CalenderWeek" side="BOTTOM" />
+                                                                            </xAxis>
+                                                                            <yAxis>
+                                                                                <NumberAxis label="UnitPrice" side="LEFT" />
+                                                                            </yAxis>
+                                                                        </LineChart>
+                                                                    </children>
+                                                                </AnchorPane>
+                                                            </content>
+                                                        </Tab>
+                                                    </tabs>
+                                                </TabPane>
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane prefHeight="198.0" prefWidth="661.0">
+                                 <children>
+                                    <Label fx:id="MinPreis" layoutX="27.0" layoutY="14.0" text="MinPreis" />
+                                    <Label fx:id="MaxPreis" layoutX="27.0" layoutY="44.0" text="MaxPreis" />
+                                    <Label fx:id="AvgPreis" layoutX="262.0" layoutY="14.0" text="AvgPreis" />
+                                 </children></AnchorPane>
+                                    </items>
+                                </SplitPane>
+                            </children>
+                        </AnchorPane>
                     </content>
                 </ScrollPane>
-                <AnchorPane>
-               <children>
-                  <Text fx:id="textCalculation" layoutX="27.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-                                <Button layoutX="14.0" layoutY="512.0" mnemonicParsing="false" text="Zeilen auswählen" />
-               </children></AnchorPane>
             </items>
         </SplitPane>
         <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
@@ -255,7 +275,7 @@
                         <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
                     </textFill>
                 </Label>
-                <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+                <Pane HBox.hgrow="ALWAYS" />
                 <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
                 <VBox />
             </children>

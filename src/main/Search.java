@@ -1,5 +1,7 @@
 package main;
 
+import calculations.Attribute;
+import calculations.Calculations;
 import database.MariaDB_Commands;
 import database.MariaDB_Search;
 import database.SearchValues;
@@ -35,6 +37,9 @@ public class Search {
     public Button search_button;
     public VBox vboxMain;
     public LineChart lineChart;
+    public Label MinPreis;
+    public Label MaxPreis;
+    public Label AvgPreis;
 
     private CheckBox[] reseller_checkbox;
 
@@ -198,6 +203,13 @@ public class Search {
 
         //TODO Hier die Methode rein, welche den Graphen anzeigt.
         createLineChart();
+        MaxPreis.setText("MaxPreis: " + String.valueOf(Calculations.calculateMaxPreis()) + "€");
+        MinPreis.setText("MinPreis: " + String.valueOf(Calculations.calculateMinPreis())+ "€");
+        AvgPreis.setText("AvgPreis: " + String.valueOf(Calculations.calculateAvgPreis())+ "€");
+       //Calculations.createAttribute();
+        // System.out.println(Calculations.createAttribute().size());
+       // System.out.println(Calculations.createAttribute().get(0).getCounter());
+
 
         //Idee: nach der Suche die Filter auf enabled flase setzen, dadurch wird filter ändern gesperrt, bevor ein genaues produkt gewählt wird. der neue filter wird da nämlich nicht beachtet werden
         //Oder sobald ein Filter geändert wird die Ergebnissliste Resetten, damit erst neu "richtig" gesucht werden muss.

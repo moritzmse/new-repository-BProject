@@ -21,4 +21,5 @@ public class TempDatabase {
     public static int weekPosition = 4;
     //TODO überprüfen
     public static int pricePosition = 6;
+    public static int attributePosition = 9;
 }
