@@ -209,6 +209,13 @@ public class Search {
        //Calculations.createAttribute();
         // System.out.println(Calculations.createAttribute().size());
        // System.out.println(Calculations.createAttribute().get(0).getCounter());
+//      List<Attribute> a = new ArrayList<Attribute>();
+//      a= Calculations.createAttribute();
+//      System.out.println("Size" + a.size());
+//      for(int i = 0; i<a.size();i++){
+//          System.out.println(a.get(i).getName() +" " + a.get(i).getCounter());
+//      }
+//        Calculations.createAttribute();
 
 
         //Idee: nach der Suche die Filter auf enabled flase setzen, dadurch wird filter ändern gesperrt, bevor ein genaues produkt gewählt wird. der neue filter wird da nämlich nicht beachtet werden
