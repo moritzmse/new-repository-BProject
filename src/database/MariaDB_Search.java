@@ -1,6 +1,7 @@
 package database;
 
 import javafx.beans.property.SimpleStringProperty;
+import warning.Warnings;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -29,20 +30,27 @@ public class MariaDB_Search extends  TempDatabase{
             //First Line
             Object[] resultObjectFirst = new Object[columnLength];
 
-            //TODO Error:"Current position is after the last row" in der Schleife wenn kein Datensatz existiert
-            for(int i = 0; i < columnLength; i++ ){
-                resultObjectFirst[i] = new SimpleStringProperty (resultSet.getObject(i+1),columnNames[i]);
-            }
-            Output.add(resultObjectFirst);
-
-            while (resultSet.next()){
-                Object[] resultObject = new Object[columnLength];
-                for(int i = 0; i < columnLength; i++ ){
-                    resultObject[i] = new SimpleStringProperty (resultSet.getObject(i+1),columnNames[i]);
+            try {
+                for (int i = 0; i < columnLength; i++) {
+                    resultObjectFirst[i] = new SimpleStringProperty(resultSet.getObject(i + 1), columnNames[i]);
                 }
 
-                //Output.addAll(resultObject);
-                Output.add(resultObject);
+
+                Output.add(resultObjectFirst);
+
+                while (resultSet.next()) {
+                    Object[] resultObject = new Object[columnLength];
+                    for (int i = 0; i < columnLength; i++) {
+                        resultObject[i] = new SimpleStringProperty(resultSet.getObject(i + 1), columnNames[i]);
+                    }
+
+                    //Output.addAll(resultObject);
+                    Output.add(resultObject);
+                }
+
+            }catch (SQLDataException e){
+                Warnings.warningNoResults();
+                return null;
             }
 
             return new SearchValues(columnLength, columnNames, Output);

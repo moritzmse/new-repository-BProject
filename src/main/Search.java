@@ -70,13 +70,14 @@ public class Search {
 
 
         //TODO ggf. kürzen?
-        //Ersetzten durch Methode die im fxml hinterlegt wird -> Attribute set fxml kompatibel machen.
-        //TODO Verbuggt desshalb erstmal durch andere Methode ersetzt
-        /*CheckBox[] helper = {Ab, Am, Aä, B, Bi, Bp, Cp, Dp, Es, Fd, H, I, K, Lg, ME, Mn, Mu, MW, Ne, O, OP, Pa, Rb, Rs, So, Sp, Ti, Tp, VS, Z, Zu};
+        //Attributen Listener hinzufügen
+        //evtl. wenn möglich listener direkt in fxml hinterlegen mit values (sieht aber schlecht aus -> vmtl. nicht möglich)
+        CheckBox[] helper = {Ab, Am, Aä, B, Bi, Bp, Cp, Dp, Es, Fd, H, I, K, Lg, ME, Mn, Mu, MW, Ne, O, OP, Pa, Rb, Rs, So, Sp, Ti, Tp, VS, Z, Zu};
         for(int i = 0; i < helper.length; i++){
             int finalI = i;
             helper[i].setOnAction(event -> setAttributes(helper[finalI].getId(), helper[finalI].isSelected()));
-        }*/
+        }
+        //
 
         tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);//nur eine Zeile kann ausgewaehlt werden //-->(SelectionMode.MULTIPLE); //mehrere Zeilen können ausgewählt werden
 
@@ -158,13 +159,12 @@ public class Search {
 
 
         //Attributes Start
-        CheckBox[] checkbox_helper = {Ab, Am, Aä, B, Bi, Bp, Cp, Dp, Es, Fd, H, I, K, Lg, ME, Mn, Mu, MW, Ne, O, OP, Pa, Rb, Rs, So, Sp, Ti, Tp, VS, Z, Zu};
-        for(int i = 0; i < checkbox_helper.length; i++){
-            if(checkbox_helper[i].isSelected()) {
+        if(TempDatabase.AttributesWhere != null && TempDatabase.AttributesWhere.size() > 0){
+            for(int i = 0; i < TempDatabase.AttributesWhere.size(); i++) {
                 if (whereClause.length() > whereLength) {
                     whereClause = whereClause + " and";
                 }
-                whereClause = whereClause + " Attributes like '%" + checkbox_helper[i].getId() + "%'";
+                whereClause = whereClause + " Attributes like '%" + TempDatabase.AttributesWhere.get(i) + "%'";
             }
         }
         //Attributes End
@@ -178,6 +178,10 @@ public class Search {
 
         if(resultValues != null){
            showResults();
+        }else{
+            //TODO evtl. ne eigene clearMethode???
+            tableView.getColumns().clear();
+            tableView.getItems().clear();
         }
     }
 
@@ -315,29 +319,9 @@ public class Search {
         }
     }
 
-    @FXML
-    public void enterListener(KeyEvent e) throws IOException {
-        if(e.getCode().equals(KeyCode.ENTER)){
-            //TODO mit Markus abklären ob der Listener sich auf die suchleiste bezieht oder die ergebnis Tabelle
-            firstSearch();
-        }
-    }
-    public void enterListenerExtended(KeyEvent e){
-       if(e.getCode().equals(KeyCode.ENTER)){
-            for(int i = 0; i < vboxMain.getChildren().size();i++){
-                if(vboxMain.getChildren().get(i).isFocused() && vboxMain.getChildren().get(i+2) instanceof TextField && i+2<vboxMain.getChildren().size()){
-                    vboxMain.getChildren().get(i+2).requestFocus();
-                    break;
-                }
-            }
-        }
-    }
-
-    //TODO wieder implementieren würde die suche evtl. beschleunigen. Je nach Kapazität des systems aber vmtl nicht spürbar.
-    /*private static void setAttributes(String attributes, boolean add){
-        System.out.println("AMK :"+attributes);
+    private static void setAttributes(String attributes, boolean add){
         if(TempDatabase.AttributesWhere == null){
-            TempDatabase.ResellerWhere = new ArrayList();
+            TempDatabase.AttributesWhere = new ArrayList();
             TempDatabase.AttributesWhere.add(attributes);
         }else{
             if(add){
@@ -346,5 +330,24 @@ public class Search {
                 TempDatabase.AttributesWhere.remove(""+attributes);
             }
         }
-    }*/
+    }
+
+    @FXML
+    public void enterListener(KeyEvent e) throws IOException {
+        if(e.getCode().equals(KeyCode.ENTER)){
+            //TODO mit Markus abklären ob der Listener sich auf die suchleiste bezieht oder die ergebnis Tabelle
+            firstSearch();
+        }
+    }
+
+    public void enterListenerExtended(KeyEvent e){
+        if(e.getCode().equals(KeyCode.ENTER)){
+            for(int i = 0; i < vboxMain.getChildren().size();i++){
+                if(vboxMain.getChildren().get(i).isFocused() && vboxMain.getChildren().get(i+2) instanceof TextField && i+2<vboxMain.getChildren().size()){
+                    vboxMain.getChildren().get(i+2).requestFocus();
+                    break;
+                }
+            }
+        }
+    }
 }

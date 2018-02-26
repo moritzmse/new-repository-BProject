@@ -12,7 +12,7 @@ public class TempDatabase {
     public static SearchValues searchValues;
 
     public static List ResellerWhere;
-    //public static List AttributesWhere;
+    public static List AttributesWhere;
 
     //Vars
     public static int manufacturerPosition = 0;
