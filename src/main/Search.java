@@ -1,6 +1,5 @@
 package main;
 
-import calculations.Attribute;
 import calculations.Calculations;
 import database.MariaDB_Commands;
 import database.MariaDB_Search;
@@ -11,8 +10,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -36,10 +34,10 @@ public class Search {
     public AnchorPane Pane;
     public Button search_button;
     public VBox vboxMain;
-    public LineChart lineChart;
     public Label MinPreis;
     public Label MaxPreis;
     public Label AvgPreis;
+    public TabPane mainTabPane;
 
     private CheckBox[] reseller_checkbox;
 
@@ -50,8 +48,6 @@ public class Search {
     TableView<ObservableList<String>> tableView;//= new TableView<>();
 
     private String whereConditions;
-
-
 
     public void initialize(){
         SearchValues resultValues = MariaDB_Commands.resellerSearch();
@@ -202,7 +198,9 @@ public class Search {
 
 
         //TODO Hier die Methode rein, welche den Graphen anzeigt.
-        createLineChart();
+
+        showGraph();
+
         MaxPreis.setText("MaxPreis: " + String.valueOf(Calculations.calculateMaxPreis()) + "€");
         MinPreis.setText("MinPreis: " + String.valueOf(Calculations.calculateMinPreis())+ "€");
         AvgPreis.setText("AvgPreis: " + String.valueOf(Calculations.calculateAvgPreis())+ "€");
@@ -214,25 +212,6 @@ public class Search {
         //Idee: nach der Suche die Filter auf enabled flase setzen, dadurch wird filter ändern gesperrt, bevor ein genaues produkt gewählt wird. der neue filter wird da nämlich nicht beachtet werden
         //Oder sobald ein Filter geändert wird die Ergebnissliste Resetten, damit erst neu "richtig" gesucht werden muss.
 
-    }
-    //TODO reseller anzeigen, X axis in Date, Analysen
-    private void createLineChart(){
-        lineChart.getData().clear();
-        XYChart.Series series = new XYChart.Series();
-        if(TempDatabase.searchValues != null) {
-            List<Object[]> values = TempDatabase.searchValues.Values;
-            for (int i = 0; i < values.size(); i++) {
-                Object[] help = values.get(i);
-                if(help[4]!= null && help[6]!=null){
-                    String date = ((SimpleStringProperty) help[4]).getBean().toString();
-                    String price = ((SimpleStringProperty) help[6]).getBean().toString();
-                    double week = Double.parseDouble(date.substring(5,6));
-                    double priceFinal = Double.parseDouble(price.replace(",","."));
-                    series.getData().add(new XYChart.Data(week,priceFinal));
-                }
-            }
-            lineChart.getData().add(series);
-        }
     }
 
     private void showResults(){
@@ -360,6 +339,14 @@ public class Search {
                     break;
                 }
             }
+        }
+    }
+
+    private void showGraph(){
+        try {
+            mainTabPane.getTabs().add(FXMLLoader.load(this.getClass().getResource("/graph/graphPane.fxml")));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
