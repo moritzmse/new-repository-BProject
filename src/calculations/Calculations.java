@@ -105,7 +105,7 @@ public class Calculations {
 
     }
 
-    public static List<Attribute> createAttribute() {
+/*    public static List<Attribute> createAttribute() {
 
 
         List<Attribute> c = new ArrayList<Attribute>();
@@ -129,7 +129,8 @@ public class Calculations {
                 }
                 if(vorhanden==false) {
                     Attribute a2 = new Attribute(a.get(j), 1);
-                    c.add(c.size(), a2);
+                    //c.add(c.size(), a2);
+                    c.add(a2);
                     vorhanden = true;
                 }
             }
@@ -154,13 +155,73 @@ public class Calculations {
 
                }
               a.addAll(attributString);
+               System.out.println("a: " + a);
+               System.out.println("attributString: " + attributString);
            }
 
         }
         for(int j = 0; j<a.size(); j++){
             System.out.println(a.get(j));
         }
+    }*/
+
+
+    public static void createAttribute(){
+
+        List<String> attributString = new ArrayList<String>();
+
+
+        List<String> attributes = new ArrayList<>();
+        List<Integer> countAttributes = new ArrayList<>();
+
+        if(TempDatabase.searchValues != null){
+            List<Object[]> values = TempDatabase.searchValues.Values;
+            for(int i = 0; i < TempDatabase.searchValues.Values.size(); i++){
+                Object[] help = values.get(i);
+
+                if (help[9] != null) {
+                    String b = ((SimpleStringProperty) help[TempDatabase.attributePosition]).getBean().toString();
+                    attributString = Arrays.asList(b.split("[ ]*,[ ]*"));
+
+                    //die 1 muss dahin, weil sonst die leerstellen vorne weg auch gezählt werden
+                    for(int j = 1; j < attributString.size(); j++) {
+                        //System.out.println(attributString.get(j));
+
+                        //if(attributes.size() > 0) {
+
+                            String a = attributString.get(j);
+
+                            boolean helper = true;
+
+                            for (int k = 0; k < attributes.size(); k++) {
+                                if (attributes.get(k).equals(a)) {
+                                    countAttributes.set(k, countAttributes.get(k) + 1);
+                                    helper = false;
+                                    break;
+                                }
+                            }
+
+                            if (helper) {
+                                attributes.add(a);
+                                countAttributes.add(1);
+                            }
+                      //  }else{
+                         //   attributes.add(a);
+                        //    countAttributes.add(1);
+                        //}
+                    }
+                }
+            }
+        }
+
+        for(int i = 0; i < attributes.size(); i++){
+
+            System.out.println(attributes.get(i) + " : " + countAttributes.get(i));
+        }
     }
+
+//Attributanzahlen als Linechart, Balkendiagramm in neuem Tab?
+//Angebotshäufigkeit berechnen
 
 }
 
