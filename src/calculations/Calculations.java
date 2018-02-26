@@ -12,6 +12,8 @@ import java.util.List;
 
 public class Calculations {
 
+   private static List<String> a = new ArrayList<String>();
+
     public static double calculateMaxPreis() {
 
         double doubleHelper = 0.00;
@@ -103,80 +105,124 @@ public class Calculations {
 
     }
 
-    public static List<Attribute> createAttribute() {
+/*    public static List<Attribute> createAttribute() {
 
-        List<String> a = new ArrayList<String>();
+
         List<Attribute> c = new ArrayList<Attribute>();
+        boolean vorhanden = true;
 
-        if (TempDatabase.searchValues != null) {
-            List<Object[]> values = TempDatabase.searchValues.Values;
-            for (int i = 0; i < values.size(); i++) {
-                Object[] help = values.get(i);
-                if (help[TempDatabase.attributePosition] != null) {
-                    String b = ((SimpleStringProperty) help[TempDatabase.attributePosition]).getBean().toString();
-                    a = Arrays.asList(b.split("[ ]*,[ ]*"));
-                    System.out.println("null" + a.get(0));
-                    if (c.isEmpty() == true) {
-                        Attribute a1 = new Attribute(a.get(i), 1);
-                        System.out.println("apunktgeti" + a.get(i));
-                        c.add(0, a1);
-                    } else {
-                        for (int j = 0; j < c.size(); j++) {
-                            if (c.get(j).getName() == a.get(i)) {
-                                c.get(j).setCounter(c.get(j).getCounter() + 1);
-                            }
-                        }
-                        Attribute a2 = new Attribute(a.get(i), 1);
-                        c.add(c.size(), a2);
+        splitString();
 
-                    }
+        for (int j = 1; j < a.size(); j++) {    //keine ahnung warum k = 1 und nicht k = 0 lol
+
+            if (c.isEmpty() == true) {
+                Attribute a1 = new Attribute(a.get(j), 1);
+                System.out.println("Stelle 0: " + a.get(j));
+                c.add(0, a1);
+            } else {
+                for (int k = 0; k < c.size(); k++) {
+                    if (c.get(k).getName().equals(a.get(j))) {
+                        c.get(k).setCounter(c.get(k).getCounter() + 1);
+                        vorhanden = true;
+
+                    } else {vorhanden = false;}
                 }
-
-                System.out.println("Couter " + c.get(0).getCounter());
-                System.out.println("Name " + c.get(0).getName());
+                if(vorhanden==false) {
+                    Attribute a2 = new Attribute(a.get(j), 1);
+                    //c.add(c.size(), a2);
+                    c.add(a2);
+                    vorhanden = true;
+                }
             }
 
         }
-
-        return c;
+    return c;
     }
 
-    public List<Attribute> splitString() {
+    public static void splitString() {
 
-        List<String> a = new ArrayList<String>();
+        List<String> attributString = new ArrayList<String>();
         List<Attribute> c = new ArrayList<Attribute>();
+        boolean vorhanden = true;
 
         if (TempDatabase.searchValues != null) {
             List<Object[]> values = TempDatabase.searchValues.Values;
-            for (int i = 0; i < values.size(); i++) {
+           for (int i = 0; i < values.size(); i++) {
+               Object[] help = values.get(i);
+               if (help[9] != null) {
+                   String b = ((SimpleStringProperty) help[TempDatabase.attributePosition]).getBean().toString();
+                   attributString = Arrays.asList(b.split("[ ]*,[ ]*"));
+
+               }
+              a.addAll(attributString);
+               System.out.println("a: " + a);
+               System.out.println("attributString: " + attributString);
+           }
+
+        }
+        for(int j = 0; j<a.size(); j++){
+            System.out.println(a.get(j));
+        }
+    }*/
+
+
+    public static void createAttribute(){
+
+        List<String> attributString = new ArrayList<String>();
+
+
+        List<String> attributes = new ArrayList<>();
+        List<Integer> countAttributes = new ArrayList<>();
+
+        if(TempDatabase.searchValues != null){
+            List<Object[]> values = TempDatabase.searchValues.Values;
+            for(int i = 0; i < TempDatabase.searchValues.Values.size(); i++){
                 Object[] help = values.get(i);
+
                 if (help[9] != null) {
                     String b = ((SimpleStringProperty) help[TempDatabase.attributePosition]).getBean().toString();
-                    a = Arrays.asList(b.split("[ ]*,[ ]*"));
-                    for (int j = 0; j < a.size(); j++) {
-                        if (c.isEmpty() == true) {
-                            Attribute a1 = new Attribute(a.get(j), 1);
-                            System.out.println("Stelle 0: " + a.get(i));
-                            c.add(0, a1);
-                        } else {
-                            for (int k = 0; k < c.size(); k++) {
-                                if (c.get(k).getName() == a.get(j)) {
-                                    c.get(k).setCounter(c.get(k).getCounter() + 1);
+                    attributString = Arrays.asList(b.split("[ ]*,[ ]*"));
+
+                    //die 1 muss dahin, weil sonst die leerstellen vorne weg auch gezählt werden
+                    for(int j = 1; j < attributString.size(); j++) {
+                        //System.out.println(attributString.get(j));
+
+                        //if(attributes.size() > 0) {
+
+                            String a = attributString.get(j);
+
+                            boolean helper = true;
+
+                            for (int k = 0; k < attributes.size(); k++) {
+                                if (attributes.get(k).equals(a)) {
+                                    countAttributes.set(k, countAttributes.get(k) + 1);
+                                    helper = false;
+                                    break;
                                 }
                             }
-                        }
+
+                            if (helper) {
+                                attributes.add(a);
+                                countAttributes.add(1);
+                            }
+                      //  }else{
+                         //   attributes.add(a);
+                        //    countAttributes.add(1);
+                        //}
                     }
                 }
-
             }
-
-
-
         }
 
-        return c;
+        for(int i = 0; i < attributes.size(); i++){
 
+            System.out.println(attributes.get(i) + " : " + countAttributes.get(i));
+        }
     }
+
+//Attributanzahlen als Linechart, Balkendiagramm in neuem Tab?
+//Angebotshäufigkeit berechnen
+
 }
 
 
