@@ -418,5 +418,6 @@ public class Search {
     //Auf das Löschen von Tabs reagieren!!!!!!!!!!!!!
     //Bei "Suchen" wieder in Ergebnis-Tab springen
     //get tabs methode überarbeiten
+    //wenn alle Tabs geschlossen sind: Max, Min, etc Berechnungen ausblenden
 
 }
