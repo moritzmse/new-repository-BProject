@@ -38,6 +38,7 @@ public class Search {
     public Label MaxPreis;
     public Label AvgPreis;
     public TabPane mainTabPane;
+    public Button showAttributeUsage;
 
     private CheckBox[] reseller_checkbox;
 
@@ -352,6 +353,15 @@ public class Search {
     private void showGraph(){
         try {
             mainTabPane.getTabs().add(FXMLLoader.load(this.getClass().getResource("/graph/graphPaneLineChart.fxml")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void showBarChart(){
+        try {
+            mainTabPane.getTabs().add(FXMLLoader.load(this.getClass().getResource("/graph/graphPaneBarChart.fxml")));
         } catch (IOException e) {
             e.printStackTrace();
         }

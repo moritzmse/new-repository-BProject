@@ -12,6 +12,9 @@ import java.util.List;
 
 public class Calculations {
 
+
+    private static List<String> globalAttributes = new ArrayList<>();
+    private static List<Integer> globalCountAttributes = new ArrayList<>();
    private static List<String> a = new ArrayList<String>();
 
     public static double calculateMaxPreis() {
@@ -214,10 +217,29 @@ public class Calculations {
             }
         }
 
+        globalAttributes = attributes;
+        globalCountAttributes = countAttributes;
+
         for(int i = 0; i < attributes.size(); i++){
 
             System.out.println(attributes.get(i) + " : " + countAttributes.get(i));
         }
+    }
+
+    public static List<String> getGlobalAttributes() {
+        return globalAttributes;
+    }
+
+    public static void setGlobalAttributes(List<String> globalAttributes) {
+        Calculations.globalAttributes = globalAttributes;
+    }
+
+    public static List<Integer> getGlobalCountAttributes() {
+        return globalCountAttributes;
+    }
+
+    public static void setGlobalCountAttributes(List<Integer> globalCountAttributes) {
+        Calculations.globalCountAttributes = globalCountAttributes;
     }
 
 //Attributanzahlen als Linechart, Balkendiagramm in neuem Tab?
