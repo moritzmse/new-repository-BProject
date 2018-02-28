@@ -7,14 +7,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class Login extends Application{
 
-    public TextField password_input;
+    public PasswordField password_input;
     public Button login_button;
 
     @FXML
@@ -32,6 +34,13 @@ public class Login extends Application{
             } catch (IOException e){
                 e.printStackTrace();
             }
+        }
+    }
+
+    @FXML
+    private void enterListener(KeyEvent e) throws IOException {
+        if(e.getCode().equals(KeyCode.ENTER)){
+            login();
         }
     }
 

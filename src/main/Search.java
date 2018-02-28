@@ -11,11 +11,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -343,6 +346,7 @@ public class Search {
         }
     }
 
+    //TODO überhaupt noch nötig?????????
     public void enterListenerExtended(KeyEvent e){
         if(e.getCode().equals(KeyCode.ENTER)){
             for(int i = 0; i < vboxMain.getChildren().size();i++){
@@ -354,13 +358,13 @@ public class Search {
         }
     }
 
-    private void showGraph2(){
+    /*private void showGraph2(){
         try {
             mainTabPane.getTabs().add(FXMLLoader.load(this.getClass().getResource("/graph/graphPaneLineChart.fxml")));
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     @FXML
     private void showBarChart(){
@@ -419,5 +423,21 @@ public class Search {
     //Bei "Suchen" wieder in Ergebnis-Tab springen
     //get tabs methode überarbeiten
     //wenn alle Tabs geschlossen sind: Max, Min, etc Berechnungen ausblenden
+
+    @FXML
+    private void logout(){
+        try {
+            Stage stage = (Stage) search_product.getScene().getWindow();
+            stage.close();
+
+            Parent root = FXMLLoader.load(getClass().getResource("/login/login.fxml"));
+            Scene scene = new Scene(root);
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 
 }
