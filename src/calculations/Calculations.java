@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Calculations {
 
-
+    private static String globalProductName = "";
     private static List<String> globalAttributes = new ArrayList<>();
     private static List<Integer> globalCountAttributes = new ArrayList<>();
    private static List<String> a = new ArrayList<String>();
@@ -245,6 +245,19 @@ public class Calculations {
 //Attributanzahlen als Linechart, Balkendiagramm in neuem Tab?
 //Angebotshäufigkeit berechnen
 
+    public static String getProductName(){
+
+        if(TempDatabase.searchValues.Values != null) {
+            List<Object[]> values = TempDatabase.searchValues.Values;
+            Object[] help = values.get(0);
+            String productName = ((SimpleStringProperty) help[TempDatabase.productPosition]).getBean().toString();
+
+            String[] parts = productName.split("[ ]");
+            String part1 = parts[0];
+            globalProductName = part1;
+        }
+        return globalProductName;
+    }
 }
 
 

@@ -350,7 +350,7 @@ public class Search {
         }
     }
 
-    private void showGraph(){
+    private void showGraph2(){
         try {
             mainTabPane.getTabs().add(FXMLLoader.load(this.getClass().getResource("/graph/graphPaneLineChart.fxml")));
         } catch (IOException e) {
@@ -360,10 +360,32 @@ public class Search {
 
     @FXML
     private void showBarChart(){
-        try {
-            mainTabPane.getTabs().add(FXMLLoader.load(this.getClass().getResource("/graph/graphPaneBarChart.fxml")));
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        if(TempDatabase.searchValues!=null){
+            try {
+             mainTabPane.getTabs().add(FXMLLoader.load(this.getClass().getResource("/graph/graphPaneBarChart.fxml")));
+                int i = mainTabPane.getTabs().size();
+                Tab tab = mainTabPane.getTabs().get(i-1);
+                tab.setText("Attr.: " + Calculations.getProductName() + " ...");
+
+             } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
+
+    private void showGraph(){
+        if(TempDatabase.searchValues!=null){
+            try {
+                mainTabPane.getTabs().add(FXMLLoader.load(this.getClass().getResource("/graph/graphPaneLineChart.fxml")));
+                int i = mainTabPane.getTabs().size();
+                Tab tab = mainTabPane.getTabs().get(i-1);
+                tab.setText("Graph: " + Calculations.getProductName() + " ...");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
