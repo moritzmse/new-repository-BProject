@@ -166,7 +166,7 @@ public class Calculations {
     }*/
 
 
-    public static void createAttribute(){
+    public static void countAttribute(){
 
         List<String> attributString = new ArrayList<String>();
 
