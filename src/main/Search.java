@@ -351,7 +351,7 @@ public class Search {
 
     private void showGraph(){
         try {
-            mainTabPane.getTabs().add(FXMLLoader.load(this.getClass().getResource("/graph/graphPane.fxml")));
+            mainTabPane.getTabs().add(FXMLLoader.load(this.getClass().getResource("/graph/graphPaneLineChart.fxml")));
         } catch (IOException e) {
             e.printStackTrace();
         }

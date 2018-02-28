@@ -7,7 +7,7 @@ import javafx.scene.chart.XYChart;
 
 import java.util.List;
 
-public class GraphPane {
+public class GraphPaneLineChart {
 
     public LineChart lineChart;
 
