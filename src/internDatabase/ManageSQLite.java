@@ -18,9 +18,12 @@ public class ManageSQLite {
 
     public static boolean login(String password){
         try{
-            ResultSet resultSet = getConnection().createStatement().executeQuery("SELECT password FROM login");
+            Connection connection = getConnection();
+            ResultSet resultSet = connection.createStatement().executeQuery("SELECT password FROM login");
             resultSet.next();
-            return password.equals(resultSet.getString(1));
+            boolean output = password.equals(resultSet.getString(1));
+            connection.close();
+            return output;
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -30,7 +33,10 @@ public class ManageSQLite {
     public static boolean setPassword(String oldPassword, String newPassword){
         try{
             if(login(oldPassword)){
-                getConnection().createStatement().executeUpdate("UPDATE login SET password = '" + newPassword + "'");
+                Connection connection = getConnection();
+                Statement statement = connection.createStatement();
+                statement.executeUpdate("UPDATE login SET password = '" + newPassword + "'");
+                connection.close();
                 return true;
             }
         }catch (SQLException e){

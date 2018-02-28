@@ -440,4 +440,19 @@ public class Search {
         }
     }
 
+    @FXML
+    private void passwordSettings(){
+        try {
+            Stage stage = new Stage();
+
+            Parent root = FXMLLoader.load(getClass().getResource("/settings/settingsPassword.fxml"));
+            Scene scene = new Scene(root);
+
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
 }
