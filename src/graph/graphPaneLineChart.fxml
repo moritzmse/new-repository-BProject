@@ -1,9 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 
-<Tab text="Dennis der Boss" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graph.GraphPaneLineChart">
+<Tab onCloseRequest="#keineAhnung" text="Dennis der Boss" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graph.GraphPaneLineChart">
     <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="661.0">
             <children>

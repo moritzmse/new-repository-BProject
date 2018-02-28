@@ -2,8 +2,10 @@ package graph;
 
 import database.TempDatabase;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 import calculations.Calculations;
+import main.Search;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,5 +44,12 @@ public class GraphPaneBarChart {
             }
             return counter;
         }
+
+    @FXML
+    public void keineAhnung(){
+        Search search = new Search();
+        search.removeObjectFromPosList();
+    }
+
     }
 

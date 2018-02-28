@@ -39,8 +39,10 @@ public class Search {
     public Label AvgPreis;
     public TabPane mainTabPane;
     public Button showAttributeUsage;
-
     private CheckBox[] reseller_checkbox;
+    private static int offenerTab;
+
+    private static List<SearchValues> posListe = new ArrayList<SearchValues>();
 
     //TODO Asci überarbeiten
     public CheckBox Ab, Am, Aä, B, Bi, Bp, Cp, Dp, Es, Fd, H, I, K, Lg, ME, Mn, Mu, MW, Ne, O, OP, Pa, Rb, Rs, So, Sp, Ti, Tp, VS, Z, Zu;
@@ -95,6 +97,8 @@ public class Search {
             });
             return row ;
         });
+
+
 
     }
 
@@ -202,9 +206,9 @@ public class Search {
 
         showGraph();
 
-        MaxPreis.setText("MaxPreis: " + String.valueOf(Calculations.calculateMaxPreis()) + "€");
-        MinPreis.setText("MinPreis: " + String.valueOf(Calculations.calculateMinPreis())+ "€");
-        AvgPreis.setText("AvgPreis: " + String.valueOf(Calculations.calculateAvgPreis())+ "€");
+        MaxPreis.setText("MaxPreis: " + String.valueOf(Calculations.calculateMaxPreis(TempDatabase.searchValues)) + "€");
+        MinPreis.setText("MinPreis: " + String.valueOf(Calculations.calculateMinPreis(TempDatabase.searchValues))+ "€");
+        AvgPreis.setText("AvgPreis: " + String.valueOf(Calculations.calculateAvgPreis(TempDatabase.searchValues))+ "€");
        //Calculations.createAttribute();
         // System.out.println(Calculations.createAttribute().size());
        // System.out.println(Calculations.createAttribute().get(0).getCounter());
@@ -367,7 +371,7 @@ public class Search {
                 int i = mainTabPane.getTabs().size();
                 Tab tab = mainTabPane.getTabs().get(i-1);
                 tab.setText("Attr.: " + Calculations.getProductName() + " ...");
-
+                posListe.add(TempDatabase.searchValues);
              } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -381,11 +385,38 @@ public class Search {
                 int i = mainTabPane.getTabs().size();
                 Tab tab = mainTabPane.getTabs().get(i-1);
                 tab.setText("Graph: " + Calculations.getProductName() + " ...");
-
+                //mainTabPane.getSelectionModel().getSelectedItem();
+                posListe.add(TempDatabase.searchValues);
+                mainTabPane.getSelectionModel().select(mainTabPane.getTabs().size()-1);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+    @FXML
+    private int getTab(){
+        offenerTab = mainTabPane.getSelectionModel().getSelectedIndex();
+        Tab tab = mainTabPane.getSelectionModel().getSelectedItem();
+        int i = mainTabPane.getSelectionModel().getSelectedIndex();
+        if(i>0){
+            MaxPreis.setText(String.valueOf("MaxPreis: " +Calculations.calculateMaxPreis(posListe.get(i-1)))+ "€");
+            MinPreis.setText(String.valueOf("MinPreis: " +Calculations.calculateMinPreis(posListe.get(i-1)))+ "€");
+            AvgPreis.setText(String.valueOf("AvgPreis: " +Calculations.calculateAvgPreis(posListe.get(i-1)))+ "€");
+        }
+        System.out.println(offenerTab);
+        System.out.println(posListe.size());
+        return mainTabPane.getSelectionModel().getSelectedIndex();
+    }
+
+
+    public void removeObjectFromPosList(){
+        if(offenerTab>0){
+        posListe.remove(offenerTab-1);
+        } else {System.out.println("arsch");}
+    }
+
+    //Auf das Löschen von Tabs reagieren!!!!!!!!!!!!!
+    //Bei "Suchen" wieder in Ergebnis-Tab springen
+    //get tabs methode überarbeiten
 
 }

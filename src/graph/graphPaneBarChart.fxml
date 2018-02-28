@@ -1,20 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.NumberAxis?>
-
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
-<Tab text="Dennis der Boss" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graph.GraphPaneBarChart">
+
+<Tab onCloseRequest="#keineAhnung" text="Dennis der Boss" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graph.GraphPaneBarChart">
     <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="661.0">
             <children>
                 <BarChart fx:id="BarChart" prefHeight="353.0" prefWidth="661.0" title="Attributenverwendung" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <xAxis>
-                        <CategoryAxis fx:id = "xAxis" label="Attribute" side="BOTTOM" />
+                        <CategoryAxis label="Attribute" side="BOTTOM" fx:id="xAxis" />
                     </xAxis>
                     <yAxis>
-                        <NumberAxis fx:id = "yAxis" label="Quantity" side="LEFT" />
+                        <NumberAxis fx:id="yAxis" label="Quantity" side="LEFT" />
                     </yAxis>
                 </BarChart>
             </children>

@@ -215,9 +215,9 @@
                                     <items>
                                         <AnchorPane>
                                             <children>
-                                                <TabPane fx:id="mainTabPane" layoutX="14.0" prefHeight="273.0" prefWidth="661.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TabPane fx:id="mainTabPane" layoutX="14.0" onMouseClicked="#getTab" prefHeight="273.0" prefWidth="661.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <tabs>
-                                                        <Tab closable="false" text="Untitled Tab 1">
+                                                        <Tab closable="false" text="Ergebnisse">
                                                             <content>
                                                                 <AnchorPane fx:id="Pane" prefHeight="427.0" prefWidth="661.0">
                                                                     <children>

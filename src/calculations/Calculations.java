@@ -15,85 +15,8 @@ public class Calculations {
     private static String globalProductName = "";
     private static List<String> globalAttributes = new ArrayList<>();
     private static List<Integer> globalCountAttributes = new ArrayList<>();
-   private static List<String> a = new ArrayList<String>();
+    private static List<String> a = new ArrayList<String>();
 
-    public static double calculateMaxPreis() {
-
-        double doubleHelper = 0.00;
-
-        if (TempDatabase.searchValues != null) {
-            List<Object[]> values = TempDatabase.searchValues.Values;
-            for (int i = 0; i < values.size(); i++) {
-                Object[] help = values.get(i);
-                if (help[TempDatabase.pricePosition] != null) {
-                    String price = ((SimpleStringProperty) help[TempDatabase.pricePosition]).getBean().toString();
-                    double priceFinal = Double.parseDouble(price.replace(",", "."));
-                    if (priceFinal > doubleHelper) {
-                        doubleHelper = priceFinal;
-                    }
-
-                }
-            }
-
-        }
-
-        return doubleHelper;
-
-    }
-
-    public static double calculateMinPreis() {
-
-        double doubleHelper = Integer.MAX_VALUE;
-
-        if (TempDatabase.searchValues != null) {
-            List<Object[]> values = TempDatabase.searchValues.Values;
-            for (int i = 0; i < values.size(); i++) {
-                Object[] help = values.get(i);
-                if (help[TempDatabase.pricePosition] != null) {
-                    String price = ((SimpleStringProperty) help[TempDatabase.pricePosition]).getBean().toString();
-                    double priceFinal = Double.parseDouble(price.replace(",", "."));
-
-                    if (priceFinal < doubleHelper) {
-                        doubleHelper = priceFinal;
-                    }
-
-                }
-            }
-
-        }
-
-        return doubleHelper;
-
-    }
-
-    public static double calculateAvgPreis() {
-
-        double doubleHelper = Integer.MAX_VALUE;
-        double sum = 0;
-        int counter = 0;
-
-
-        if (TempDatabase.searchValues != null) {
-            List<Object[]> values = TempDatabase.searchValues.Values;
-            for (int i = 0; i < values.size(); i++) {
-                Object[] help = values.get(i);
-                if (help[TempDatabase.pricePosition] != null) {
-                    String price = ((SimpleStringProperty) help[TempDatabase.pricePosition]).getBean().toString();
-                    double priceFinal = Double.parseDouble(price.replace(",", "."));
-
-                    sum = sum + priceFinal;
-                    counter = counter + 1;
-
-
-                }
-            }
-
-        }
-
-        doubleHelper = sum / counter;
-        return round(doubleHelper, 4);
-
-    }
 
     public static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
@@ -258,6 +181,85 @@ public class Calculations {
         }
         return globalProductName;
     }
+
+    public static double calculateMaxPreis(SearchValues searchValues) {
+
+        double doubleHelper = 0.00;
+
+        if (searchValues != null) {
+            List<Object[]> values = searchValues.Values;
+            for (int i = 0; i < values.size(); i++) {
+                Object[] help = values.get(i);
+                if (help[TempDatabase.pricePosition] != null) {
+                    String price = ((SimpleStringProperty) help[TempDatabase.pricePosition]).getBean().toString();
+                    double priceFinal = Double.parseDouble(price.replace(",", "."));
+                    if (priceFinal > doubleHelper) {
+                        doubleHelper = priceFinal;
+                    }
+
+                }
+            }
+
+        }
+
+        return doubleHelper;
+
+    }
+
+    public static double calculateMinPreis(SearchValues searchValues) {
+
+        double doubleHelper = Integer.MAX_VALUE;
+
+        if (searchValues != null) {
+            List<Object[]> values = searchValues.Values;
+            for (int i = 0; i < values.size(); i++) {
+                Object[] help = values.get(i);
+                if (help[TempDatabase.pricePosition] != null) {
+                    String price = ((SimpleStringProperty) help[TempDatabase.pricePosition]).getBean().toString();
+                    double priceFinal = Double.parseDouble(price.replace(",", "."));
+
+                    if (priceFinal < doubleHelper) {
+                        doubleHelper = priceFinal;
+                    }
+
+                }
+            }
+
+        }
+
+        return doubleHelper;
+
+    }
+
+    public static double calculateAvgPreis(SearchValues searchValues) {
+
+        double doubleHelper = Integer.MAX_VALUE;
+        double sum = 0;
+        int counter = 0;
+
+
+        if (searchValues != null) {
+            List<Object[]> values = searchValues.Values;
+            for (int i = 0; i < values.size(); i++) {
+                Object[] help = values.get(i);
+                if (help[TempDatabase.pricePosition] != null) {
+                    String price = ((SimpleStringProperty) help[TempDatabase.pricePosition]).getBean().toString();
+                    double priceFinal = Double.parseDouble(price.replace(",", "."));
+
+                    sum = sum + priceFinal;
+                    counter = counter + 1;
+
+
+                }
+            }
+
+        }
+
+        doubleHelper = sum / counter;
+        return round(doubleHelper, 4);
+
+    }
+
 }
 
 
