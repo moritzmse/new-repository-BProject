@@ -42,6 +42,6 @@ public class GraphPaneLineChart {
     public void keineAhnung(){
         Search search = new Search();
         search.removeObjectFromPosList();
-        System.out.println("===========8");
+        System.out.println("tab aus liste geloescht");
     }
 }

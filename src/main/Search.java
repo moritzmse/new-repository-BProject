@@ -391,6 +391,7 @@ public class Search {
                 tab.setText("Graph: " + Calculations.getProductName() + " ...");
                 //mainTabPane.getSelectionModel().getSelectedItem();
                 posListe.add(TempDatabase.searchValues);
+                offenerTab = i-1;       //automatisch geöffneten Tab als aktuell offenen Tab speichern
                 mainTabPane.getSelectionModel().select(mainTabPane.getTabs().size()-1);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -415,8 +416,12 @@ public class Search {
 
     public void removeObjectFromPosList(){
         if(offenerTab>0){
+            /*if(posListe.size() == 1){     //wenn alle tabs geschlossen sind: Werte unten ausblenden -- Fehler?
+                //MaxPreis.setText(" ");
+                System.out.println(MaxPreis.getText());
+            }*/
         posListe.remove(offenerTab-1);
-        } else {System.out.println("arsch");}
+        } else {System.out.println("test");}
     }
 
     //Auf das Löschen von Tabs reagieren!!!!!!!!!!!!!
