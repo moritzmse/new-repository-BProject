@@ -88,8 +88,17 @@ public class GraphPaneLineChart {
     }
 
     private void addToLegend(XYChart.Series series) {
-        CheckBox checkBox = new CheckBox(series.getName().toString());
+        CheckBox checkBox = new CheckBox(series.getName());
         checkBox.setSelected(true);
+        if(!checkBox.getText().toString().equals("Durchschnitt")){
+            System.out.println("lalala");
+            checkBox.setSelected(false);
+            series.getNode().setVisible(false);
+            ObservableList<XYChart.Data> s = series.getData();
+            for(XYChart.Data d : s){
+                d.getNode().setVisible(false);
+            }
+        }
         checkBox.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
