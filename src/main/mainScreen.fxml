@@ -25,7 +25,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Search">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Search">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
@@ -203,6 +203,7 @@
                                 </TitledPane>
                             </panes>
                         </Accordion>
+                  <!-- <Button fx:id="activeTabButton" layoutX="11.0" layoutY="509.0" mnemonicParsing="false" onAction="#printActiveTab" text="Button" /> -->
                     </children>
                 </AnchorPane>
                 <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="-1.0" prefWidth="-1.0">

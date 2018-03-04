@@ -413,14 +413,19 @@ public class Search {
         return mainTabPane.getSelectionModel().getSelectedIndex();
     }
 
-
+    @FXML
     public void removeObjectFromPosList(){
         if(offenerTab>0){
             /*if(posListe.size() == 1){     //wenn alle tabs geschlossen sind: Werte unten ausblenden -- Fehler?
                 //MaxPreis.setText(" ");
                 System.out.println(MaxPreis.getText());
             }*/
+          /*  if(offenerTab-1==0){          //wenn tab 0 = offener Tab ist: Werte unten ausblenden
+                //MaxPreis.setText(" ");
+                MinPreis.setText(" ");
+            }*/
         posListe.remove(offenerTab-1);
+        offenerTab = (offenerTab-1);
         } else {System.out.println("test");}
     }
 
@@ -428,6 +433,12 @@ public class Search {
     //Bei "Suchen" wieder in Ergebnis-Tab springen
     //get tabs methode überarbeiten
     //wenn alle Tabs geschlossen sind: Max, Min, etc Berechnungen ausblenden
+
+    //test
+/*    public void printActiveTab(){
+        System.out.print("active tab: " + offenerTab);
+        System.out.println(" , posListe size: " + posListe.size());
+    }*/
 
     @FXML
     private void logout(){
