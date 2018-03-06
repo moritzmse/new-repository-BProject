@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import warning.Warnings;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -29,7 +30,7 @@ import java.util.*;
 public class Search {
 
     public TextField search_productname;
-    public TextField search_manufacturer, search_brand, search_product, search_productgroup;
+    public TextField search_manufacturer, search_product, search_productgroup;
     public TextField search_unitprice, search_units, search_packprice;
     public DatePicker datePickerFrom, datePickerTo;
     public VBox search_resellerVbox;
@@ -109,88 +110,92 @@ public class Search {
     @FXML
     private void firstSearch() {
         final int whereLength = 1; //63; //Alt 29
-        TextField[] search_values = new TextField[] {search_productname, search_manufacturer, search_brand, search_product, search_productgroup, search_unitprice, search_units, search_packprice};
+        TextField[] search_values = new TextField[] {search_productname, search_manufacturer, search_product, search_productgroup, search_unitprice, search_units, search_packprice};
 
         String whereClause = "";
 
-        for(int i = 0; i < search_values.length; i++){
-            if(search_values[i].getText() != null && search_values[i].getText().length() > 0){
-                if(whereClause.length() > whereLength){
-                    whereClause = whereClause + " and " + search_values[i].getId() + " like '%" + search_values[i].getText() + "%' ";
-                }else{
-                    whereClause = whereClause + search_values[i].getId() + " like '%" + search_values[i].getText() + "%' ";
+        if(search_productname.getText() != null && search_productname.getText().length() > 0) {
+            for (int i = 0; i < search_values.length; i++) {
+                if (search_values[i].getText() != null && search_values[i].getText().length() > 0) {
+                    if (whereClause.length() > whereLength) {
+                        whereClause = whereClause + " and " + search_values[i].getId() + " like '%" + search_values[i].getText() + "%' ";
+                    } else {
+                        whereClause = whereClause + search_values[i].getId() + " like '%" + search_values[i].getText() + "%' ";
+                    }
                 }
             }
-        }
 
-        //ResellerCheckBox
-        if(TempDatabase.ResellerWhere != null && TempDatabase.ResellerWhere.size() > 0){
-            StringBuilder checkboxes;
-            if(whereClause.length() > whereLength){
-                checkboxes = new StringBuilder(" and Reseller in (");
-            }else{
-                checkboxes = new StringBuilder(" Reseller in (");
-            }
-
-            Boolean firstReseller = true;
-            for(int i = 0; i < TempDatabase.ResellerWhere.size(); i++){
-                if(firstReseller) {
-                    checkboxes.append(TempDatabase.ResellerWhere.get(i));
-                    firstReseller = false;
-                }else{
-                    checkboxes.append(","+TempDatabase.ResellerWhere.get(i));
+            //ResellerCheckBox
+            if (TempDatabase.ResellerWhere != null && TempDatabase.ResellerWhere.size() > 0) {
+                StringBuilder checkboxes;
+                if (whereClause.length() > whereLength) {
+                    checkboxes = new StringBuilder(" and Reseller in (");
+                } else {
+                    checkboxes = new StringBuilder(" Reseller in (");
                 }
+
+                Boolean firstReseller = true;
+                for (int i = 0; i < TempDatabase.ResellerWhere.size(); i++) {
+                    if (firstReseller) {
+                        checkboxes.append(TempDatabase.ResellerWhere.get(i));
+                        firstReseller = false;
+                    } else {
+                        checkboxes.append("," + TempDatabase.ResellerWhere.get(i));
+                    }
+                }
+                checkboxes.append(") ");
+
+                whereClause = whereClause + checkboxes.toString();
+
             }
-            checkboxes.append(") ");
+            //ResellerCheckBox End
 
-            whereClause = whereClause+checkboxes.toString();
-
-        }
-        //ResellerCheckBox End
-
-        //DatePickerFrom
-        if(datePickerFrom.getEditor().getText().length() == 10){
-            if(whereClause.length() > whereLength) {
-                whereClause = whereClause + " and";
-            }
-            whereClause = whereClause + " Week >= " + getWeek(datePickerFrom);
-        }
-        //DatePickerFrom End
-
-        //DatePickerTo
-        if(datePickerTo.getEditor().getText().length() == 10){
-            if(whereClause.length() > whereLength) {
-                whereClause = whereClause + " and";
-            }
-            whereClause = whereClause + " Week <= " + getWeek(datePickerTo);
-        }
-        //DatePickerTo End
-
-
-        //Attributes Start
-        if(TempDatabase.AttributesWhere != null && TempDatabase.AttributesWhere.size() > 0){
-            for(int i = 0; i < TempDatabase.AttributesWhere.size(); i++) {
+            //DatePickerFrom
+            if (datePickerFrom.getEditor().getText().length() == 10) {
                 if (whereClause.length() > whereLength) {
                     whereClause = whereClause + " and";
                 }
-                whereClause = whereClause + " Attributes like '%" + TempDatabase.AttributesWhere.get(i) + "%'";
+                whereClause = whereClause + " Week >= " + getWeek(datePickerFrom);
             }
-        }
-        //Attributes End
+            //DatePickerFrom End
+
+            //DatePickerTo
+            if (datePickerTo.getEditor().getText().length() == 10) {
+                if (whereClause.length() > whereLength) {
+                    whereClause = whereClause + " and";
+                }
+                whereClause = whereClause + " Week <= " + getWeek(datePickerTo);
+            }
+            //DatePickerTo End
 
 
-        //TODO evtl direkt whereClause durch whereConditions ersetzen? überlegen wie sich das auf weitere suchen auswirkt. -> whereConditions müsste immer oben in der firstSearchMethode = "" gesetzt werden
-        whereConditions = whereClause;
-        SearchValues resultValues = MariaDB_Search.search("SELECT DISTINCT Manufacturer,Brand,Product FROM OVERVIEW WHERE " + whereConditions);
+            //Attributes Start
+            if (TempDatabase.AttributesWhere != null && TempDatabase.AttributesWhere.size() > 0) {
+                for (int i = 0; i < TempDatabase.AttributesWhere.size(); i++) {
+                    if (whereClause.length() > whereLength) {
+                        whereClause = whereClause + " and";
+                    }
+                    whereClause = whereClause + " Attributes like '%" + TempDatabase.AttributesWhere.get(i) + "%'";
+                }
+            }
+            //Attributes End
 
-        TempDatabase.searchValues = resultValues;
 
-        if(resultValues != null){
-           showResults();
+            //TODO evtl direkt whereClause durch whereConditions ersetzen? überlegen wie sich das auf weitere suchen auswirkt. -> whereConditions müsste immer oben in der firstSearchMethode = "" gesetzt werden
+            whereConditions = whereClause;
+            SearchValues resultValues = MariaDB_Search.search("SELECT DISTINCT Manufacturer,Brand,Product FROM OVERVIEW WHERE " + whereConditions);
+
+            TempDatabase.searchValues = resultValues;
+
+            if (resultValues != null) {
+                showResults();
+            } else {
+                //TODO evtl. ne eigene clearMethode???
+                tableView.getColumns().clear();
+                tableView.getItems().clear();
+            }
         }else{
-            //TODO evtl. ne eigene clearMethode???
-            tableView.getColumns().clear();
-            tableView.getItems().clear();
+            Warnings.warngingEmptySearch();
         }
     }
 

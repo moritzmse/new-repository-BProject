@@ -20,6 +20,10 @@ public class Warnings {
         successful("Password change was successful", "Checked");
     }
 
+    public static void warngingEmptySearch() {
+        warning("Product Search is Empty", "Warning");
+    }
+
     private static void warning(String warningMessage, String title){
         JOptionPane.showMessageDialog(null, warningMessage, title,
                 JOptionPane.ERROR_MESSAGE);
