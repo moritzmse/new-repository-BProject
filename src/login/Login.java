@@ -38,7 +38,7 @@ public class Login extends Application{
     }
 
     @FXML
-    private void enterListener(KeyEvent e) throws IOException {
+    private void enterListener(KeyEvent e) {
         if(e.getCode().equals(KeyCode.ENTER)){
             login();
         }

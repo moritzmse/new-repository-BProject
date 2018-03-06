@@ -217,17 +217,8 @@ public class Search {
         MaxPreis.setText("MaxPreis: " + String.valueOf(Calculations.calculateMaxPreis(TempDatabase.searchValues)) + "€");
         MinPreis.setText("MinPreis: " + String.valueOf(Calculations.calculateMinPreis(TempDatabase.searchValues))+ "€");
         AvgPreis.setText("AvgPreis: " + String.valueOf(Calculations.calculateAvgPreis(TempDatabase.searchValues))+ "€");
-       //Calculations.createAttribute();
-        // System.out.println(Calculations.createAttribute().size());
-       // System.out.println(Calculations.createAttribute().get(0).getCounter());
-//      List<Attribute> a = new ArrayList<Attribute>();
-//      a= Calculations.createAttribute();
-//      System.out.println("Size" + a.size());
-//      for(int i = 0; i<a.size();i++){
-//          System.out.println(a.get(i).getName() +" " + a.get(i).getCounter());
-//      }
-       Calculations.countAttribute();
 
+       Calculations.countAttribute();
 
         //Idee: nach der Suche die Filter auf enabled flase setzen, dadurch wird filter ändern gesperrt, bevor ein genaues produkt gewählt wird. der neue filter wird da nämlich nicht beachtet werden
         //Oder sobald ein Filter geändert wird die Ergebnissliste Resetten, damit erst neu "richtig" gesucht werden muss.
@@ -363,14 +354,6 @@ public class Search {
         }
     }
 
-    /*private void showGraph2(){
-        try {
-            mainTabPane.getTabs().add(FXMLLoader.load(this.getClass().getResource("/graph/graphPaneLineChart.fxml")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
-
     @FXML
     private void showBarChart(){
 
@@ -475,5 +458,4 @@ public class Search {
             e.printStackTrace();
         }
     }
-
 }

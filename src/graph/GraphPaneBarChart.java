@@ -1,13 +1,10 @@
 package graph;
 
-import database.TempDatabase;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 import calculations.Calculations;
 import main.Search;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GraphPaneBarChart {
@@ -31,25 +28,23 @@ public class GraphPaneBarChart {
             }
         }
             BarChart.getData().add(series);
-        }
+    }
 
-        public int getMaxValue(){
+    private int getMaxValue(){
 
-            List<Integer> intList = Calculations.getGlobalCountAttributes();
-            int counter = 0;
-            for(int i = 0; i<intList.size(); i++){
-                if(intList.get(i)>counter){
-                    counter = intList.get(i);
-                }
+        List<Integer> intList = Calculations.getGlobalCountAttributes();
+        int counter = 0;
+        for(int i = 0; i<intList.size(); i++){
+            if(intList.get(i)>counter){
+                counter = intList.get(i);
             }
-            return counter;
         }
+        return counter;
+    }
 
     @FXML
     public void keineAhnung(){
         Search search = new Search();
         search.removeObjectFromPosList();
     }
-
-    }
-
+}

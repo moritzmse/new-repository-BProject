@@ -7,9 +7,8 @@ public class SearchValues {
     public int ColumnLength;
     public String[] ColumnNames;
     public List<Object[]> Values;
-    //public ObservableList Values;
 
-    public SearchValues(int columnLength, String[] columnNames, List<Object[]> values) {
+    SearchValues(int columnLength, String[] columnNames, List<Object[]> values) {
         ColumnLength = columnLength;
         ColumnNames = columnNames;
         Values = values;

@@ -1,6 +1,5 @@
 package graph;
 
-
 import database.TempDatabase;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -19,8 +18,6 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import main.Search;
 
-import java.awt.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +34,7 @@ public class GraphPaneLineChart {
     }
 
     //Durchschnitt für die einzelnen Wochen
-    public void durchschnitt(){
+    private void durchschnitt(){
         lineChart.getData().clear();
         XYChart.Series series = new XYChart.Series();
         series.setName("Durchschnitt");
@@ -90,7 +87,7 @@ public class GraphPaneLineChart {
     private void addToLegend(XYChart.Series series) {
         CheckBox checkBox = new CheckBox(series.getName());
         checkBox.setSelected(true);
-        if(!checkBox.getText().toString().equals("Durchschnitt")){
+        if(!checkBox.getText().equals("Durchschnitt")){
             System.out.println("lalala");
             checkBox.setSelected(false);
             series.getNode().setVisible(false);
@@ -122,7 +119,7 @@ public class GraphPaneLineChart {
     }
 
     //Preise der einzelnen Reseller in den Wochen
-    public void eachReseller(){
+    private void eachReseller(){
         if(TempDatabase.searchValues!=null){
             List<Object[]> values = TempDatabase.searchValues.Values;
             ArrayList list = new ArrayList();
@@ -156,14 +153,14 @@ public class GraphPaneLineChart {
         }
     }
 
-    public Tooltip durchschnittsTooltip(double average, double max, double min, double week){
+    private Tooltip durchschnittsTooltip(double average, double max, double min, double week){
         Tooltip tooltip = new Tooltip("Average Price: " + average + "€" + "\n" + "Max Price: " + max + "€" + "\n"
                 + "Min Price: " + min + "€" + "\n" + "Week: " + week);
         tooltip.setShowDelay(Duration.millis(0));
         return tooltip;
     }
 
-    public Tooltip resellerTooltip(double price, double week){
+    private Tooltip resellerTooltip(double price, double week){
         Tooltip tooltip = new Tooltip("Price: " + price + "€" + "\n" + "Week: " + week);
         tooltip.setShowDelay(Duration.millis(0));
         tooltip.setShowDuration(Duration.millis(32767));

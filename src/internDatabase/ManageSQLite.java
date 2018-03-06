@@ -7,7 +7,7 @@ public class ManageSQLite {
     private static Connection getConnection(){
         Connection connection = null;
         try{
-            Class.forName("org.sqlite.JDBC").newInstance();
+            Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite::resource:internDatabase/bprojekt.s3db");
 
         } catch (Exception e) {
