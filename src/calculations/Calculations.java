@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 public class Calculations {
 
     private static String globalProductName = "";
@@ -28,7 +27,6 @@ public class Calculations {
 
         List<String> attributString;
 
-
         List<String> attributes = new ArrayList<>();
         List<Integer> countAttributes = new ArrayList<>();
 
@@ -43,30 +41,22 @@ public class Calculations {
 
                     //die 1 muss dahin, weil sonst die leerstellen vorne weg auch gezählt werden
                     for(int j = 1; j < attributString.size(); j++) {
-                        //System.out.println(attributString.get(j));
+                        String a = attributString.get(j);
 
-                        //if(attributes.size() > 0) {
+                        boolean helper = true;
 
-                            String a = attributString.get(j);
-
-                            boolean helper = true;
-
-                            for (int k = 0; k < attributes.size(); k++) {
-                                if (attributes.get(k).equals(a)) {
-                                    countAttributes.set(k, countAttributes.get(k) + 1);
-                                    helper = false;
-                                    break;
-                                }
+                        for (int k = 0; k < attributes.size(); k++) {
+                            if (attributes.get(k).equals(a)) {
+                                countAttributes.set(k, countAttributes.get(k) + 1);
+                                helper = false;
+                                break;
                             }
+                        }
 
-                            if (helper) {
-                                attributes.add(a);
-                                countAttributes.add(1);
-                            }
-                      //  }else{
-                         //   attributes.add(a);
-                        //    countAttributes.add(1);
-                        //}
+                        if (helper) {
+                            attributes.add(a);
+                            countAttributes.add(1);
+                        }
                     }
                 }
             }
@@ -111,22 +101,17 @@ public class Calculations {
 
         if (searchValues != null) {
             List<Object[]> values = searchValues.Values;
-            for (int i = 0; i < values.size(); i++) {
-                Object[] help = values.get(i);
+            for (Object[] help : values) {
                 if (help[TempDatabase.pricePosition] != null) {
                     String price = ((SimpleStringProperty) help[TempDatabase.pricePosition]).getBean().toString();
                     double priceFinal = Double.parseDouble(price.replace(",", "."));
                     if (priceFinal > doubleHelper) {
                         doubleHelper = priceFinal;
                     }
-
                 }
             }
-
         }
-
         return doubleHelper;
-
     }
 
     public static double calculateMinPreis(SearchValues searchValues) {
@@ -135,8 +120,7 @@ public class Calculations {
 
         if (searchValues != null) {
             List<Object[]> values = searchValues.Values;
-            for (int i = 0; i < values.size(); i++) {
-                Object[] help = values.get(i);
+            for (Object[] help : values) {
                 if (help[TempDatabase.pricePosition] != null) {
                     String price = ((SimpleStringProperty) help[TempDatabase.pricePosition]).getBean().toString();
                     double priceFinal = Double.parseDouble(price.replace(",", "."));
@@ -149,9 +133,7 @@ public class Calculations {
             }
 
         }
-
         return doubleHelper;
-
     }
 
     public static double calculateAvgPreis(SearchValues searchValues) {
@@ -162,26 +144,18 @@ public class Calculations {
 
         if (searchValues != null) {
             List<Object[]> values = searchValues.Values;
-            for (int i = 0; i < values.size(); i++) {
-                Object[] help = values.get(i);
+            for (Object[] help : values) {
                 if (help[TempDatabase.pricePosition] != null) {
                     String price = ((SimpleStringProperty) help[TempDatabase.pricePosition]).getBean().toString();
                     double priceFinal = Double.parseDouble(price.replace(",", "."));
 
                     sum = sum + priceFinal;
                     counter = counter + 1;
-
-
                 }
             }
-
         }
 
         doubleHelper = sum / counter;
         return round(doubleHelper, 4);
     }
-
 }
-
-
-

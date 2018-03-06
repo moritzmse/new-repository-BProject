@@ -30,7 +30,6 @@ public class GraphPaneLineChart {
         //TODO X axis in Date,ausblenden der verschiedenen Lines ermöglichen
         durchschnitt();
         eachReseller();
-
     }
 
     //Durchschnitt für die einzelnen Wochen
@@ -50,8 +49,7 @@ public class GraphPaneLineChart {
                 Object[] help1 = values.get(i);
                 String date1 = ((SimpleStringProperty)help1[4]).getBean().toString();
                 if(!list.contains(date1)){
-                    for(int j = 0; j < values.size(); j++){
-                        Object[] help2 = values.get(j);
+                    for (Object[] help2 : values) {
                         String date2 = ((SimpleStringProperty) help2[4]).getBean().toString();
                         String test = ((SimpleStringProperty) help2[6]).getBean().toString();
                         double price = Double.parseDouble(test.replace(",","."));
@@ -130,8 +128,7 @@ public class GraphPaneLineChart {
                     XYChart.Series<Number,Number> series1 = new XYChart.Series();
                     lineChart.getData().add(series1);
                     series1.setName(reseller1);
-                    for(int j = 0; j < values.size(); j++){
-                        Object[] help2 = values.get(j);
+                    for (Object[] help2 : values) {
                         String reseller2 = ((SimpleStringProperty) help2[5]).getBean().toString();
                         if(reseller1.equals(reseller2)){
                             String date = ((SimpleStringProperty) help2[4]).getBean().toString();

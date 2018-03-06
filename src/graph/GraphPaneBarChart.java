@@ -34,9 +34,9 @@ public class GraphPaneBarChart {
 
         List<Integer> intList = Calculations.getGlobalCountAttributes();
         int counter = 0;
-        for(int i = 0; i<intList.size(); i++){
-            if(intList.get(i)>counter){
-                counter = intList.get(i);
+        for (int intListHelper : intList) {
+            if(intListHelper > counter){
+                counter = intListHelper;
             }
         }
         return counter;

@@ -26,7 +26,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-
 public class Search {
 
     public TextField search_productname;
@@ -46,13 +45,13 @@ public class Search {
     private CheckBox[] reseller_checkbox;
     private static int offenerTab;
 
-    private static List<SearchValues> posListe = new ArrayList<SearchValues>();
+    private static List<SearchValues> posListe = new ArrayList<>();
 
     //TODO Asci überarbeiten
     public CheckBox Ab, Am, Aä, B, Bi, Bp, Cp, Dp, Es, Fd, H, I, K, Lg, ME, Mn, Mu, MW, Ne, O, OP, Pa, Rb, Rs, So, Sp, Ti, Tp, VS, Z, Zu;
 
     @FXML
-    TableView<ObservableList<String>> tableView;//= new TableView<>();
+    TableView<ObservableList<String>> tableView;
 
     private String whereConditions;
 
@@ -101,9 +100,6 @@ public class Search {
             });
             return row ;
         });
-
-
-
     }
 
     //Wird unter dem Button suchen aufgerufen
@@ -115,12 +111,12 @@ public class Search {
         String whereClause = "";
 
         if(search_productname.getText() != null && search_productname.getText().length() > 0) {
-            for (int i = 0; i < search_values.length; i++) {
-                if (search_values[i].getText() != null && search_values[i].getText().length() > 0) {
+            for (TextField helpSearchValues : search_values) {
+                if (helpSearchValues.getText() != null && helpSearchValues.getText().length() > 0) {
                     if (whereClause.length() > whereLength) {
-                        whereClause = whereClause + " and " + search_values[i].getId() + " like '%" + search_values[i].getText() + "%' ";
+                        whereClause = whereClause + " and " + helpSearchValues.getId() + " like '%" + helpSearchValues.getText() + "%' ";
                     } else {
-                        whereClause = whereClause + search_values[i].getId() + " like '%" + search_values[i].getText() + "%' ";
+                        whereClause = whereClause + helpSearchValues.getId() + " like '%" + helpSearchValues.getText() + "%' ";
                     }
                 }
             }
@@ -222,7 +218,6 @@ public class Search {
 
         //Idee: nach der Suche die Filter auf enabled flase setzen, dadurch wird filter ändern gesperrt, bevor ein genaues produkt gewählt wird. der neue filter wird da nämlich nicht beachtet werden
         //Oder sobald ein Filter geändert wird die Ergebnissliste Resetten, damit erst neu "richtig" gesucht werden muss.
-
     }
 
     private void showResults(){
@@ -272,7 +267,6 @@ public class Search {
             for(int i = 0; i < tableView.getSelectionModel().getSelectedItem().size(); i++){  //Spalten der ausgewählte Zeile in Array schreiben
                 selectedRowsArray.add(tableView.getSelectionModel().getSelectedItem().get(i));
             }
-
             secondSearch(selectedRowsArray);
         }
     }
@@ -389,7 +383,6 @@ public class Search {
     @FXML
     private int getTab(){
         offenerTab = mainTabPane.getSelectionModel().getSelectedIndex();
-        Tab tab = mainTabPane.getSelectionModel().getSelectedItem();
         int i = mainTabPane.getSelectionModel().getSelectedIndex();
         if(i>0){
             MaxPreis.setText(String.valueOf("MaxPreis: " +Calculations.calculateMaxPreis(posListe.get(i-1)))+ "€");

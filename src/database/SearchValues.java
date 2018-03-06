@@ -13,5 +13,4 @@ public class SearchValues {
         ColumnNames = columnNames;
         Values = values;
     }
-
 }
