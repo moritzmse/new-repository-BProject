@@ -348,38 +348,51 @@ public class Search {
         }
     }
 
-    @FXML
-    private void showBarChart(){
-
-        if(TempDatabase.searchValues!=null){
-            try {
-             mainTabPane.getTabs().add(FXMLLoader.load(this.getClass().getResource("/graph/graphPaneBarChart.fxml")));
-                int i = mainTabPane.getTabs().size();
-                Tab tab = mainTabPane.getTabs().get(i-1);
-                tab.setText("Attr.: " + Calculations.getProductName() + " ...");
-                posListe.add(TempDatabase.searchValues);
-             } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     private void showGraph(){
         if(TempDatabase.searchValues!=null){
-            try {
-                mainTabPane.getTabs().add(FXMLLoader.load(this.getClass().getResource("/graph/graphPaneLineChart.fxml")));
-                int i = mainTabPane.getTabs().size();
-                Tab tab = mainTabPane.getTabs().get(i-1);
-                tab.setText("Graph: " + Calculations.getProductName() + " ...");
-                //mainTabPane.getSelectionModel().getSelectedItem();
-                posListe.add(TempDatabase.searchValues);
-                offenerTab = i-1;       //automatisch geöffneten Tab als aktuell offenen Tab speichern
-                mainTabPane.getSelectionModel().select(mainTabPane.getTabs().size()-1);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            //neuer main tab
+            mainTabPane.getTabs().add(new Tab());
+            int i = mainTabPane.getTabs().size();
+            Tab tab = mainTabPane.getTabs().get(i-1);
+            tab.setText(Calculations.getProductName() + " ...");
+            //second tabs/graphen
+            TabPane secondPane = new TabPane();
+            tab.setContent(secondPane);
+            chartTabs(secondPane);
+            //
+            posListe.add(TempDatabase.searchValues);
+            offenerTab = i-1;
+            mainTabPane.getSelectionModel().select(mainTabPane.getTabs().size()-1);
         }
     }
+
+    private void chartTabs(TabPane secondpane){
+        int i;
+        try {
+            //linechart
+            secondpane.getTabs().add(FXMLLoader.load(this.getClass().getResource("/graph/graphPaneLineChart.fxml")));
+            i = secondpane.getTabs().size();
+            Tab tabLineChart = secondpane.getTabs().get(i-1);
+            tabLineChart.setClosable(false);
+            tabLineChart.setText("Preisverlauf");
+            //attribute
+            secondpane.getTabs().add(FXMLLoader.load(this.getClass().getResource("/graph/graphPaneBarChart.fxml")));
+            i = secondpane.getTabs().size();
+            Tab tabBarChart = secondpane.getTabs().get(i-1);
+            tabBarChart.setClosable(false);
+            tabBarChart.setText("Attributverteilung");
+            //Verteilung Preise
+            secondpane.getTabs().add(FXMLLoader.load(this.getClass().getResource("/graph/graphPanePriceAmount.fxml")));
+            i = secondpane.getTabs().size();
+            Tab tabPriceAmount = secondpane.getTabs().get(i-1);
+            tabPriceAmount.setClosable(false);
+            tabPriceAmount.setText("Preisverteilung");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     private int getTab(){
         offenerTab = mainTabPane.getSelectionModel().getSelectedIndex();

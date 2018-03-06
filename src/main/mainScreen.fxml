@@ -234,7 +234,6 @@
                                     <Label fx:id="MinPreis" layoutX="27.0" layoutY="14.0" text="MinPreis" />
                                     <Label fx:id="MaxPreis" layoutX="27.0" layoutY="44.0" text="MaxPreis" />
                                     <Label fx:id="AvgPreis" layoutX="262.0" layoutY="14.0" text="AvgPreis" />
-                                    <Button fx:id="showAttributeUsage" layoutX="503.0" layoutY="30.0" mnemonicParsing="false" onAction="#showBarChart" text="Attribute" />
                                  </children></AnchorPane>
                                     </items>
                                 </SplitPane>
