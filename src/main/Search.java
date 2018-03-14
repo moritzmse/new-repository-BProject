@@ -41,7 +41,6 @@ public class Search {
     public Label MaxPreis;
     public Label AvgPreis;
     public TabPane mainTabPane;
-    public Button showAttributeUsage;
     private CheckBox[] reseller_checkbox;
     private static int offenerTab;
 
@@ -105,18 +104,19 @@ public class Search {
     //Wird unter dem Button suchen aufgerufen
     @FXML
     private void firstSearch() {
+
         final int whereLength = 1; //63; //Alt 29
         TextField[] search_values = new TextField[] {search_productname, search_manufacturer, search_product, search_productgroup, search_unitprice, search_units, search_packprice};
 
-        String whereClause = "";
+        StringBuilder whereClause = new StringBuilder("");
 
         if((search_productname.getText() != null && search_productname.getText().length() > 0) || checkDatePicker()) {
             for (TextField helpSearchValues : search_values) {
                 if (helpSearchValues.getText() != null && helpSearchValues.getText().length() > 0) {
                     if (whereClause.length() > whereLength) {
-                        whereClause = whereClause + " and " + helpSearchValues.getId() + " like '%" + helpSearchValues.getText() + "%' ";
+                        whereClause.append(" and ").append(helpSearchValues.getId()).append(" like '%").append(helpSearchValues.getText()).append("%' ");
                     } else {
-                        whereClause = whereClause + helpSearchValues.getId() + " like '%" + helpSearchValues.getText() + "%' ";
+                        whereClause.append(helpSearchValues.getId()).append(" like '%").append(helpSearchValues.getText()).append("%' ");
                     }
                 }
             }
@@ -136,12 +136,12 @@ public class Search {
                         checkboxes.append(TempDatabase.ResellerWhere.get(i));
                         firstReseller = false;
                     } else {
-                        checkboxes.append("," + TempDatabase.ResellerWhere.get(i));
+                        checkboxes.append(",").append(TempDatabase.ResellerWhere.get(i));
                     }
                 }
                 checkboxes.append(") ");
 
-                whereClause = whereClause + checkboxes.toString();
+                whereClause.append(checkboxes.toString());
 
             }
             //ResellerCheckBox End
@@ -149,18 +149,18 @@ public class Search {
             //DatePickerFrom
             if (datePickerFrom.getEditor().getText().length() == 10) {
                 if (whereClause.length() > whereLength) {
-                    whereClause = whereClause + " and";
+                    whereClause.append(" and");
                 }
-                whereClause = whereClause + " Week >= " + getWeek(datePickerFrom);
+                whereClause.append(" Week >= ").append(getWeek(datePickerFrom));
             }
             //DatePickerFrom End
 
             //DatePickerTo
             if (datePickerTo.getEditor().getText().length() == 10) {
                 if (whereClause.length() > whereLength) {
-                    whereClause = whereClause + " and";
+                    whereClause.append(" and");
                 }
-                whereClause = whereClause + " Week <= " + getWeek(datePickerTo);
+                whereClause.append(" Week <= ").append(getWeek(datePickerTo));
             }
             //DatePickerTo End
 
@@ -169,16 +169,16 @@ public class Search {
             if (TempDatabase.AttributesWhere != null && TempDatabase.AttributesWhere.size() > 0) {
                 for (int i = 0; i < TempDatabase.AttributesWhere.size(); i++) {
                     if (whereClause.length() > whereLength) {
-                        whereClause = whereClause + " and";
+                        whereClause.append(" and");
                     }
-                    whereClause = whereClause + " Attributes like '%" + TempDatabase.AttributesWhere.get(i) + "%'";
+                    whereClause.append(" Attributes like '%").append(TempDatabase.AttributesWhere.get(i)).append("%'");
                 }
             }
             //Attributes End
 
 
             //TODO evtl direkt whereClause durch whereConditions ersetzen? überlegen wie sich das auf weitere suchen auswirkt. -> whereConditions müsste immer oben in der firstSearchMethode = "" gesetzt werden
-            whereConditions = whereClause;
+            whereConditions = whereClause.toString();
             SearchValues resultValues = MariaDB_Search.search("SELECT DISTINCT Manufacturer,Brand,Product FROM OVERVIEW WHERE " + whereConditions);
 
             TempDatabase.searchValues = resultValues;
@@ -433,11 +433,6 @@ public class Search {
     //get tabs methode überarbeiten
     //wenn alle Tabs geschlossen sind: Max, Min, etc Berechnungen ausblenden
 
-    //test
-/*    public void printActiveTab(){
-        System.out.print("active tab: " + offenerTab);
-        System.out.println(" , posListe size: " + posListe.size());
-    }*/
 
     @FXML
     private void logout(){
