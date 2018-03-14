@@ -110,7 +110,7 @@ public class Search {
 
         String whereClause = "";
 
-        if(search_productname.getText() != null && search_productname.getText().length() > 0) {
+        if((search_productname.getText() != null && search_productname.getText().length() > 0) || checkDatePicker()) {
             for (TextField helpSearchValues : search_values) {
                 if (helpSearchValues.getText() != null && helpSearchValues.getText().length() > 0) {
                     if (whereClause.length() > whereLength) {
@@ -391,6 +391,11 @@ public class Search {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean checkDatePicker(){
+        return (datePickerFrom.getEditor().getText() != null && datePickerFrom.getEditor().getText().length() >= 8
+                && datePickerTo.getEditor().getText() != null && datePickerTo.getEditor().getText().length() >= 8);
     }
 
     @FXML
