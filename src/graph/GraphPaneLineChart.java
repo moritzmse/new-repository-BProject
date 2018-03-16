@@ -88,10 +88,14 @@ public class GraphPaneLineChart {
         if(!checkBox.getText().equals("Durchschnitt")){
             System.out.println("lalala");
             checkBox.setSelected(false);
+            checkBox.setStyle("-fx-background-color: lightblue"+"; ");
             series.getNode().setVisible(false);
             ObservableList<XYChart.Data> s = series.getData();
             for(XYChart.Data d : s){
                 d.getNode().setVisible(false);
+                series.getNode().setStyle("-fx-background-color: lightblue;");
+                System.out.println("MORITZ STINKT :"+d.getNode().getStyleClass());
+                series.getChart().setStyle("-fx-background-color: lightblue;");
             }
         }
         checkBox.setOnAction(new EventHandler<ActionEvent>() {

@@ -221,6 +221,9 @@ public class Search {
     }
 
     private void showResults(){
+        //Switch zur Ergebnisliste
+        mainTabPane.getSelectionModel().select(0);
+
         //Sucheregbnisse in Tabelle anzeigen
 
         //Tabelle leeren
@@ -412,6 +415,7 @@ public class Search {
         return mainTabPane.getSelectionModel().getSelectedIndex();
     }
 
+    //TODO Warning !!!! wird die Methode überhaupt benötigt?????
     @FXML
     public void removeObjectFromPosList(){
         if(offenerTab>0){
