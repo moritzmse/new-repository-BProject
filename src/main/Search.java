@@ -7,8 +7,12 @@ import database.SearchValues;
 import database.TempDatabase;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -99,6 +103,24 @@ public class Search {
             });
             return row ;
         });
+
+
+
+        //mainTabPane.getSelectionModel().selectedItemProperty().addListener((ov) -> {
+        //    System.err.println("changed");
+        //});
+        //Tab Change Listener
+        mainTabPane.getSelectionModel().selectedItemProperty().addListener(
+                new ChangeListener<Tab>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Tab> ov, Tab t, Tab t1) {
+                        getTab();
+                        //EventHandler<Event> handler = t1.getOnClosed();
+                        t1.setOnCloseRequest(ev -> {removeObjectFromPosList();});
+                        System.out.println("Tab Selection changed");
+                    }
+                }
+        );
     }
 
     //Wird unter dem Button suchen aufgerufen
@@ -410,14 +432,23 @@ public class Search {
             MinPreis.setText(String.valueOf("MinPreis: " +Calculations.calculateMinPreis(posListe.get(i-1)))+ "€");
             AvgPreis.setText(String.valueOf("AvgPreis: " +Calculations.calculateAvgPreis(posListe.get(i-1)))+ "€");
         }
+        if(offenerTab==0){  //Bei Auswahl des ersten Tabs (Tabelle mit Suchergebnissen)
+            MaxPreis.setText("");
+            MinPreis.setText("");
+            AvgPreis.setText("");
+        }
         System.out.println(offenerTab);
         System.out.println(posListe.size());
         return mainTabPane.getSelectionModel().getSelectedIndex();
     }
 
+
+
     //TODO Warning !!!! wird die Methode überhaupt benötigt?????
+    //wurde vorher aus GraphPaneBarChart etc. heraus aufgerufen --> nicht mehr möglich, sondern direkt vom MainScreen-TabPane
     @FXML
     public void removeObjectFromPosList(){
+        System.out.println("Methode removeObject... aufgerufen");
         if(offenerTab>0){
             /*if(posListe.size() == 1){     //wenn alle tabs geschlossen sind: Werte unten ausblenden -- Fehler?
                 //MaxPreis.setText(" ");
@@ -427,9 +458,14 @@ public class Search {
                 //MaxPreis.setText(" ");
                 MinPreis.setText(" ");
             }*/
-        posListe.remove(offenerTab-1);
-        offenerTab = (offenerTab-1);
-        } else {System.out.println("test");}
+
+        //beim Schließen eines Tabs wird immer zum davon linken Tab gewechselt
+            posListe.remove(offenerTab-1);
+            offenerTab = (offenerTab-1);
+
+            }
+
+        else {System.out.println("test");}
     }
 
     //Auf das Löschen von Tabs reagieren!!!!!!!!!!!!!
@@ -437,6 +473,12 @@ public class Search {
     //get tabs methode überarbeiten
     //wenn alle Tabs geschlossen sind: Max, Min, etc Berechnungen ausblenden
 
+
+    //test
+    public void printActiveTab(){
+        System.out.print("active tab: " + offenerTab);
+      System.out.println(" , posListe size: " + posListe.size());
+    }
 
     @FXML
     private void logout(){
