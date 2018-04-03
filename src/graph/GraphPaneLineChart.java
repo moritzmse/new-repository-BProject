@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
+import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 
@@ -15,9 +16,12 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 import main.Search;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +31,6 @@ public class GraphPaneLineChart {
     public VBox legendVbox;
 
     public void initialize(){
-        //TODO X axis in Date,ausblenden der verschiedenen Lines ermöglichen
         durchschnitt();
         eachReseller();
     }
@@ -86,17 +89,51 @@ public class GraphPaneLineChart {
         CheckBox checkBox = new CheckBox(series.getName());
         checkBox.setSelected(true);
         if(!checkBox.getText().equals("Durchschnitt")){
-            System.out.println("lalala");
+            System.out.println("----");
             checkBox.setSelected(false);
-            checkBox.setStyle("-fx-background-color: lightblue"+"; ");
+            //checkBox.setStyle("-fx-background-color: lightblue"+"; ");
             series.getNode().setVisible(false);
             ObservableList<XYChart.Data> s = series.getData();
+
+            //TODO Spieleecke Marcus
+            OwnLegend legend = new OwnLegend();
+            legend.setVisible(true);
+            legend.setVertical(true);
+            //legend.
+            //TODO ENDE
+
+            //series.getNode().setStyle("-fx-background-color: "+ResellerColor.getColor(checkBox.getText())+";");
+            //checkBox.setStyle("-fx-background-color: "+ResellerColor.getColor(checkBox.getText())+";");
+            javafx.scene.paint.Paint paint1 = ResellerColor.getPaintColor(null);
+            checkBox.setTextFill(paint1);
+            //series.getNode().
+//            Node line = series.getNode().lookup(".chart-series-area-line");
+//            System.out.println("MIAUZ :"+line.getStyleClass());
+//            line.setStyle("-fx-background-color: "+ResellerColor.getColor(checkBox.getText())+";");
             for(XYChart.Data d : s){
                 d.getNode().setVisible(false);
-                series.getNode().setStyle("-fx-background-color: lightblue;");
-                System.out.println("MORITZ STINKT :"+d.getNode().getStyleClass());
-                series.getChart().setStyle("-fx-background-color: lightblue;");
+//                series.getNode().setStyle("-fx-background-color: lightblue;");
+                //System.out.println("MORITZ STINKT :"+d.getNode().getStyleClass());
+                ObservableList moritzStinkt = d.getNode().getStyleClass();
+                //Object helps = moritzStinkt.get(0);
+                //System.out.println("AMK :"+helps.getClass().getResource("COLOR"));
+
+                //Keine Ahnung was das ändert
+                //checkBox.setStyle("-fx-background-color: lightblue;");
+                //checkBox.setStyle("-fx-background-color: color1;");
+
+                //System.out.println("THE JUDGE0 :"+moritzStinkt.get(0).toString());
+                //System.out.println("THE JUDGE1 :"+moritzStinkt.get(1).toString());
+                //System.out.println("THE JUDGE2 :"+moritzStinkt.get(2).toString());
+                System.out.println("THE JUDGE3 :"+moritzStinkt.get(3).toString());
+
+                //Hitergrund um den graphen herum
+                //series.getChart().setStyle("-fx-background-color: lightblue;");
+
+                //checkBox.setStyle("-fx-background-color: "+d.getNode().getStyleClass().get(3)+";");
             }
+            //checkBox.setStyle("-fx-background-color: "+s.get(0).getNode().getStyleClass().get(3)+";");
+            //series.getNode().setStyle("-fx-background-color: "+s.get(0).getNode().getStyleClass().get(3));
         }
         checkBox.setOnAction(new EventHandler<ActionEvent>() {
             @Override
