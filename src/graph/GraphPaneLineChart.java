@@ -41,6 +41,15 @@ public class GraphPaneLineChart {
         XYChart.Series series = new XYChart.Series();
         series.setName("Durchschnitt");
         lineChart.getData().add(series);
+        //TODO-----------------------------------------------------
+        Node line = series.getNode().lookup(".chart-series-line");
+        Color color = Color.RED;
+        String rgb = String.format("%d, %d, %d",
+                (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255));
+        line.setStyle("-fx-stroke: rgba(" + rgb + ", 1.0);");
+        //---------------------------------------------------------
         if(TempDatabase.searchValues != null) {
             List<Object[]> values = TempDatabase.searchValues.Values;
             ArrayList list = new ArrayList();
@@ -71,6 +80,9 @@ public class GraphPaneLineChart {
                     int week = Integer.parseInt(date1.substring(4,6));
                     XYChart.Data<Number, Number> data = new XYChart.Data<>(week, priceFinal);
                     series.getData().add(data);
+                    //TODO---------------------------------------------------------
+                    data.getNode().setStyle("-fx-background-color: red;");
+                    //---------------------------------------------------------
                     double finalMax = max;
                     double finalMin = min;
                     data.getNode().setOnMouseEntered(event -> {
@@ -95,45 +107,14 @@ public class GraphPaneLineChart {
             series.getNode().setVisible(false);
             ObservableList<XYChart.Data> s = series.getData();
 
-            //TODO Spieleecke Marcus
-            OwnLegend legend = new OwnLegend();
-            legend.setVisible(true);
-            legend.setVertical(true);
-            //legend.
-            //TODO ENDE
-
             //series.getNode().setStyle("-fx-background-color: "+ResellerColor.getColor(checkBox.getText())+";");
             //checkBox.setStyle("-fx-background-color: "+ResellerColor.getColor(checkBox.getText())+";");
             javafx.scene.paint.Paint paint1 = ResellerColor.getPaintColor(null);
             checkBox.setTextFill(paint1);
-            //series.getNode().
-//            Node line = series.getNode().lookup(".chart-series-area-line");
-//            System.out.println("MIAUZ :"+line.getStyleClass());
-//            line.setStyle("-fx-background-color: "+ResellerColor.getColor(checkBox.getText())+";");
+
             for(XYChart.Data d : s){
                 d.getNode().setVisible(false);
-//                series.getNode().setStyle("-fx-background-color: lightblue;");
-                //System.out.println("MORITZ STINKT :"+d.getNode().getStyleClass());
-                ObservableList moritzStinkt = d.getNode().getStyleClass();
-                //Object helps = moritzStinkt.get(0);
-                //System.out.println("AMK :"+helps.getClass().getResource("COLOR"));
-
-                //Keine Ahnung was das ändert
-                //checkBox.setStyle("-fx-background-color: lightblue;");
-                //checkBox.setStyle("-fx-background-color: color1;");
-
-                //System.out.println("THE JUDGE0 :"+moritzStinkt.get(0).toString());
-                //System.out.println("THE JUDGE1 :"+moritzStinkt.get(1).toString());
-                //System.out.println("THE JUDGE2 :"+moritzStinkt.get(2).toString());
-                System.out.println("THE JUDGE3 :"+moritzStinkt.get(3).toString());
-
-                //Hitergrund um den graphen herum
-                //series.getChart().setStyle("-fx-background-color: lightblue;");
-
-                //checkBox.setStyle("-fx-background-color: "+d.getNode().getStyleClass().get(3)+";");
             }
-            //checkBox.setStyle("-fx-background-color: "+s.get(0).getNode().getStyleClass().get(3)+";");
-            //series.getNode().setStyle("-fx-background-color: "+s.get(0).getNode().getStyleClass().get(3));
         }
         checkBox.setOnAction(new EventHandler<ActionEvent>() {
             @Override
