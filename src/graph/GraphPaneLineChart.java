@@ -16,12 +16,9 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
 import javafx.util.Duration;
 import main.Search;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,14 +38,9 @@ public class GraphPaneLineChart {
         XYChart.Series series = new XYChart.Series();
         series.setName("Durchschnitt");
         lineChart.getData().add(series);
-        //TODO-----------------------------------------------------
+        //-----------------------------------------------------
         Node line = series.getNode().lookup(".chart-series-line");
-        Color color = Color.RED;
-        String rgb = String.format("%d, %d, %d",
-                (int) (color.getRed() * 255),
-                (int) (color.getGreen() * 255),
-                (int) (color.getBlue() * 255));
-        line.setStyle("-fx-stroke: rgba(" + rgb + ", 1.0);");
+        line.setStyle("-fx-stroke:"+ResellerColor.getColor("0")+";");
         //---------------------------------------------------------
         if(TempDatabase.searchValues != null) {
             List<Object[]> values = TempDatabase.searchValues.Values;
@@ -80,8 +72,8 @@ public class GraphPaneLineChart {
                     int week = Integer.parseInt(date1.substring(4,6));
                     XYChart.Data<Number, Number> data = new XYChart.Data<>(week, priceFinal);
                     series.getData().add(data);
-                    //TODO---------------------------------------------------------
-                    data.getNode().setStyle("-fx-background-color: red;");
+                    //---------------------------------------------------------
+                    data.getNode().setStyle("-fx-background-color: "+ResellerColor.getColor("0")+";");
                     //---------------------------------------------------------
                     double finalMax = max;
                     double finalMin = min;
@@ -103,18 +95,23 @@ public class GraphPaneLineChart {
         if(!checkBox.getText().equals("Durchschnitt")){
             System.out.println("----");
             checkBox.setSelected(false);
-            //checkBox.setStyle("-fx-background-color: lightblue"+"; ");
             series.getNode().setVisible(false);
+
+            //-----------------------------------------------------
+            Node line = series.getNode().lookup(".chart-series-line");
+            line.setStyle("-fx-stroke: "+ResellerColor.getColor(checkBox.getText())+";");
+            //---------------------------------------------------------
+
             ObservableList<XYChart.Data> s = series.getData();
 
-            //series.getNode().setStyle("-fx-background-color: "+ResellerColor.getColor(checkBox.getText())+";");
-            //checkBox.setStyle("-fx-background-color: "+ResellerColor.getColor(checkBox.getText())+";");
-            javafx.scene.paint.Paint paint1 = ResellerColor.getPaintColor(null);
-            checkBox.setTextFill(paint1);
+            checkBox.setTextFill(ResellerColor.getPaintColor(checkBox.getText()));
 
             for(XYChart.Data d : s){
+                d.getNode().setStyle("-fx-background-color: "+ResellerColor.getColor(checkBox.getText())+";");
                 d.getNode().setVisible(false);
             }
+        }else{
+            checkBox.setTextFill(ResellerColor.getPaintColor("0"));
         }
         checkBox.setOnAction(new EventHandler<ActionEvent>() {
             @Override
