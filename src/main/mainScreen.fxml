@@ -102,7 +102,7 @@
                                                                 <Label text="Reseller" />
                                                                 <Accordion>
                                                                     <panes>
-                                                                        <TitledPane fx:id="search_resellerPane" animated="false" text="untitled 1">
+                                                                        <TitledPane fx:id="search_resellerPane" animated="false" text="...">
                                                                             <content>
                                                                                 <AnchorPane>
                                                                                     <children>
@@ -139,7 +139,7 @@
                                                                 <Label text="Attributes" />
                                                                 <Accordion>
                                                                     <panes>
-                                                                        <TitledPane animated="false" text="untitled 1">
+                                                                        <TitledPane animated="false" text="...">
                                                                             <content>
                                                                                 <AnchorPane>
                                                                                     <children>

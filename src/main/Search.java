@@ -45,6 +45,8 @@ public class Search {
     public Label MaxPreis;
     public Label AvgPreis;
     public TabPane mainTabPane;
+    public AnchorPane anchorPane;
+    public SplitPane splitPane;
     private CheckBox[] reseller_checkbox;
     private static int offenerTab;
 
@@ -60,7 +62,6 @@ public class Search {
 
     public void initialize(){
         SearchValues resultValues = MariaDB_Commands.resellerSearch();
-
         if(resultValues != null) {
             List<Object[]> values = resultValues.Values;
 
@@ -229,12 +230,11 @@ public class Search {
 
 
         //TODO Hier die Methode rein, welche den Graphen anzeigt.
+        /*MaxPreis.setText("MaxPreis: " + String.valueOf(Calculations.calculateMaxPreis(TempDatabase.searchValues)) + "€");
+        MinPreis.setText("MinPreis: " + String.valueOf(Calculations.calculateMinPreis(TempDatabase.searchValues))+ "€");
+        AvgPreis.setText("AvgPreis: " + String.valueOf(Calculations.calculateAvgPreis(TempDatabase.searchValues))+ "€");*/
 
         showGraph();
-
-        MaxPreis.setText("MaxPreis: " + String.valueOf(Calculations.calculateMaxPreis(TempDatabase.searchValues)) + "€");
-        MinPreis.setText("MinPreis: " + String.valueOf(Calculations.calculateMinPreis(TempDatabase.searchValues))+ "€");
-        AvgPreis.setText("AvgPreis: " + String.valueOf(Calculations.calculateAvgPreis(TempDatabase.searchValues))+ "€");
 
        Calculations.countAttribute();
 
@@ -412,6 +412,17 @@ public class Search {
             Tab tabPriceAmount = secondpane.getTabs().get(i-1);
             tabPriceAmount.setClosable(false);
             tabPriceAmount.setText("Preisverteilung");
+            //Angebotszeiträume
+            /*secondpane.getTabs().add(FXMLLoader.load(this.getClass().getResource("/graph/graphPaneCountWeeks.fxml")));
+            i = secondpane.getTabs().size();
+            Tab tabCountWeeks = secondpane.getTabs().get(i-1);
+            tabCountWeeks.setClosable(false);
+            tabCountWeeks.setText("Angebotszeiträume");*/
+            secondpane.getTabs().add(FXMLLoader.load(this.getClass().getResource("/graph/graphPaneCountWeeks.fxml")));
+            i = secondpane.getTabs().size();
+            Tab tabCountWeeks = secondpane.getTabs().get(i-1);
+            tabCountWeeks.setClosable(false);
+            tabCountWeeks.setText("Angebotszeitraum");
 
         } catch (IOException e) {
             e.printStackTrace();

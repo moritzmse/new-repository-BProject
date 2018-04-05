@@ -14,7 +14,6 @@ public class GraphPaneBarChart {
     public CategoryAxis xAxis;
 
     public void initialize(){
-        //TODO reseller anzeigen, X axis in Date, Analysen
         Calculations calc = new Calculations();
         calc.countAttribute();
         BarChart.getData().clear();

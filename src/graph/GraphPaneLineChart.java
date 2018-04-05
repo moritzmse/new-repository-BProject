@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
@@ -15,21 +16,31 @@ import javafx.scene.chart.XYChart;
 
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tooltip;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import main.Search;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class GraphPaneLineChart {
 
     public LineChart lineChart;
     public VBox legendVbox;
+    public int anzLegend = 0;
+    public ArrayList<XYChart.Series> seriesArrayList = new ArrayList<>();
 
     public void initialize(){
         durchschnitt();
         eachReseller();
+        sortSeriesList(seriesArrayList);
+        for(XYChart.Series s : seriesArrayList){
+            addToLegend(s);
+        }
     }
 
     //Durchschnitt für die einzelnen Wochen
@@ -89,11 +100,25 @@ public class GraphPaneLineChart {
         addToLegend(series);
     }
 
+    private void seriesList(XYChart.Series series){
+        seriesArrayList.add(series);
+    }
+
+    private void sortSeriesList(ArrayList<XYChart.Series> list){
+        Collections.sort(list, new Comparator<XYChart.Series>() {
+            @Override
+            public int compare(XYChart.Series o1, XYChart.Series o2) {
+                int i = Integer.parseInt(o1.getName());
+                int j = Integer.parseInt(o2.getName());
+                return Integer.compare(i,j);
+            }
+        });
+    }
+
     private void addToLegend(XYChart.Series series) {
         CheckBox checkBox = new CheckBox(series.getName());
         checkBox.setSelected(true);
         if(!checkBox.getText().equals("Durchschnitt")){
-            System.out.println("----");
             checkBox.setSelected(false);
             series.getNode().setVisible(false);
 
@@ -132,7 +157,22 @@ public class GraphPaneLineChart {
                 }
             }
         });
-        legendVbox.getChildren().add(checkBox);
+        if(anzLegend == 0){
+            HBox hbox = new HBox();
+            legendVbox.getChildren().add(hbox);
+            hbox.setSpacing(20);
+            hbox.setPadding(new Insets(10, 40, 10, 40));
+            hbox.getChildren().add(checkBox);
+            anzLegend++;
+        }
+        else{
+            for(Node n : legendVbox.getChildren()){
+                if(n instanceof HBox){
+                    ((HBox) n).getChildren().add(checkBox);
+                }
+            }
+        }
+
     }
 
     //Preise der einzelnen Reseller in den Wochen
@@ -163,7 +203,7 @@ public class GraphPaneLineChart {
                         }
                     }
                     list.add(reseller1);
-                    addToLegend(series1);
+                    seriesList(series1);
                 }
             }
         }
@@ -173,6 +213,7 @@ public class GraphPaneLineChart {
         Tooltip tooltip = new Tooltip("Average Price: " + average + "€" + "\n" + "Max Price: " + max + "€" + "\n"
                 + "Min Price: " + min + "€" + "\n" + "Week: " + week);
         tooltip.setShowDelay(Duration.millis(0));
+        tooltip.setShowDuration(Duration.millis(32767));
         return tooltip;
     }
 

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<Tab text="Dennis der Boss" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graph.GraphPaneCountWeeks">
+    <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="661.0">
+         <children>
+            <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane VBox.vgrow="ALWAYS">
+                     <children>
+                            <BarChart fx:id="BarChart" animated="false" legendVisible="false" prefHeight="353.0" prefWidth="661.0" title="Angebotszeitraum" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <xAxis>
+                                    <CategoryAxis label="Wochenabstände der Angebote" side="BOTTOM" fx:id="xAxis" />
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis fx:id="yAxis" label="Häufigkeit der jeweiligen Wochenabstände" side="LEFT" />
+                                </yAxis>
+                            </BarChart>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefWidth="20.0">
+                     <children>
+                        <ComboBox onAction="#comboAction" fx:id="combobox" promptText="Reseller auswählen" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                     <VBox.margin>
+                        <Insets right="100.0" />
+                     </VBox.margin>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children>
+        </AnchorPane>
+    </content>
+</Tab>
