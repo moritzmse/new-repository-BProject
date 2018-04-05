@@ -8,9 +8,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import main.Main;
 
 import java.io.IOException;
 
@@ -30,6 +32,8 @@ public class Login extends Application{
                 Scene scene = new Scene(root);
 
                 stage.setScene(scene);
+                stage.setTitle("MainPage");
+                stage.getIcons().add(new Image(Main.class.getResourceAsStream("/images/Logo.png")));
                 stage.show();
             } catch (IOException e){
                 e.printStackTrace();
@@ -49,6 +53,7 @@ public class Login extends Application{
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         primaryStage.setTitle("Login");
         primaryStage.setScene(new Scene(root));
+        primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("/images/Logo.png")));
         primaryStage.show();
     }
 
