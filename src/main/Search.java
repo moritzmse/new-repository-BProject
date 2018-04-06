@@ -274,13 +274,11 @@ public class Search {
                 //System.out.println("ITEM: " + help);
                 items.add(help);
                 helps[i] = items;
-                //System.out.println("HRS :"+items.toString());
             }
         }
 
         //data hinzufügen
         for (int l = 0; l < TempDatabase.searchValues.Values.size(); l++) {
-            //System.out.println("FML :" + helps[l]);
             tableView.getItems().add(helps[l]);
         }
     }
